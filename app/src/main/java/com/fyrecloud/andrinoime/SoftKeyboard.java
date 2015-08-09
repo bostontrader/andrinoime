@@ -26,7 +26,7 @@ import java.util.List;
  * be fleshed out as appropriate.
  */
 public class SoftKeyboard extends InputMethodService
-        implements KeyboardView.OnKeyboardActionListener {
+    implements KeyboardView.OnKeyboardActionListener {
     //static final boolean DEBUG = false;
 
     /**
@@ -39,7 +39,7 @@ public class SoftKeyboard extends InputMethodService
      */
     //static final boolean PROCESS_HARD_KEYS = true;
     //private InputMethodManager mInputMethodManager;
-    //private LatinKeyboardView mInputView;
+    private LatinKeyboardView mInputView;
     //private CandidateView mCandidateView;
     //private CompletionInfo[] mCompletions;
 
@@ -53,7 +53,7 @@ public class SoftKeyboard extends InputMethodService
 
     //private LatinKeyboard mSymbolsKeyboard;
     //private LatinKeyboard mSymbolsShiftedKeyboard;
-    //private LatinKeyboard mQwertyKeyboard;
+    private LatinKeyboard mQwertyKeyboard;
 
     //private LatinKeyboard mCurKeyboard;
 
@@ -63,29 +63,29 @@ public class SoftKeyboard extends InputMethodService
      * Main initialization of the input method component.  Be sure to call
      * to super class.
      */
-    /*@Override public void onCreate() {
+    @Override public void onCreate() {
         super.onCreate();
-        mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        mWordSeparators = getResources().getString(R.string.word_separators);
-    }*/
+        //mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        //mWordSeparators = getResources().getString(R.string.word_separators);
+    }
 
     /**
      * This is the point where you can do all of your UI initialization.  It
      * is called after creation and any configuration change.
      */
-    /*@Override public void onInitializeInterface() {
+    @Override public void onInitializeInterface() {
         if (mQwertyKeyboard != null) {
             // Configuration changes can happen after the keyboard gets recreated,
             // so we need to be able to re-build the keyboards if the available
             // space has changed.
             int displayWidth = getMaxWidth();
-            if (displayWidth == mLastDisplayWidth) return;
-            mLastDisplayWidth = displayWidth;
+            //if (displayWidth == mLastDisplayWidth) return;
+            //mLastDisplayWidth = displayWidth;
         }
         mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty);
-        mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
-        mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
-    }*/
+        //mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
+        //mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
+    }
 
     /**
      * Called by the framework when your view for creating input needs to
@@ -93,19 +93,20 @@ public class SoftKeyboard extends InputMethodService
      * is displayed, and every time it needs to be re-created such as due to
      * a configuration change.
      */
-    /*@Override public View onCreateInputView() {
+    @Override public View onCreateInputView() {
         mInputView = (LatinKeyboardView) getLayoutInflater().inflate(
-                R.layout.input, null);
+            R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
         setLatinKeyboard(mQwertyKeyboard);
         return mInputView;
     }
+
     private void setLatinKeyboard(LatinKeyboard nextKeyboard) {
-        final boolean shouldSupportLanguageSwitchKey =
-                mInputMethodManager.shouldOfferSwitchingToNextInputMethod(getToken());
-        nextKeyboard.setLanguageSwitchKeyVisibility(shouldSupportLanguageSwitchKey);
+        //final boolean shouldSupportLanguageSwitchKey =
+            //mInputMethodManager.shouldOfferSwitchingToNextInputMethod(getToken());
+        //nextKeyboard.setLanguageSwitchKeyVisibility(shouldSupportLanguageSwitchKey);
         mInputView.setKeyboard(nextKeyboard);
-    }*/
+    }
     /**
      * Called by the framework when your view for showing candidates needs to
      * be generated, like {@link #onCreateInputView}.
