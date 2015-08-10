@@ -58,7 +58,7 @@ public class SoftKeyboard1 extends InputMethodService
      */
     @Override public void onCreate() {
         super.onCreate();
-        mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        //mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         //mWordSeparators = getResources().getString(R.string.word_separators);
 
         // This doesn't seem to be getting called upon startup.  Do it manually here.
@@ -78,7 +78,7 @@ public class SoftKeyboard1 extends InputMethodService
             //if (displayWidth == mLastDisplayWidth) return;
             //mLastDisplayWidth = displayWidth;
         }
-        mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty);
+        mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty1);
         //mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
         //mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
     }
@@ -93,19 +93,22 @@ public class SoftKeyboard1 extends InputMethodService
         mInputView = (LatinKeyboardView) getLayoutInflater().inflate(
             R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
-        setLatinKeyboard(mQwertyKeyboard);
+
+        //setLatinKeyboard(mQwertyKeyboard);
+        mInputView.setKeyboard(mQwertyKeyboard);
+
         return mInputView;
     }
 
-    private void setLatinKeyboard(LatinKeyboard nextKeyboard) {
+    //private void setLatinKeyboard(LatinKeyboard nextKeyboard) {
 
         // requires API 19
         //final boolean shouldSupportLanguageSwitchKey =
             //mInputMethodManager.shouldOfferSwitchingToNextInputMethod(getToken());
 
         //nextKeyboard.setLanguageSwitchKeyVisibility(shouldSupportLanguageSwitchKey);
-        mInputView.setKeyboard(nextKeyboard);
-    }
+        //mInputView.setKeyboard(nextKeyboard);
+    //}
     /**
      * Called by the framework when your view for showing candidates needs to
      * be generated, like {@link #onCreateInputView}.
@@ -234,7 +237,10 @@ public class SoftKeyboard1 extends InputMethodService
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
         // Apply the selected keyboard to the input view.
-        setLatinKeyboard(mCurKeyboard);
+
+        //setLatinKeyboard(mCurKeyboard);
+        mInputView.setKeyboard(mCurKeyboard);
+
         mInputView.closing();
         //final InputMethodSubtype subtype = mInputMethodManager.getCurrentInputMethodSubtype();
         //mInputView.setSubtypeOnSpaceKey(subtype);

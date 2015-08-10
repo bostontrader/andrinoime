@@ -51,7 +51,7 @@ public class LatinKeyboard extends Keyboard {
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).
      */
-    void setImeOptions(Resources res, int options) {
+    /*void setImeOptions(Resources res, int options) {
         if (mEnterKey == null) {
             return;
         }
@@ -83,7 +83,7 @@ public class LatinKeyboard extends Keyboard {
                 mEnterKey.label = null;
                 break;
         }
-    }
+    }*/
     
     static class LatinKey extends Keyboard.Key {
 
@@ -95,10 +95,10 @@ public class LatinKeyboard extends Keyboard {
          * Overriding this method so that we can reduce the target area for the key that
          * closes the keyboard. 
          */
-        @Override
-        public boolean isInside(int x, int y) {
-            return super.isInside(x, codes[0] == KEYCODE_CANCEL ? y - 10 : y);
-        }
+        //@Override
+        //public boolean isInside(int x, int y) {
+            //return super.isInside(x, codes[0] == KEYCODE_CANCEL ? y - 10 : y);
+        //}
     }
 
 }

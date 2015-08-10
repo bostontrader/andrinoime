@@ -71,7 +71,7 @@ public class SoftKeyboard2 extends InputMethodService
     
     private LatinKeyboard mCurKeyboard;
     
-    private String mWordSeparators;
+    //private String mWordSeparators;
     
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -80,7 +80,7 @@ public class SoftKeyboard2 extends InputMethodService
     @Override
     public void onCreate() {
         super.onCreate();
-        mWordSeparators = getResources().getString(R.string.word_separators);
+        //mWordSeparators = getResources().getString(R.string.word_separators);
     }
     
     /**
@@ -97,9 +97,9 @@ public class SoftKeyboard2 extends InputMethodService
             if (displayWidth == mLastDisplayWidth) return;
             mLastDisplayWidth = displayWidth;
         }
-        mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty);
-        mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
-        mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
+        mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty2);
+        //mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols2);
+        //mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift2);
     }
     
     /**
@@ -111,7 +111,7 @@ public class SoftKeyboard2 extends InputMethodService
     @Override
     public View onCreateInputView() {
         mInputView = (KeyboardView) getLayoutInflater().inflate(
-                R.layout.input, null);
+            R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
         mInputView.setKeyboard(mQwertyKeyboard);
         return mInputView;
@@ -219,7 +219,7 @@ public class SoftKeyboard2 extends InputMethodService
         
         // Update the label on the enter key, depending on what the application
         // says it will do.
-        mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
+        //mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
     }
 
     /**
@@ -494,22 +494,24 @@ public class SoftKeyboard2 extends InputMethodService
 
     // Implementation of KeyboardViewListener
 
+    @Override
     public void onKey(int primaryCode, int[] keyCodes) {
-        if (isWordSeparator(primaryCode)) {
+        //if (isWordSeparator(primaryCode)) {
             // Handle separator
-            if (mComposing.length() > 0) {
-                commitTyped(getCurrentInputConnection());
-            }
-            sendKey(primaryCode);
-            updateShiftKeyState(getCurrentInputEditorInfo());
-        } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
+            //if (mComposing.length() > 0) {
+                //commitTyped(getCurrentInputConnection());
+            //}
+            //sendKey(primaryCode);
+            //updateShiftKeyState(getCurrentInputEditorInfo());
+        //} else
+        if (primaryCode == Keyboard.KEYCODE_DELETE) {
             handleBackspace();
         } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
             handleShift();
         } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
             handleClose();
             return;
-        } else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
+        //} else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
             // Show a menu or somethin'
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
                 && mInputView != null) {
@@ -639,14 +641,14 @@ public class SoftKeyboard2 extends InputMethodService
         }
     }
     
-    private String getWordSeparators() {
-        return mWordSeparators;
-    }
+    //private String getWordSeparators() {
+        //return mWordSeparators;
+    //}
     
-    public boolean isWordSeparator(int code) {
-        String separators = getWordSeparators();
-        return separators.contains(String.valueOf((char) code));
-    }
+    //public boolean isWordSeparator(int code) {
+        //String separators = getWordSeparators();
+        //return separators.contains(String.valueOf((char) code));
+    //}
 
     public void pickDefaultCandidate() {
         pickSuggestionManually(0);
