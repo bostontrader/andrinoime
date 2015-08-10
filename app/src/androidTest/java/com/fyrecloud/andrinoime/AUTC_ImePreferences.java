@@ -1,5 +1,7 @@
 package com.fyrecloud.andrinoime;
 
+import com.fyrecloud.andrinoime.example1.ImePreferences;
+
 /**
  *  @author Thomas Radloff  bostontrader@gmail.com
  */

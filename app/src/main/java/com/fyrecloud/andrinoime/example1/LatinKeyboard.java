@@ -1,4 +1,4 @@
-package com.fyrecloud.andrinoime;
+package com.fyrecloud.andrinoime.example1;
 
 /*
  * Copyright (C) 2008-2009 The Android Open Source Project
@@ -53,7 +53,7 @@ public class LatinKeyboard extends Keyboard {
     public LatinKeyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
     }
-    /*public LatinKeyboard(Context context, int layoutTemplateResId,
+    public LatinKeyboard(Context context, int layoutTemplateResId,
                          CharSequence characters, int columns, int horizontalPadding) {
         super(context, layoutTemplateResId, characters, columns, horizontalPadding);
     }
@@ -61,19 +61,20 @@ public class LatinKeyboard extends Keyboard {
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y,
                                    XmlResourceParser parser) {
         Key key = new LatinKey(res, parent, x, y, parser);
-        if (key.codes[0] == 10) {
-            mEnterKey = key;
-        } else if (key.codes[0] == ' ') {
-            mSpaceKey = key;
-        } else if (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) {
-            mModeChangeKey = key;
-            mSavedModeChangeKey = new LatinKey(res, parent, x, y, parser);
-        } else if (key.codes[0] == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
-            mLanguageSwitchKey = key;
-            mSavedLanguageSwitchKey = new LatinKey(res, parent, x, y, parser);
-        }
+        //if (key.codes[0] == 10) {
+            //mEnterKey = key;
+        //} else if (key.codes[0] == ' ') {
+            //mSpaceKey = key;
+        //} else if (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) {
+            //mModeChangeKey = key;
+            //mSavedModeChangeKey = new LatinKey(res, parent, x, y, parser);
+        //} else if (key.codes[0] == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
+            //mLanguageSwitchKey = key;
+            //mSavedLanguageSwitchKey = new LatinKey(res, parent, x, y, parser);
+        //}
         return key;
-    }*/
+    }
+
     /**
      * Dynamically change the visibility of the language switch key (a.k.a. globe key).
      * @param visible True if the language switch key should be visible.
@@ -135,12 +136,12 @@ public class LatinKeyboard extends Keyboard {
             mSpaceKey.icon = icon;
         }
     }*/
-    //static class LatinKey extends Keyboard.Key {
+    static class LatinKey extends Keyboard.Key {
 
-        //public LatinKey(Resources res, Keyboard.Row parent, int x, int y,
-                        //XmlResourceParser parser) {
-            //super(res, parent, x, y, parser);
-        //}
+        public LatinKey(Resources res, Keyboard.Row parent, int x, int y,
+            XmlResourceParser parser) {
+            super(res, parent, x, y, parser);
+        }
 
         /**
          * Overriding this method so that we can reduce the target area for the key that
@@ -150,5 +151,5 @@ public class LatinKeyboard extends Keyboard {
         //public boolean isInside(int x, int y) {
             //return super.isInside(x, codes[0] == KEYCODE_CANCEL ? y - 10 : y);
         //}
-    //}
+    }
 }

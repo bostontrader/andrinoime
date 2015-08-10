@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-<com.fyrecloud.andrinoime.LatinKeyboardView
+<com.fyrecloud.andrinoime.example1.LatinKeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard"
     android:layout_alignParentBottom="true"

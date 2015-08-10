@@ -2,5 +2,15 @@
 
     <!-- Functional, alpha by name -->
     <string name="app_name">AndrinoIME</string>
-    <string name="settings_name">Andrino Keyboard Settings1</string>
+    <string name="settings_name">Andrino Keyboard Settings2</string>
+    <string name="label_subtype_generic">%s</string>
+    <string name="label_subtype_en_GB">English (GB)</string>
+
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|&quot;</string>
+
+    <!-- Labels on soft keys -->
+    <string name="label_go_key">Go</string>
+    <string name="label_next_key">Next</string>
+    <string name="label_send_key">Send</string>
 </resources>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fyrecloud.andrinoime;
+package com.fyrecloud.andrinoime.example1;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
@@ -27,9 +27,9 @@ public class LatinKeyboardView extends KeyboardView {
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    //public LatinKeyboardView(Context context, AttributeSet attrs, int defStyle) {
-        //super(context, attrs, defStyle);
-    //}
+    public LatinKeyboardView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
     //@Override
     //protected boolean onLongPress(Key key) {
         //if (key.codes[0] == Keyboard.KEYCODE_CANCEL) {

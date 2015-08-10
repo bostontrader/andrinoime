@@ -1,4 +1,4 @@
-package com.fyrecloud.andrinoime;
+package com.fyrecloud.andrinoime.example1;
 
 /*
  * Copyright (C) 2011 The Android Open Source Project
