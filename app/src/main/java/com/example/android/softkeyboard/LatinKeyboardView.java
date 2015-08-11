@@ -14,17 +14,17 @@
  * the License.
  */
 
-package com.fyrecloud.andrinoime.example2;
+package com.example.android.softkeyboard;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
+import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 
 public class LatinKeyboardView extends KeyboardView {
 
-    //static final int KEYCODE_OPTIONS = -100;
+    static final int KEYCODE_OPTIONS = -100;
 
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,7 +34,7 @@ public class LatinKeyboardView extends KeyboardView {
         super(context, attrs, defStyle);
     }
 
-    /*@Override
+    @Override
     protected boolean onLongPress(Key key) {
         if (key.codes[0] == Keyboard.KEYCODE_CANCEL) {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
@@ -42,5 +42,5 @@ public class LatinKeyboardView extends KeyboardView {
         } else {
             return super.onLongPress(key);
         }
-    }*/
+    }
 }
