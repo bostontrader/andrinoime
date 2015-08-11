@@ -6,6 +6,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/ime_name"
+            android:windowSoftInputMode="stateVisible"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
