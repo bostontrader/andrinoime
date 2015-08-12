@@ -290,6 +290,7 @@ public class SoftKeyboard extends InputMethodService
                 CompletionInfo ci = completions[i];
                 if (ci != null) stringList.add(ci.getText().toString());
             }
+
             setSuggestions(stringList, true, true);
         }
     }
@@ -541,6 +542,9 @@ public class SoftKeyboard extends InputMethodService
             if (mComposing.length() > 0) {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(mComposing.toString());
+                list.add("dog");
+                list.add("bird");
+                list.add("cat");
                 setSuggestions(list, true, true);
             } else {
                 setSuggestions(null, false, false);
