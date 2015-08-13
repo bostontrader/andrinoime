@@ -16,11 +16,10 @@
 
 package com.android_cy.inputmethod.latin;
 
-//import android.content.Context;
+import android.content.Context;
 //import android.content.SharedPreferences;
 //import android.os.Looper;
 //import android.preference.PreferenceManager;
-import android.os.Looper;
 import android.test.ServiceTestCase;
 //import android.text.InputType;
 //import android.text.SpannableStringBuilder;
@@ -33,7 +32,7 @@ import android.test.ServiceTestCase;
 //import android.view.inputmethod.EditorInfo;
 //import android.view.inputmethod.InputConnection;
 //import android.view.inputmethod.InputMethodSubtype;
-//import android.widget.EditText;
+import android.widget.EditText;
 //import android.widget.FrameLayout;
 
 //import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
@@ -45,6 +44,8 @@ import android.test.ServiceTestCase;
 //import com.android.inputmethod.latin.utils.LocaleUtils;
 //import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 
+import com.android_cy.inputmethod.keyboard.Key;
+import com.android_cy.inputmethod.keyboard.Keyboard;
 import com.android_cy.inputmethod.latin.LatinIME;
 
 //import java.util.Locale;
@@ -65,8 +66,8 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     //private final int TIMEOUT_TO_WAIT_FOR_LOADING_MAIN_DICTIONARY_IN_SECONDS = 60;
 
     protected LatinIME mLatinIME;
-    //protected Keyboard mKeyboard;
-    //protected MyEditText mEditText;
+    protected Keyboard mKeyboard;
+    protected MyEditText mEditText;
     //protected View mInputView;
     //protected InputConnection mInputConnection;
     //private boolean mPreviousBigramPredictionSettings;
@@ -105,40 +106,40 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         public String[] getSuggestions() {
             return ((SuggestionSpan)mSpan).getSuggestions();
         }
-    }
+    }*/
 
     // A helper class to increase control over the EditText
     public static class MyEditText extends EditText {
-        public Locale mCurrentLocale;
+        //public Locale mCurrentLocale;
         public MyEditText(final Context c) {
             super(c);
         }
 
-        @Override
-        public void onAttachedToWindow() {
+        //@Override
+        //public void onAttachedToWindow() {
             // Make onAttachedToWindow "public"
-            super.onAttachedToWindow();
-        }
+            //super.onAttachedToWindow();
+        //}
 
         // overriding hidden API in EditText
-        public Locale getTextServicesLocale() {
+        //public Locale getTextServicesLocale() {
             // This method is necessary because EditText is asking this method for the language
             // to check the spell in. If we don't override this, the spell checker will run in
             // whatever language the keyboard is currently set on the test device, ignoring any
             // settings we do inside the tests.
-            return mCurrentLocale;
-        }
+            //return mCurrentLocale;
+        //}
 
         // overriding hidden API in EditText
-        public Locale getSpellCheckerLocale() {
+        //public Locale getSpellCheckerLocale() {
             // This method is necessary because EditText is asking this method for the language
             // to check the spell in. If we don't override this, the spell checker will run in
             // whatever language the keyboard is currently set on the test device, ignoring any
             // settings we do inside the tests.
-            return mCurrentLocale;
-        }
+            //return mCurrentLocale;
+        //}
 
-    }*/
+    }
 
     public InputTestsBase() {
         //super(LatinIMEForTests.class);
@@ -186,7 +187,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        //mEditText = new MyEditText(getContext());
+        mEditText = new MyEditText(getContext());
         //final int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
                 //| InputType.TYPE_TEXT_FLAG_MULTI_LINE;
         //mEditText.setInputType(inputType);
@@ -218,7 +219,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         //mLatinIME.onCreateInputView();
         //mLatinIME.onStartInputView(ei, false);
         //mInputConnection = ic;
-        //changeLanguage("en_US");
+        changeLanguage("en_US");
         // Run messages to avoid the messages enqueued by startInputView() and its friends
         // to run on a later call and ruin things. We need to wait first because some of them
         // can be posted with a delay (notably,  MSG_RESUME_SUGGESTIONS)
@@ -266,7 +267,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         } catch (InterruptRunMessagesException e) {
             // Resume normal operation
         }
-    }
+    }*/
 
     // type(int) and type(String): helper methods to send a code point resp. a string to LatinIME.
     protected void typeInternal(final int codePoint, final boolean isKeyRepeat) {
@@ -276,27 +277,27 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         // view and only delegates to the parts of the code that care. So we don't include them here
         // to keep these tests as pinpoint as possible and avoid bringing it too many dependencies,
         // but keep them in mind if something breaks. Commenting them out as is should work.
-        //mLatinIME.onPressKey(codePoint, 0 /star repeatCount star/, true /star isSinglePointer star/);
+        //mLatinIME.onPressKey(codePoint, 0 /* repeatCount */, true /* isSinglePointer */);
         final Key key = mKeyboard.getKey(codePoint);
         if (key == null) {
-            mLatinIME.onCodeInput(codePoint, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
-                    isKeyRepeat);
+            //mLatinIME.onCodeInput(codePoint, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
+                //isKeyRepeat);
         } else {
-            final int x = key.getX() + key.getWidth() / 2;
-            final int y = key.getY() + key.getHeight() / 2;
-            mLatinIME.onCodeInput(codePoint, x, y, isKeyRepeat);
+            //final int x = key.getX() + key.getWidth() / 2;
+            //final int y = key.getY() + key.getHeight() / 2;
+            //mLatinIME.onCodeInput(codePoint, x, y, isKeyRepeat);
         }
         // Also see the comment at the top of this function about onReleaseKey
-        //mLatinIME.onReleaseKey(codePoint, false /star withSliding star/);
+        //mLatinIME.onReleaseKey(codePoint, false /* withSliding */);
     }
 
     protected void type(final int codePoint) {
-        typeInternal(codePoint, false /star isKeyRepeat star/);
+        typeInternal(codePoint, false /* isKeyRepeat */);
     }
 
-    protected void repeatKey(final int codePoint) {
-        typeInternal(codePoint, true /star isKeyRepeat star/);
-    }
+    //protected void repeatKey(final int codePoint) {
+        //typeInternal(codePoint, true /* isKeyRepeat */);
+    //}
 
     protected void type(final String stringToType) {
         for (int i = 0; i < stringToType.length(); i = stringToType.offsetByCodePoints(i, 1)) {
@@ -304,14 +305,14 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
         }
     }
 
-    protected void waitForDictionariesToBeLoaded() {
+    /*protected void waitForDictionariesToBeLoaded() {
         try {
             mLatinIME.waitForLoadingDictionaries(
                     TIMEOUT_TO_WAIT_FOR_LOADING_MAIN_DICTIONARY_IN_SECONDS, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Log.e(TAG, "Interrupted during waiting for loading main dictionary.", e);
         }
-    }
+    }*/
 
     protected void changeLanguage(final String locale) {
         changeLanguage(locale, null);
@@ -319,39 +320,39 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
 
     protected void changeLanguage(final String locale, final String combiningSpec) {
         changeLanguageWithoutWait(locale, combiningSpec);
-        waitForDictionariesToBeLoaded();
+        //waitForDictionariesToBeLoaded();
     }
 
     protected void changeLanguageWithoutWait(final String locale, final String combiningSpec) {
-        mEditText.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
+        //mEditText.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
         // TODO: this is forcing a QWERTY keyboard for all locales, which is wrong.
         // It's still better than using whatever keyboard is the current one, but we
         // should actually use the default keyboard for this locale.
         // TODO: Use {@link InputMethodSubtype.InputMethodSubtypeBuilder} directly or indirectly so
         // that {@link InputMethodSubtype#isAsciiCapable} can return the correct value.
-        final String EXTRA_VALUE_FOR_TEST =
-                "KeyboardLayoutSet=" + SubtypeLocaleUtils.QWERTY
-                        + "," + Constants.Subtype.ExtraValue.ASCII_CAPABLE
-                        + "," + Constants.Subtype.ExtraValue.ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE
-                        + "," + Constants.Subtype.ExtraValue.EMOJI_CAPABLE
-                        + null == combiningSpec ? "" : ("," + combiningSpec);
-        final InputMethodSubtype subtype = InputMethodSubtypeCompatUtils.newInputMethodSubtype(
-                R.string.subtype_no_language_qwerty,
-                R.drawable.ic_ime_switcher_dark,
-                locale,
-                Constants.Subtype.KEYBOARD_MODE,
-                EXTRA_VALUE_FOR_TEST,
-                false /star isAuxiliary star/,
-                false /star overridesImplicitlyEnabledSubtype star/,
-                0 /star id star/);
-        SubtypeSwitcher.getInstance().forceSubtype(subtype);
-        mLatinIME.onCurrentInputMethodSubtypeChanged(subtype);
-        runMessages();
+        //final String EXTRA_VALUE_FOR_TEST =
+                //"KeyboardLayoutSet=" + SubtypeLocaleUtils.QWERTY
+                        //+ "," + Constants.Subtype.ExtraValue.ASCII_CAPABLE
+                        //+ "," + Constants.Subtype.ExtraValue.ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE
+                        //+ "," + Constants.Subtype.ExtraValue.EMOJI_CAPABLE
+                        //+ null == combiningSpec ? "" : ("," + combiningSpec);
+        //final InputMethodSubtype subtype = InputMethodSubtypeCompatUtils.newInputMethodSubtype(
+                //R.string.subtype_no_language_qwerty,
+                //R.drawable.ic_ime_switcher_dark,
+                //locale,
+                //Constants.Subtype.KEYBOARD_MODE,
+                //EXTRA_VALUE_FOR_TEST,
+                //false /star isAuxiliary star/,
+                //false /star overridesImplicitlyEnabledSubtype star/,
+                //0 /star id star/);
+        //SubtypeSwitcher.getInstance().forceSubtype(subtype);
+        //mLatinIME.onCurrentInputMethodSubtypeChanged(subtype);
+        //runMessages();
         mKeyboard = mLatinIME.mKeyboardSwitcher.getKeyboard();
-        mLatinIME.clearPersonalizedDictionariesForTest();
+        //mLatinIME.clearPersonalizedDictionariesForTest();
     }
 
-    protected void changeKeyboardLocaleAndDictLocale(final String keyboardLocale,
+    /*protected void changeKeyboardLocaleAndDictLocale(final String keyboardLocale,
                                                      final String dictLocale) {
         changeLanguage(keyboardLocale);
         if (!keyboardLocale.equals(dictLocale)) {

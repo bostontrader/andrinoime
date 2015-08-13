@@ -67,7 +67,7 @@ import android.inputmethodservice.InputMethodService;
 //import com.android.inputmethod.keyboard.Keyboard;
 //import com.android.inputmethod.keyboard.KeyboardActionListener;
 //import com.android.inputmethod.keyboard.KeyboardId;
-//import com.android.inputmethod.keyboard.KeyboardSwitcher;
+import com.android_cy.inputmethod.keyboard.KeyboardSwitcher;
 //import com.android.inputmethod.keyboard.MainKeyboardView;
 //import com.android.inputmethod.keyboard.TextDecoratorUi;
 //import com.android.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
@@ -158,9 +158,11 @@ public class LatinIME extends InputMethodService
     //private SuggestionStripView mSuggestionStripView;
     //private TextView mExtractEditText;
 
-    //private RichInputMethodManager mRichImm;
-    //@UsedForTesting final KeyboardSwitcher mKeyboardSwitcher;
-/star    private final SubtypeSwitcher mSubtypeSwitcher;
+    //private RichInputMethodManager mRichImm;*/
+    //@UsedForTesting
+    final KeyboardSwitcher mKeyboardSwitcher;
+
+    /*    private final SubtypeSwitcher mSubtypeSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
     private final SpecialKeyDetector mSpecialKeyDetector;
     // Working variable for {@link #startShowingInputView()} and
@@ -514,19 +516,19 @@ public class LatinIME extends InputMethodService
     static {
         JniUtils.loadNativeLibrary();
     }
-
+*/
     public LatinIME() {
         super();
-        mSettings = Settings.getInstance();
-        mSubtypeSwitcher = SubtypeSwitcher.getInstance();
+        //mSettings = Settings.getInstance();
+        //mSubtypeSwitcher = SubtypeSwitcher.getInstance();
         mKeyboardSwitcher = KeyboardSwitcher.getInstance();
-        mSpecialKeyDetector = new SpecialKeyDetector(this);
-        mIsHardwareAcceleratedDrawingEnabled =
-                InputMethodServiceCompatUtils.enableHardwareAcceleration(this);
-        Log.i(TAG, "Hardware accelerated drawing: " + mIsHardwareAcceleratedDrawingEnabled);
+        //mSpecialKeyDetector = new SpecialKeyDetector(this);
+        //mIsHardwareAcceleratedDrawingEnabled =
+            //InputMethodServiceCompatUtils.enableHardwareAcceleration(this);
+        //Log.i(TAG, "Hardware accelerated drawing: " + mIsHardwareAcceleratedDrawingEnabled);
     }
 
-    @Override
+    /*@Override
     public void onCreate() {
         Settings.init(this);
         DebugFlags.init(PreferenceManager.getDefaultSharedPreferences(this));
