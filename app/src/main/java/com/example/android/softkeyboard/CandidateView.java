@@ -157,8 +157,10 @@ public class CandidateView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas) {
+    //public void draw(Canvas canvas) {
         if (canvas != null) {
             super.onDraw(canvas);
+            //super.draw(canvas);
         }
         mTotalWidth = 0;
         if (mSuggestions == null) return;
@@ -196,6 +198,7 @@ public class CandidateView extends View {
                     canvas.translate(-x, 0);
                 }
                 mSelectedIndex = i;
+
             }
 
             if (canvas != null) {
@@ -249,6 +252,7 @@ public class CandidateView extends View {
         mTargetScrollX = 0;
         // Compute the total width
         onDraw(null);
+        //draw(null);
         invalidate();
         requestLayout();
     }
@@ -288,6 +292,7 @@ public class CandidateView extends View {
             invalidate();
             break;
         case MotionEvent.ACTION_UP:
+        //case MotionEvent.ACTION_CANCEL:
             if (!mScrolled) {
                 if (mSelectedIndex >= 0) {
                     mService.pickSuggestionManually(mSelectedIndex);
@@ -310,6 +315,7 @@ public class CandidateView extends View {
         mTouchX = (int) x;
         // To detect candidate
         onDraw(null);
+        //draw(null);
         if (mSelectedIndex >= 0) {
             mService.pickSuggestionManually(mSelectedIndex);
         }

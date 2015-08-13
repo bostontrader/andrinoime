@@ -424,6 +424,7 @@ public class SoftKeyboard extends InputMethodService
     private void commitTyped(InputConnection inputConnection) {
         if (mComposing.length() > 0) {
             inputConnection.commitText(mComposing, mComposing.length());
+            //inputConnection.commitText("cat",3);
             mComposing.setLength(0);
             updateCandidates();
         }
@@ -485,7 +486,7 @@ public class SoftKeyboard extends InputMethodService
     }
 
     // Implementation of KeyboardViewListener
-
+    @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         if (isWordSeparator(primaryCode)) {
             // Handle separator
@@ -520,6 +521,7 @@ public class SoftKeyboard extends InputMethodService
         }
     }
 
+    @Override
     public void onText(CharSequence text) {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
@@ -664,26 +666,22 @@ public class SoftKeyboard extends InputMethodService
         }
     }
     
+    @Override
     public void swipeRight() {
         if (mCompletionOn) {
             pickDefaultCandidate();
         }
     }
     
-    public void swipeLeft() {
+    @Override public void swipeLeft() {
         handleBackspace();
     }
 
-    public void swipeDown() {
+    @Override public void swipeDown() {
         handleClose();
     }
 
-    public void swipeUp() {
-    }
-    
-    public void onPress(int primaryCode) {
-    }
-    
-    public void onRelease(int primaryCode) {
-    }
+    @Override public void swipeUp() {}
+    @Override public void onPress(int primaryCode) {}
+    @Override public void onRelease(int primaryCode) {}
 }
