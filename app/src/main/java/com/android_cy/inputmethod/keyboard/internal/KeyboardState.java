@@ -60,7 +60,7 @@ public final class KeyboardState {
         //public void cancelDoubleTapShiftKeyTimer();
     }
 
-    //private final SwitchActions mSwitchActions;
+    private final SwitchActions mSwitchActions;
 
     //private ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
     //private ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
@@ -111,14 +111,14 @@ public final class KeyboardState {
                 return "SYMBOLS_" + shiftModeToString(mShiftMode);
             }
         }
-    }
+    }*/
 
     public KeyboardState(final SwitchActions switchActions) {
         mSwitchActions = switchActions;
-        mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+        //mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
     }
 
-    public void onLoadKeyboard(final int currentAutoCapsState,
+/*    public void onLoadKeyboard(final int currentAutoCapsState,
                                final int currentRecapitalizeState) {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onLoadKeyboard: " + this);
@@ -261,49 +261,49 @@ public final class KeyboardState {
             }
             mPrevMainKeyboardWasShiftLocked = false;
         }
-    }
+    }*/
 
     // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     private void resetKeyboardStateToAlphabet(final int currentAutoCapsState,
                                               final int currentRecapitalizeState) {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "resetKeyboardStateToAlphabet: " + this);
-        }
-        if (mIsAlphabetMode) return;
+        //if (DEBUG_ACTION) {
+            //Log.d(TAG, "resetKeyboardStateToAlphabet: " + this);
+        //}
+        //if (mIsAlphabetMode) return;
 
-        mPrevSymbolsKeyboardWasShifted = mIsSymbolShifted;
+        //mPrevSymbolsKeyboardWasShifted = mIsSymbolShifted;
         setAlphabetKeyboard(currentAutoCapsState, currentRecapitalizeState);
-        if (mPrevMainKeyboardWasShiftLocked) {
-            setShiftLocked(true);
-        }
-        mPrevMainKeyboardWasShiftLocked = false;
+        //if (mPrevMainKeyboardWasShiftLocked) {
+            //setShiftLocked(true);
+        //}
+        //mPrevMainKeyboardWasShiftLocked = false;
     }
 
-    private void toggleShiftInSymbols() {
+    /*private void toggleShiftInSymbols() {
         if (mIsSymbolShifted) {
             setSymbolsKeyboard();
         } else {
             setSymbolsShiftedKeyboard();
         }
-    }
+    }*/
 
     private void setAlphabetKeyboard(final int currentAutoCapsState,
                                      final int currentRecapitalizeState) {
-        if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetKeyboard");
-        }
+        //if (DEBUG_ACTION) {
+            //Log.d(TAG, "setAlphabetKeyboard");
+        //}
 
         mSwitchActions.setAlphabetKeyboard();
-        mIsAlphabetMode = true;
-        mIsEmojiMode = false;
-        mIsSymbolShifted = false;
-        mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
-        mSwitchState = SWITCH_STATE_ALPHA;
-        mSwitchActions.requestUpdatingShiftState(currentAutoCapsState, currentRecapitalizeState);
+        //mIsAlphabetMode = true;
+        //mIsEmojiMode = false;
+        //mIsSymbolShifted = false;
+        //mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+        //mSwitchState = SWITCH_STATE_ALPHA;
+        //mSwitchActions.requestUpdatingShiftState(currentAutoCapsState, currentRecapitalizeState);
     }
 
-    private void setSymbolsKeyboard() {
+    /*private void setSymbolsKeyboard() {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setSymbolsKeyboard");
         }
@@ -425,19 +425,19 @@ public final class KeyboardState {
         }
         mRecapitalizeMode = recapitalizeMode;
         updateAlphabetShiftState(autoCaps, recapitalizeMode);
-    }
+    }*/
 
     // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     public void onResetKeyboardStateToAlphabet(final int currentAutoCapsState,
                                                final int currentRecapitalizeState) {
-        if (DEBUG_EVENT) {
-            Log.d(TAG, "onResetKeyboardStateToAlphabet: " + this);
-        }
+        //if (DEBUG_EVENT) {
+            //Log.d(TAG, "onResetKeyboardStateToAlphabet: " + this);
+        //}
         resetKeyboardStateToAlphabet(currentAutoCapsState, currentRecapitalizeState);
     }
 
-    private void updateShiftStateForRecapitalize(final int recapitalizeMode) {
+    /*private void updateShiftStateForRecapitalize(final int recapitalizeMode) {
         switch (recapitalizeMode) {
             case RecapitalizeStatus.CAPS_MODE_ALL_UPPER:
                 setShifted(SHIFT_LOCK_SHIFTED);

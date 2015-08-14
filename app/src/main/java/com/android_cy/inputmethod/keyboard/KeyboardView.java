@@ -174,23 +174,23 @@ public class KeyboardView extends View {
         if (!enabled) return;
         // TODO: Should use LAYER_TYPE_SOFTWARE when hardware acceleration is off?
         setLayerType(LAYER_TYPE_HARDWARE, null);
-    }
+    }*/
 
-    /star*
+    /**
      * Attaches a keyboard to this view. The keyboard can be switched at any time and the
      * view will re-layout itself to accommodate the keyboard.
      * @see Keyboard
      * @see #getKeyboard()
      * @param keyboard the keyboard to display in this view
-     star/
+     */
     public void setKeyboard(final Keyboard keyboard) {
         mKeyboard = keyboard;
-        final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
-        mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
-        mKeyDrawParams.updateParams(keyHeight, keyboard.mKeyVisualAttributes);
-        invalidateAllKeys();
-        requestLayout();
-    }*/
+        //final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
+        //mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
+        //mKeyDrawParams.updateParams(keyHeight, keyboard.mKeyVisualAttributes);
+        //invalidateAllKeys();
+        //requestLayout();
+    }
 
     /**
      * Returns the current keyboard being displayed by this view.

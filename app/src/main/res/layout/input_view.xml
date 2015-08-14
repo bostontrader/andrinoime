@@ -18,18 +18,19 @@
 */
 -->
 
-<com.android.inputmethod.latin.InputView
+<com.android_cy.inputmethod.latin.InputView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <include
-        android:id="@+id/main_keyboard_frame"
-        layout="@layout/main_keyboard_frame" />
 
-<!--
-    <include
-        android:id="@+id/emoji_palettes_view"
-        layout="@layout/emoji_palettes_view" />
-        -->
+        <include
+            android:id="@+id/main_keyboard_frame"
+            layout="@layout/main_keyboard_frame" />
 
-</com.android.inputmethod.latin.InputView>
+    <!--
+        <include
+            android:id="@+id/emoji_palettes_view"
+            layout="@layout/emoji_palettes_view" />
+            -->
+
+</com.android_cy.inputmethod.latin.InputView>

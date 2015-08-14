@@ -17,11 +17,11 @@
 package com.android_cy.inputmethod.keyboard;
 
 import android.content.Context;
-//import android.content.SharedPreferences;
+import android.content.SharedPreferences;
 //import android.content.res.Resources;
-//import android.preference.PreferenceManager;
+import android.preference.PreferenceManager;
 //import android.util.Log;
-//import android.view.ContextThemeWrapper;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -33,7 +33,7 @@ import com.android_cy.inputmethod.keyboard.internal.KeyboardState;
 //import com.android.inputmethod.keyboard.internal.KeyboardTextsSet;
 import com.android_cy.inputmethod.latin.InputView;
 import com.fyrecloud.andrinoime.R;
-//import com.android.inputmethod.latin.LatinIME;
+import com.android_cy.inputmethod.latin.LatinIME;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.RichInputMethodManager;
 //import com.android.inputmethod.latin.SubtypeSwitcher;
@@ -47,22 +47,22 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     //private static final String TAG = KeyboardSwitcher.class.getSimpleName();
 
     //private SubtypeSwitcher mSubtypeSwitcher;
-    //private SharedPreferences mPrefs;
+    private SharedPreferences mPrefs;
 
     private InputView mCurrentInputView;
     //private View mMainKeyboardFrame;
     private MainKeyboardView mKeyboardView;
     //private EmojiPalettesView mEmojiPalettesView;
-    //private LatinIME mLatinIME;
+    private LatinIME mLatinIME;
     //private boolean mIsHardwareAcceleratedDrawingEnabled;
 
-    //private KeyboardState mState;
+    private KeyboardState mState;
 
     private KeyboardLayoutSet mKeyboardLayoutSet;
     // TODO: The following {@link KeyboardTextsSet} should be in {@link KeyboardLayoutSet}.
     //private final KeyboardTextsSet mKeyboardTextsSet = new KeyboardTextsSet();
 
-    //private KeyboardTheme mKeyboardTheme;
+    private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
 
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -75,19 +75,19 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // Intentional empty constructor for singleton.
     }
 
-    //public static void init(final LatinIME latinIme) {
-        //final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(latinIme);
-        //sInstance.initInternal(latinIme, prefs);
-    //}
+    public static void init(final LatinIME latinIme) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(latinIme);
+        sInstance.initInternal(latinIme, prefs);
+    }
 
-    //private void initInternal(final LatinIME latinIme, final SharedPreferences prefs) {
-        //mLatinIME = latinIme;
-        //mPrefs = prefs;
+    private void initInternal(final LatinIME latinIme, final SharedPreferences prefs) {
+        mLatinIME = latinIme;
+        mPrefs = prefs;
         //mSubtypeSwitcher = SubtypeSwitcher.getInstance();
-        //mState = new KeyboardState(this);
+        mState = new KeyboardState(this);
         //mIsHardwareAcceleratedDrawingEnabled =
             //InputMethodServiceCompatUtils.enableHardwareAcceleration(mLatinIME);
-    //}
+    }
 
     /*public void updateKeyboardTheme() {
         final boolean themeUpdated = updateKeyboardThemeAndContextThemeWrapper(
@@ -95,7 +95,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (themeUpdated && mKeyboardView != null) {
             mLatinIME.setInputView(onCreateInputView(mIsHardwareAcceleratedDrawingEnabled));
         }
-    }
+    }*/
 
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context,
                                                               final KeyboardTheme keyboardTheme) {
@@ -106,7 +106,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return true;
         }
         return false;
-    }*/
+    }
 
     public void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
                              final int currentAutoCapsState, final int currentRecapitalizeState) {
@@ -146,9 +146,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         //final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
         //setMainKeyboardFrame(currentSettingsValues);
         // TODO: pass this object to setKeyboard instead of getting the current values.
-        //final MainKeyboardView keyboardView = mKeyboardView;
+        final MainKeyboardView keyboardView = mKeyboardView;
         //final Keyboard oldKeyboard = keyboardView.getKeyboard();
-        //keyboardView.setKeyboard(keyboard);
+        keyboardView.setKeyboard(keyboard);
         //mCurrentInputView.setKeyboardTopPadding(keyboard.mTopPadding);
         //keyboardView.setKeyPreviewPopupEnabled(
             //currentSettingsValues.mKeyPreviewPopupOn,
@@ -178,7 +178,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
         return null;
     }
-/*
+
     // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     public void resetKeyboardStateToAlphabet(final int currentAutoCapsState,
@@ -186,7 +186,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mState.onResetKeyboardStateToAlphabet(currentAutoCapsState, currentRecapitalizeState);
     }
 
-    public void onPressKey(final int code, final boolean isSinglePointer,
+    /*public void onPressKey(final int code, final boolean isSinglePointer,
                            final int currentAutoCapsState, final int currentRecapitalizeState) {
         mState.onPressKey(code, isSinglePointer, currentAutoCapsState, currentRecapitalizeState);
     }
@@ -348,8 +348,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             //mKeyboardView.closing();
         //}
 
-        //updateKeyboardThemeAndContextThemeWrapper(
-                //mLatinIME, KeyboardTheme.getKeyboardTheme(mPrefs));
+        updateKeyboardThemeAndContextThemeWrapper(
+            mLatinIME, KeyboardTheme.getKeyboardTheme(mPrefs));
+
         mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(
             R.layout.input_view, null);
         //mMainKeyboardFrame = mCurrentInputView.findViewById(R.id.main_keyboard_frame);

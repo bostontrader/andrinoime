@@ -117,21 +117,21 @@ public final class KeyboardLayoutSet {
         //int mScriptId = ScriptUtils.SCRIPT_LATIN;
         // Sparse array of KeyboardLayoutSet element parameters indexed by element's id.
         final SparseArray<ElementParams> mKeyboardLayoutSetElementIdToParamsMap =
-            new SparseArray<>();
+            new SparseArray<ElementParams>();
     }
 
-    /*public static void onSystemLocaleChanged() {
-        clearKeyboardCache();
-    }
+    //public static void onSystemLocaleChanged() {
+        //clearKeyboardCache();
+    //}
 
     public static void onKeyboardThemeChanged() {
         clearKeyboardCache();
     }
 
     private static void clearKeyboardCache() {
-        sKeyboardCache.clear();
-        sKeysCache.clear();
-    }*/
+        //sKeyboardCache.clear();
+        //sKeysCache.clear();
+    }
 
     KeyboardLayoutSet(final Context context, final Params params) {
         mContext = context;
@@ -189,7 +189,7 @@ public final class KeyboardLayoutSet {
         //}
 
         final KeyboardBuilder<KeyboardParams> builder =
-            new KeyboardBuilder<>(mContext, new KeyboardParams());
+            new KeyboardBuilder<KeyboardParams>(mContext, new KeyboardParams());
         //if (id.isAlphabetKeyboard()) {
             //builder.setAutoGenerate(sKeysCache);
         //}

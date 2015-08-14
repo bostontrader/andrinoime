@@ -26,14 +26,14 @@ import android.test.ServiceTestCase;
 //import android.text.style.CharacterStyle;
 //import android.text.style.SuggestionSpan;
 //import android.util.Log;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.view.inputmethod.EditorInfo;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 //import android.view.inputmethod.InputConnection;
 //import android.view.inputmethod.InputMethodSubtype;
 import android.widget.EditText;
-//import android.widget.FrameLayout;
+import android.widget.FrameLayout;
 
 //import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
 //import com.android.inputmethod.keyboard.Key;
@@ -47,6 +47,7 @@ import android.widget.EditText;
 import com.android_cy.inputmethod.keyboard.Key;
 import com.android_cy.inputmethod.keyboard.Keyboard;
 import com.android_cy.inputmethod.latin.LatinIME;
+import com.fyrecloud.andrinoime.R;
 
 //import java.util.Locale;
 //import java.util.concurrent.TimeUnit;
@@ -68,7 +69,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     protected LatinIME mLatinIME;
     protected Keyboard mKeyboard;
     protected MyEditText mEditText;
-    //protected View mInputView;
+    protected View mInputView;
     //protected InputConnection mInputConnection;
     //private boolean mPreviousBigramPredictionSettings;
     //private String mPreviousAutoCorrectSetting;
@@ -205,19 +206,19 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
                 //true, true /star defaultValue star/);
         //mPreviousAutoCorrectSetting = setStringPreference(Settings.PREF_AUTO_CORRECTION_THRESHOLD,
                 //DEFAULT_AUTO_CORRECTION_THRESHOLD, DEFAULT_AUTO_CORRECTION_THRESHOLD);
-        //mLatinIME.onCreate();
-        //EditorInfo ei = new EditorInfo();
+        mLatinIME.onCreate();
+        EditorInfo ei = new EditorInfo();
         //final InputConnection ic = mEditText.onCreateInputConnection(ei);
-        //final LayoutInflater inflater =
-                //(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //final ViewGroup vg = new FrameLayout(getContext());
-        //mInputView = inflater.inflate(R.layout.input_view, vg);
+        final LayoutInflater inflater =
+            (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final ViewGroup vg = new FrameLayout(getContext());
+        mInputView = inflater.inflate(R.layout.input_view, vg);
         //ei = enrichEditorInfo(ei);
         //mLatinIME.onCreateInputMethodInterface().startInput(ic, ei);
-        //mLatinIME.setInputView(mInputView);
+        mLatinIME.setInputView(mInputView);
         //mLatinIME.onBindInput();
-        //mLatinIME.onCreateInputView();
-        //mLatinIME.onStartInputView(ei, false);
+        mLatinIME.onCreateInputView();
+        mLatinIME.onStartInputView(ei, false);
         //mInputConnection = ic;
         changeLanguage("en_US");
         // Run messages to avoid the messages enqueued by startInputView() and its friends

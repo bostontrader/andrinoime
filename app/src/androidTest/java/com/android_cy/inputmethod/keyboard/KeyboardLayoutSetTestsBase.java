@@ -38,7 +38,7 @@ import java.util.Locale;
 
 public abstract class KeyboardLayoutSetTestsBase extends AndroidTestCase {
     // All input method subtypes of LatinIME.
-    private final ArrayList<InputMethodSubtype> mAllSubtypesList = new ArrayList<>();
+    private final ArrayList<InputMethodSubtype> mAllSubtypesList = new ArrayList<InputMethodSubtype>();
     //private final ArrayList<InputMethodSubtype> mAsciiCapableSubtypesList = new ArrayList<>();
     //private final ArrayList<InputMethodSubtype> mAdditionalSubtypesList = new ArrayList<>();
 

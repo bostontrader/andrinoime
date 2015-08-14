@@ -367,40 +367,40 @@ public final class MainKeyboardView extends KeyboardView /*implements PointerTra
     // event.
     public int getKeyY(final int y) {
         return Constants.isValidCoordinate(y) ? mKeyDetector.getTouchY(y) : y;
-    }
+    }*/
 
-    /star*
+    /**
      * Attaches a keyboard to this view. The keyboard can be switched at any time and the
      * view will re-layout itself to accommodate the keyboard.
      * @see Keyboard
      * @see #getKeyboard()
      * @param keyboard the keyboard to display in this view
-     star/
+     */
     @Override
     public void setKeyboard(final Keyboard keyboard) {
         // Remove any pending messages, except dismissing preview and key repeat.
-        mKeyTimerHandler.cancelLongPressTimers();
+        //mKeyTimerHandler.cancelLongPressTimers();
         super.setKeyboard(keyboard);
-        mKeyDetector.setKeyboard(
-                keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
-        PointerTracker.setKeyDetector(mKeyDetector);
-        mMoreKeysKeyboardCache.clear();
+        //mKeyDetector.setKeyboard(
+                //keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
+        //PointerTracker.setKeyDetector(mKeyDetector);
+        //mMoreKeysKeyboardCache.clear();
 
-        mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);
-        final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
-        mLanguageOnSpacebarTextSize = keyHeight * mLanguageOnSpacebarTextRatio;
+        //mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);
+        //final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
+        //mLanguageOnSpacebarTextSize = keyHeight * mLanguageOnSpacebarTextRatio;
 
-        if (AccessibilityUtils.getInstance().isAccessibilityEnabled()) {
-            if (mAccessibilityDelegate == null) {
-                mAccessibilityDelegate = new MainKeyboardAccessibilityDelegate(this, mKeyDetector);
-            }
-            mAccessibilityDelegate.setKeyboard(keyboard);
-        } else {
-            mAccessibilityDelegate = null;
-        }
+        //if (AccessibilityUtils.getInstance().isAccessibilityEnabled()) {
+            //if (mAccessibilityDelegate == null) {
+                //mAccessibilityDelegate = new MainKeyboardAccessibilityDelegate(this, mKeyDetector);
+            //}
+            //mAccessibilityDelegate.setKeyboard(keyboard);
+        //} else {
+            //mAccessibilityDelegate = null;
+        //}
     }
 
-    /star*
+    /**
      * Enables or disables the key preview popup. This is a popup that shows a magnified
      * version of the depressed key. By default the preview is enabled.
      * @param previewEnabled whether or not to enable the key feedback preview
