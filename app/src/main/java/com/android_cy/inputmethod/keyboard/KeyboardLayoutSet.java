@@ -20,15 +20,15 @@ package com.android_cy.inputmethod.keyboard;
 //import static com.android.inputmethod.latin.Constants.ImeOption.NO_SETTINGS_KEY;
 
 import android.content.Context;
-//import android.content.res.Resources;
-//import android.content.res.TypedArray;
-//import android.content.res.XmlResourceParser;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 //import android.text.InputType;
 //import android.util.Log;
 import android.util.SparseArray;
-//import android.util.Xml;
+import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
-//import android.view.inputmethod.InputMethodSubtype;
+import android.view.inputmethod.InputMethodSubtype;
 
 //import com.android.inputmethod.compat.EditorInfoCompatUtils;
 //import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
@@ -37,17 +37,18 @@ import com.android_cy.inputmethod.keyboard.internal.KeyboardParams;
 //import com.android.inputmethod.keyboard.internal.KeysCache;
 //import com.android.inputmethod.latin.InputAttributes;
 //import com.android.inputmethod.latin.R;
+import com.fyrecloud.andrinoime.R;
 //import com.android.inputmethod.latin.SubtypeSwitcher;
 //import com.android.inputmethod.latin.define.DebugFlags;
 //import com.android.inputmethod.latin.utils.InputTypeUtils;
 //import com.android.inputmethod.latin.utils.ScriptUtils;
 //import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
-//import com.android.inputmethod.latin.utils.XmlParseUtils;
+import com.android_cy.inputmethod.latin.utils.XmlParseUtils;
 
-//import org.xmlpull.v1.XmlPullParser;
-//import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-//import java.io.IOException;
+import java.io.IOException;
 //import java.lang.ref.SoftReference;
 //import java.util.HashMap;
 
@@ -62,11 +63,11 @@ public final class KeyboardLayoutSet {
     //private static final String TAG = KeyboardLayoutSet.class.getSimpleName();
     //private static final boolean DEBUG_CACHE = DebugFlags.DEBUG_ENABLED;
 
-    //private static final String TAG_KEYBOARD_SET = "KeyboardLayoutSet";
-    //private static final String TAG_ELEMENT = "Element";
-    //private static final String TAG_FEATURE = "Feature";
+    private static final String TAG_KEYBOARD_SET = "KeyboardLayoutSet";
+    private static final String TAG_ELEMENT = "Element";
+    private static final String TAG_FEATURE = "Feature";
 
-    //private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
+    private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
 
     private final Context mContext;
     private final Params mParams;
@@ -101,7 +102,7 @@ public final class KeyboardLayoutSet {
     }
 
     public static final class Params {
-        //String mKeyboardLayoutSetName;
+        String mKeyboardLayoutSetName;
         //int mMode;
         //boolean mDisableTouchPositionCorrectionDataForTest;
         // TODO: Use {@link InputAttributes} instead of these variables.
@@ -227,7 +228,7 @@ public final class KeyboardLayoutSet {
     public static final class Builder {
         private final Context mContext;
         //private final String mPackageName;
-        //private final Resources mResources;
+        private final Resources mResources;
 
         private final Params mParams = new Params();
 
@@ -236,7 +237,7 @@ public final class KeyboardLayoutSet {
         public Builder(final Context context, final EditorInfo ei) {
             mContext = context;
             //mPackageName = context.getPackageName();
-            //mResources = context.getResources();
+            mResources = context.getResources();
             final Params params = mParams;
 
             //mLowerRightCornerIsEnterKey = mResources.getBoolean(
@@ -254,27 +255,27 @@ public final class KeyboardLayoutSet {
             mParams.mKeyboardWidth = keyboardWidth;
             mParams.mKeyboardHeight = keyboardHeight;
             return this;
-        }
+        }*/
 
         public Builder setSubtype(final InputMethodSubtype subtype) {
-            final boolean asciiCapable = InputMethodSubtypeCompatUtils.isAsciiCapable(subtype);
+            //final boolean asciiCapable = InputMethodSubtypeCompatUtils.isAsciiCapable(subtype);
             // TODO: Consolidate with {@link InputAttributes}.
-            @SuppressWarnings("deprecation")
-            final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
-                    mPackageName, FORCE_ASCII, mParams.mEditorInfo);
-            final boolean forceAscii = EditorInfoCompatUtils.hasFlagForceAscii(
-                    mParams.mEditorInfo.imeOptions)
-                    || deprecatedForceAscii;
-            final InputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
-                    ? SubtypeSwitcher.getInstance().getNoLanguageSubtype()
-                    : subtype;
-            mParams.mSubtype = keyboardSubtype;
-            mParams.mKeyboardLayoutSetName = KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX
-                    + SubtypeLocaleUtils.getKeyboardLayoutSetName(keyboardSubtype);
+            //@SuppressWarnings("deprecation")
+            //final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
+                    //mPackageName, FORCE_ASCII, mParams.mEditorInfo);
+            //final boolean forceAscii = EditorInfoCompatUtils.hasFlagForceAscii(
+                    //mParams.mEditorInfo.imeOptions)
+                    //|| deprecatedForceAscii;
+            //final InputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
+                    //? SubtypeSwitcher.getInstance().getNoLanguageSubtype()
+                    //: subtype;
+            //mParams.mSubtype = keyboardSubtype;
+            mParams.mKeyboardLayoutSetName = KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX; // append to next line
+                    //+ SubtypeLocaleUtils.getKeyboardLayoutSetName(keyboardSubtype);
             return this;
         }
 
-        public Builder setIsSpellChecker(final boolean isSpellChecker) {
+        /*public Builder setIsSpellChecker(final boolean isSpellChecker) {
             mParams.mIsSpellChecker = isSpellChecker;
             return this;
         }
@@ -298,10 +299,10 @@ public final class KeyboardLayoutSet {
         }*/
 
         public KeyboardLayoutSet build() {
-            /*if (mParams.mSubtype == null)
-                throw new RuntimeException("KeyboardLayoutSet subtype is not specified");
+            //if (mParams.mSubtype == null)
+                //throw new RuntimeException("KeyboardLayoutSet subtype is not specified");
             final String packageName = mResources.getResourcePackageName(
-                    R.xml.keyboard_layout_set_qwerty);
+                R.xml.keyboard_layout_set_qwerty);
             final String keyboardLayoutSetName = mParams.mKeyboardLayoutSetName;
             final int xmlId = mResources.getIdentifier(keyboardLayoutSetName, "xml", packageName);
             try {
@@ -310,11 +311,11 @@ public final class KeyboardLayoutSet {
                 throw new RuntimeException(e.getMessage() + " in " + keyboardLayoutSetName, e);
             } catch (final XmlPullParserException e) {
                 throw new RuntimeException(e.getMessage() + " in " + keyboardLayoutSetName, e);
-            }*/
+            }
             return new KeyboardLayoutSet(mContext, mParams);
         }
 
-        /*private void parseKeyboardLayoutSet(final Resources res, final int resId)
+        private void parseKeyboardLayoutSet(final Resources res, final int resId)
                 throws XmlPullParserException, IOException {
             final XmlResourceParser parser = res.getXml(resId);
             try {
@@ -322,11 +323,11 @@ public final class KeyboardLayoutSet {
                     final int event = parser.next();
                     if (event == XmlPullParser.START_TAG) {
                         final String tag = parser.getName();
-                        if (TAG_KEYBOARD_SET.equals(tag)) {
+                        //if (TAG_KEYBOARD_SET.equals(tag)) {
                             parseKeyboardLayoutSetContent(parser);
-                        } else {
-                            throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
-                        }
+                        //} else {
+                            //throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
+                        //}
                     }
                 }
             } finally {
@@ -374,11 +375,11 @@ public final class KeyboardLayoutSet {
                 final ElementParams elementParams = new ElementParams();
                 final int elementName = a.getInt(
                         R.styleable.KeyboardLayoutSet_Element_elementName, 0);
-                elementParams.mKeyboardXmlId = a.getResourceId(
-                        R.styleable.KeyboardLayoutSet_Element_elementKeyboard, 0);
-                elementParams.mProximityCharsCorrectionEnabled = a.getBoolean(
-                        R.styleable.KeyboardLayoutSet_Element_enableProximityCharsCorrection,
-                        false);
+                //elementParams.mKeyboardXmlId = a.getResourceId(
+                        //R.styleable.KeyboardLayoutSet_Element_elementKeyboard, 0);
+                //elementParams.mProximityCharsCorrectionEnabled = a.getBoolean(
+                        //R.styleable.KeyboardLayoutSet_Element_enableProximityCharsCorrection,
+                        //false);
                 mParams.mKeyboardLayoutSetElementIdToParamsMap.put(elementName, elementParams);
             } finally {
                 a.recycle();
@@ -389,18 +390,18 @@ public final class KeyboardLayoutSet {
                 throws XmlPullParserException, IOException {
             final TypedArray a = mResources.obtainAttributes(Xml.asAttributeSet(parser),
                     R.styleable.KeyboardLayoutSet_Feature);
-            try {
-                final int scriptId = a.getInt(
-                        R.styleable.KeyboardLayoutSet_Feature_supportedScript,
-                        ScriptUtils.SCRIPT_LATIN);
-                XmlParseUtils.checkEndTag(TAG_FEATURE, parser);
-                setScriptId(scriptId);
-            } finally {
-                a.recycle();
-            }
+            //try {
+                //final int scriptId = a.getInt(
+                        //R.styleable.KeyboardLayoutSet_Feature_supportedScript,
+                        //ScriptUtils.SCRIPT_LATIN);
+                //XmlParseUtils.checkEndTag(TAG_FEATURE, parser);
+                //setScriptId(scriptId);
+            //} finally {
+                //a.recycle();
+            //}
         }
 
-        private static int getKeyboardMode(final EditorInfo editorInfo) {
+        /*private static int getKeyboardMode(final EditorInfo editorInfo) {
             final int inputType = editorInfo.inputType;
             final int variation = inputType & InputType.TYPE_MASK_VARIATION;
 

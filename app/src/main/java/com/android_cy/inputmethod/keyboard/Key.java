@@ -49,10 +49,10 @@ package com.android_cy.inputmethod.keyboard;
 public class Key implements Comparable<Key> {
     /**
      * The key code (unicode or custom code) that this key generates.
-     star/
+     */
     private final int mCode;
 
-    /star* Label to display star/
+    /** Label to display star/
     private final String mLabel;
     /star* Hint label to display on the key in conjunction with the label star/
     private final String mHintLabel;
@@ -100,9 +100,9 @@ public class Key implements Comparable<Key> {
     private final int mHeight;*/
     /** X coordinate of the key in the keyboard layout */
     private final int mX;
-    /** Y coordinate of the key in the keyboard layout star/
+    /** Y coordinate of the key in the keyboard layout */
     private final int mY;
-    /star* Hit bounding box of the key star/
+    /** Hit bounding box of the key star/
     private final Rect mHitBox = new Rect();
 
     /star* More keys. It is guaranteed that this is null or an array of one or more elements star/
@@ -195,9 +195,10 @@ public class Key implements Comparable<Key> {
      * and in a <GridRows/>.
      */
     public Key(
-        //final String label, final int iconId, final int code, final String outputText,
+        //final String label, final int iconId,
+        final int code, //, final String outputText,
         //final String hintLabel, final int labelFlags, final int backgroundType, final int x,
-        //final int y, final int width, final int height, final int horizontalGap,
+        final int y //, final int width, final int height, final int horizontalGap,
         //final int verticalGap
         ) {
         //mHeight = height - verticalGap;
@@ -212,13 +213,13 @@ public class Key implements Comparable<Key> {
         //mLabel = label;
         //mOptionalAttributes = OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED,
         //        ICON_UNDEFINED, 0 /star visualInsetsLeft star/, 0 /star visualInsetsRight star/);
-        //mCode = code;
+        mCode = code;
         //mEnabled = (code != CODE_UNSPECIFIED);
         //mIconId = iconId;
         // Horizontal gap is divided equally to both sides of the key.
         //mX = x + horizontalGap / 2;
         mX = 0; // tfr
-        //mY = y;
+        mY = y;
         //mHitBox.set(x, y, x + width + 1, y + height);
         //mKeyVisualAttributes = null;
 
@@ -516,13 +517,13 @@ public class Key implements Comparable<Key> {
             case BACKGROUND_TYPE_SPACEBAR: return "spacebar";
             default: return null;
         }
-    }
+    }*/
 
     public int getCode() {
         return mCode;
     }
 
-    public String getLabel() {
+    /*public String getLabel() {
         return mLabel;
     }
 
@@ -783,7 +784,7 @@ public class Key implements Comparable<Key> {
 
     public int getHeight() {
         return mHeight;
-    }
+    }*/
 
     public int getX() {
         return mX;
@@ -793,7 +794,7 @@ public class Key implements Comparable<Key> {
         return mY;
     }
 
-    public final int getDrawX() {
+    /*public final int getDrawX() {
         final int x = getX();
         final OptionalAttributes attrs = mOptionalAttributes;
         return (attrs == null) ? x : x + attrs.mVisualInsetsLeft;

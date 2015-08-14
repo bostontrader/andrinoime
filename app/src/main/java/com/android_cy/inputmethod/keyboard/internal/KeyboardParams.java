@@ -18,14 +18,14 @@ package com.android_cy.inputmethod.keyboard.internal;
 
 //import android.util.SparseIntArray;
 
-//import com.android.inputmethod.keyboard.Key;
+import com.android_cy.inputmethod.keyboard.Key;
 //import com.android.inputmethod.keyboard.KeyboardId;
 //import com.android.inputmethod.latin.Constants;
 
 //import java.util.ArrayList;
-//import java.util.Comparator;
-//import java.util.SortedSet;
-//import java.util.TreeSet;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class KeyboardParams {
     //public KeyboardId mId;
@@ -60,7 +60,7 @@ public class KeyboardParams {
     //public int GRID_HEIGHT;
 
     // Keys are sorted from top-left to bottom-right order.
-    //public final SortedSet<Key> mSortedKeys = new TreeSet<>(ROW_COLUMN_COMPARATOR);
+    public final SortedSet<Key> mSortedKeys = new TreeSet<>(ROW_COLUMN_COMPARATOR);
     //public final ArrayList<Key> mShiftKeys = new ArrayList<>();
     //public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
     //public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
@@ -75,10 +75,10 @@ public class KeyboardParams {
     //public boolean mProximityCharsCorrectionEnabled;
 
     //public final TouchPositionCorrection mTouchPositionCorrection =
-            //new TouchPositionCorrection();
+            //new TouchPositionCorrection();*/
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
-    /*private static final Comparator<Key> ROW_COLUMN_COMPARATOR = new Comparator<Key>() {
+    private static final Comparator<Key> ROW_COLUMN_COMPARATOR = new Comparator<Key>() {
         @Override
         public int compare(final Key lhs, final Key rhs) {
             if (lhs.getY() < rhs.getY()) return -1;
@@ -89,7 +89,7 @@ public class KeyboardParams {
         }
     };
 
-    protected void clearKeys() {
+    /*protected void clearKeys() {
         mSortedKeys.clear();
         mShiftKeys.clear();
         clearHistogram();

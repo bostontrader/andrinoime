@@ -160,26 +160,26 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     /*public void setAutoGenerate(final KeysCache keysCache) {
         mParams.mKeysCache = keysCache;
-    }
+    }*/
 
-    public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
-        mParams.mId = id;
-        final XmlResourceParser parser = mResources.getXml(xmlId);
-        try {
-            parseKeyboard(parser);
-        } catch (XmlPullParserException e) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e);
-            throw new IllegalArgumentException(e.getMessage(), e);
-        } catch (IOException e) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e);
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            parser.close();
-        }
-        return this;
-    }
+    //public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
+        //mParams.mId = id;
+        //final XmlResourceParser parser = mResources.getXml(xmlId);
+        //try {
+            //parseKeyboard(parser);
+        //} catch (XmlPullParserException e) {
+            //Log.w(BUILDER_TAG, "keyboard XML parse error", e);
+            //throw new IllegalArgumentException(e.getMessage(), e);
+        //} catch (IOException e) {
+            //Log.w(BUILDER_TAG, "keyboard XML parse error", e);
+            //throw new RuntimeException(e.getMessage(), e);
+        //} finally {
+            //parser.close();
+        //}
+        //return this;
+    //}
 
-    @UsedForTesting
+    /*@UsedForTesting
     public void disableTouchPositionCorrectionDataForTest() {
         mParams.mTouchPositionCorrection.setEnabled(false);
     }

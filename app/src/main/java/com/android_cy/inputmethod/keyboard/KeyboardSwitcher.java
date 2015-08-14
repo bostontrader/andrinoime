@@ -36,7 +36,7 @@ import com.fyrecloud.andrinoime.R;
 import com.android_cy.inputmethod.latin.LatinIME;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.RichInputMethodManager;
-//import com.android.inputmethod.latin.SubtypeSwitcher;
+import com.android_cy.inputmethod.latin.SubtypeSwitcher;
 //import com.android.inputmethod.latin.WordComposer;
 //import com.android.inputmethod.latin.settings.Settings;
 import com.android_cy.inputmethod.latin.settings.SettingsValues;
@@ -46,7 +46,7 @@ import com.android_cy.inputmethod.latin.settings.SettingsValues;
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     //private static final String TAG = KeyboardSwitcher.class.getSimpleName();
 
-    //private SubtypeSwitcher mSubtypeSwitcher;
+    private SubtypeSwitcher mSubtypeSwitcher;
     private SharedPreferences mPrefs;
 
     private InputView mCurrentInputView;
@@ -116,7 +116,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         //final int keyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res);
         //final int keyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res);
         //builder.setKeyboardGeometry(keyboardWidth, keyboardHeight);
-        //builder.setSubtype(mSubtypeSwitcher.getCurrentSubtype());
+        builder.setSubtype(mSubtypeSwitcher.getCurrentSubtype());
         //builder.setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey);
         //builder.setLanguageSwitchKeyEnabled(mLatinIME.shouldShowLanguageSwitchKey());
         mKeyboardLayoutSet = builder.build();

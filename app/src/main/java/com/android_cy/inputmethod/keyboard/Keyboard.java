@@ -16,7 +16,7 @@
 
 package com.android_cy.inputmethod.keyboard;
 
-//import android.util.SparseArray;
+import android.util.SparseArray;
 
 //import com.android.inputmethod.keyboard.internal.KeyVisualAttributes;
 //import com.android.inputmethod.keyboard.internal.KeyboardIconsSet;
@@ -24,9 +24,9 @@ import com.android_cy.inputmethod.keyboard.internal.KeyboardParams;
 //import com.android.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.utils.CoordinateUtils;
 
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Loads an XML description of a keyboard and stores the attributes of the keys. A keyboard
@@ -77,13 +77,13 @@ public class Keyboard {
     /star* Maximum column for more keys keyboard star/
     //public final int mMaxMoreKeysKeyboardColumn;
 
-    /star* List of keys in this keyboard star/
-    //private final List<Key> mSortedKeys;
+    /** List of keys in this keyboard */
+    private final List<Key> mSortedKeys;
     //public final List<Key> mShiftKeys;
     //public final List<Key> mAltCodeKeysWhileTyping;
     //public final KeyboardIconsSet mIconsSet;
 
-    //private final SparseArray<Key> mKeyCache = new SparseArray<>();
+    private final SparseArray<Key> mKeyCache = new SparseArray<>();
 
     //private final ProximityInfo mProximityInfo;
     //private final boolean mProximityCharsCorrectionEnabled;*/
@@ -103,7 +103,7 @@ public class Keyboard {
         //mTopPadding = params.mTopPadding;
         //mVerticalGap = params.mVerticalGap;
 
-        //mSortedKeys = Collections.unmodifiableList(new ArrayList<>(params.mSortedKeys));
+        mSortedKeys = Collections.unmodifiableList(new ArrayList<>(params.mSortedKeys));
         //mShiftKeys = Collections.unmodifiableList(params.mShiftKeys);
         //mAltCodeKeysWhileTyping = Collections.unmodifiableList(params.mAltCodeKeysWhileTyping);
         //mIconsSet = params.mIconsSet;
@@ -153,37 +153,37 @@ public class Keyboard {
 
     public ProximityInfo getProximityInfo() {
         return mProximityInfo;
-    }
+    }*/
 
-    /star*
+    /**
      * Return the sorted list of keys of this keyboard.
      * The keys are sorted from top-left to bottom-right order.
      * The list may contain {@link Key.Spacer} object as well.
      * @return the sorted unmodifiable list of {@link Key}s of this keyboard.
-     star/
+     */
     public List<Key> getSortedKeys() {
         return mSortedKeys;
-    }*/
+    }
 
     public Key getKey(final int code) {
         //if (code == Constants.CODE_UNSPECIFIED) {
-            return null;
+            //return null;
         //}
-        //synchronized (mKeyCache) {
+        synchronized (mKeyCache) {
             //final int index = mKeyCache.indexOfKey(code);
             //if (index >= 0) {
                 //return mKeyCache.valueAt(index);
             //}
 
-            //for (final Key key : getSortedKeys()) {
-                //if (key.getCode() == code) {
+            for (final Key key : getSortedKeys()) {
+                if (key.getCode() == code) {
                     //mKeyCache.put(code, key);
-                    //return key;
-                //}
-            //}
+                    return key;
+                }
+            }
             //mKeyCache.put(code, null);
-            //return null;
-        //}
+            return null;
+        }
     }
 
     /*public boolean hasKey(final Key aKey) {
