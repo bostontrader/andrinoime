@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.latin;
 
 //import static com.android.inputmethod.latin.Constants.Subtype.ExtraValue.REQ_NETWORK_CONNECTIVITY;
 
-//import android.content.Context;
+import android.content.Context;
 //import android.content.Intent;
 //import android.content.res.Resources;
 //import android.inputmethodservice.InputMethodService;
@@ -49,7 +49,7 @@ public final class SubtypeSwitcher {
     //private static boolean DBG = DebugFlags.DEBUG_ENABLED;
     //private static final String TAG = SubtypeSwitcher.class.getSimpleName();
 
-    //private static final SubtypeSwitcher sInstance = new SubtypeSwitcher();
+    private static final SubtypeSwitcher sInstance = new SubtypeSwitcher();
 
     private /* final */ RichInputMethodManager mRichImm;
     //private /star final star/ Resources mResources;
@@ -89,39 +89,39 @@ public final class SubtypeSwitcher {
                     SubtypeLocaleUtils.NO_LANGUAGE, KEYBOARD_MODE,
                     EXTRA_VALUE_OF_DUMMY_EMOJI_SUBTYPE,
                     false /star isAuxiliary star/, false /star overridesImplicitlyEnabledSubtype star/,
-                    SUBTYPE_ID_OF_DUMMY_EMOJI_SUBTYPE);
+                    SUBTYPE_ID_OF_DUMMY_EMOJI_SUBTYPE);*/
 
     public static SubtypeSwitcher getInstance() {
         return sInstance;
     }
 
     public static void init(final Context context) {
-        SubtypeLocaleUtils.init(context);
+        //SubtypeLocaleUtils.init(context);
         RichInputMethodManager.init(context);
         sInstance.initialize(context);
-    }*/
+    }
 
     private SubtypeSwitcher() {
         // Intentional empty constructor for singleton.
     }
 
-    /*private void initialize(final Context context) {
-        if (mResources != null) {
-            return;
-        }
-        mResources = context.getResources();
+    private void initialize(final Context context) {
+        //if (mResources != null) {
+            //return;
+        //}
+        //mResources = context.getResources();
         mRichImm = RichInputMethodManager.getInstance();
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
-                Context.CONNECTIVITY_SERVICE);
+        //ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
+                //Context.CONNECTIVITY_SERVICE);
 
-        final NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        mIsNetworkConnected = (info != null && info.isConnected());
+        //final NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        //mIsNetworkConnected = (info != null && info.isConnected());
 
-        onSubtypeChanged(getCurrentSubtype());
-        updateParametersOnStartInputView();
+        //onSubtypeChanged(getCurrentSubtype());
+        //updateParametersOnStartInputView();
     }
 
-    /star*
+    /**
      * Update parameters which are changed outside LatinIME. This parameters affect UI so that they
      * should be updated every time onStartInputView is called.
      star/

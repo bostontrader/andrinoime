@@ -534,7 +534,7 @@ public class LatinIME extends InputMethodService
         //DebugFlags.init(PreferenceManager.getDefaultSharedPreferences(this));
         //RichInputMethodManager.init(this);
         //mRichImm = RichInputMethodManager.getInstance();
-        //SubtypeSwitcher.init(this);
+        SubtypeSwitcher.init(this);
         KeyboardSwitcher.init(this);
         //AudioAndHapticFeedbackManager.init(this);
         //AccessibilityUtils.init(this);

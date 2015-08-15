@@ -19,135 +19,137 @@
 -->
 
 <resources>
+
+<!--
     <declare-styleable name="KeyboardTheme">
-        <!-- Keyboard style -->
+        <!dashdash Keyboard style dashdash>
         <attr name="keyboardStyle" format="reference" />
-        <!-- KeyboardView style -->
+        <!dashdash KeyboardView style dashdash>
         <attr name="keyboardViewStyle" format="reference" />
-        <!-- MainKeyboardView style -->
+        <!dashdash MainKeyboardView style dashdash>
         <attr name="mainKeyboardViewStyle" format="reference" />
-        <!-- EmojiPalettesView style -->
+        <!dashdash EmojiPalettesView style dashdash>
         <attr name="emojiPalettesViewStyle" format="reference" />
-        <!-- MoreKeysKeyboard style -->
+        <!dashdash MoreKeysKeyboard style dashdash>
         <attr name="moreKeysKeyboardStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style -->
+        <!dashdash MoreKeysKeyboardView style dashdash>
         <attr name="moreKeysKeyboardViewStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style for action key -->
+        <!dashdash MoreKeysKeyboardView style for action key dashdash>
         <attr name="moreKeysKeyboardViewForActionStyle" format="reference" />
-        <!-- Suggestions strip style -->
+        <!dashdash Suggestions strip style dashdash>
         <attr name="suggestionStripViewStyle" format="reference" />
-        <!-- Suggestion word style -->
+        <!dashdash Suggestion word style dashdash>
         <attr name="suggestionWordStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="KeyboardView">
-        <!-- Background image for the key. This image needs to be a {@link StateListDrawable},
+        <!dashdash Background image for the key. This image needs to be a {@link StateListDrawable},
              with the following possible states: normal, pressed, checkable, checkable+pressed,
-             checkable+checked, checkable+checked+pressed. -->
+             checkable+checked, checkable+checked+pressed. dashdash>
         <attr name="keyBackground" format="reference" />
-        <!-- Background image for the functional key. This image needs to be a
-             {@link StateListDrawable}, with the following possible states: normal, pressed. -->
+        <!dashdash Background image for the functional key. This image needs to be a
+             {@link StateListDrawable}, with the following possible states: normal, pressed. dashdash>
         <attr name="functionalKeyBackground" format="reference" />
-        <!-- Background image for the spacebar.  This image needs to be a
-             {@link StateListDrawable}, with the following possible states: normal, pressed. -->
+        <!dashdash Background image for the spacebar.  This image needs to be a
+             {@link StateListDrawable}, with the following possible states: normal, pressed. dashdash>
         <attr name="spacebarBackground" format="reference" />
         <attr name="spacebarIconWidthRatio" format="float" />
-        <!-- Right padding of hint letter to the edge of the key.-->
+        <!dashdash Right padding of hint letter to the edge of the key.dashdash>
         <attr name="keyHintLetterPadding" format="dimension" />
-        <!-- Popup hint letter string-->
+        <!dashdash Popup hint letter stringdashdash>
         <attr name="keyPopupHintLetter" format="string" />
-        <!-- Bottom padding of popup hint letter to the edge of the key.-->
+        <!dashdash Bottom padding of popup hint letter to the edge of the key.dashdash>
         <attr name="keyPopupHintLetterPadding" format="dimension" />
-        <!-- Right padding of shifted letter hint to the edge of the key.-->
+        <!dashdash Right padding of shifted letter hint to the edge of the key.dashdash>
         <attr name="keyShiftedLetterHintPadding" format="dimension" />
-        <!-- Blur radius of key text shadow. -->
+        <!dashdash Blur radius of key text shadow. dashdash>
         <attr name="keyTextShadowRadius" format="float" />
 
-        <!-- Key preview background states -->
+        <!dashdash Key preview background states dashdash>
         <attr name="state_left_edge" format="boolean" />
         <attr name="state_right_edge" format="boolean" />
         <attr name="state_has_morekeys" format="boolean" />
 
-        <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
+        <!dashdash Amount to offset the touch Y coordinate by, for bias correction. dashdash>
         <attr name="verticalCorrection" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="MainKeyboardView">
-        <!-- Size of the text for spacebar language label, in the proportion of key height. -->
+        <!dashdash Size of the text for spacebar language label, in the proportion of key height. dashdash>
         <attr name="languageOnSpacebarTextRatio" format="fraction" />
         <attr name="languageOnSpacebarTextColor" format="color" />
         <attr name="languageOnSpacebarTextShadowRadius" format="float" />
         <attr name="languageOnSpacebarTextShadowColor" format="color" />
-        <!-- Fadeout animator for spacebar language label. -->
+        <!dashdash Fadeout animator for spacebar language label. dashdash>
         <attr name="languageOnSpacebarFinalAlpha" format="integer" />
         <attr name="languageOnSpacebarFadeoutAnimator" format="reference" />
-        <!-- Fadeout and fadein animator for altCodeWhileTyping keys. -->
+        <!dashdash Fadeout and fadein animator for altCodeWhileTyping keys. dashdash>
         <attr name="altCodeKeyWhileTypingFadeoutAnimator" format="reference" />
         <attr name="altCodeKeyWhileTypingFadeinAnimator" format="reference" />
-        <!-- Key detection hysteresis distance. -->
+        <!dashdash Key detection hysteresis distance. dashdash>
         <attr name="keyHysteresisDistance" format="dimension" />
-        <!-- Key detection hysteresis distance for shift/symbols sliding input. -->
+        <!dashdash Key detection hysteresis distance for shift/symbols sliding input. dashdash>
         <attr name="keyHysteresisDistanceForSlidingModifier" format="dimension" />
-        <!-- Touch noise threshold time in millisecond -->
+        <!dashdash Touch noise threshold time in millisecond dashdash>
         <attr name="touchNoiseThresholdTime" format="integer" />
-        <!-- Touch noise threshold distance in millimeter -->
+        <!dashdash Touch noise threshold distance in millimeter dashdash>
         <attr name="touchNoiseThresholdDistance" format="dimension" />
-        <!-- Enable key selection by dragging finger -->
+        <!dashdash Enable key selection by dragging finger dashdash>
         <attr name="keySelectionByDraggingFinger" format="boolean" />
         <attr name="slidingKeyInputPreviewColor" format="color" />
         <attr name="slidingKeyInputPreviewWidth" format="dimension" />
         <attr name="slidingKeyInputPreviewBodyRatio" format="integer" />
         <attr name="slidingKeyInputPreviewShadowRatio" format="integer" />
-        <!-- Key repeat start timeout -->
+        <!dashdash Key repeat start timeout dashdash>
         <attr name="keyRepeatStartTimeout" format="integer" />
-        <!-- Key repeat interval in millisecond. -->
+        <!dashdash Key repeat interval in millisecond. dashdash>
         <attr name="keyRepeatInterval" format="integer" />
-        <!-- Long press timeout of shift key to shift lock in millisecond. -->
+        <!dashdash Long press timeout of shift key to shift lock in millisecond. dashdash>
         <attr name="longPressShiftLockTimeout" format="integer" />
-        <!-- Ignore special key timeout while typing in millisecond. -->
+        <!dashdash Ignore special key timeout while typing in millisecond. dashdash>
         <attr name="ignoreAltCodeKeyTimeout" format="integer" />
-        <!-- Background resource for key press feedback.-->
+        <!dashdash Background resource for key press feedback.dashdash>
         <attr name="keyPreviewBackground" format="reference" />
-        <!-- Vertical offset of the key press feedback from the key. -->
+        <!dashdash Vertical offset of the key press feedback from the key. dashdash>
         <attr name="keyPreviewOffset" format="dimension" />
-        <!-- Height of the key press feedback popup. -->
+        <!dashdash Height of the key press feedback popup. dashdash>
         <attr name="keyPreviewHeight" format="dimension" />
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <!-- Delay after key releasing and key press feedback dismissing in millisecond -->
+        <!dashdash TODO: consolidate key preview linger timeout with the key preview animation parameters. dashdash>
+        <!dashdash Delay after key releasing and key press feedback dismissing in millisecond dashdash>
         <attr name="keyPreviewLingerTimeout" format="integer" />
-        <!-- Key preview show up animator -->
+        <!dashdash Key preview show up animator dashdash>
         <attr name="keyPreviewShowUpAnimator" format="reference" />
-        <!-- Key preview dismiss animator -->
+        <!dashdash Key preview dismiss animator dashdash>
         <attr name="keyPreviewDismissAnimator" format="reference" />
-        <!-- Layout resource for more keys keyboard -->
+        <!dashdash Layout resource for more keys keyboard dashdash>
         <attr name="moreKeysKeyboardLayout" format="reference" />
-        <!-- Layout resource for more keys keyboard of action key -->
+        <!dashdash Layout resource for more keys keyboard of action key dashdash>
         <attr name="moreKeysKeyboardForActionLayout" format="reference" />
         <attr name="backgroundDimAlpha" format="integer" />
-        <!-- More keys keyboard will shown at touched point. -->
+        <!dashdash More keys keyboard will shown at touched point. dashdash>
         <attr name="showMoreKeysKeyboardAtTouchedPoint" format="boolean" />
-        <!-- Minimum distance between gesture trail sampling points. -->
+        <!dashdash Minimum distance between gesture trail sampling points. dashdash>
         <attr name="gestureTrailMinSamplingDistance" format="dimension" />
-        <!-- Maximum angular threshold between gesture trail interpolation segments in degree. -->
+        <!dashdash Maximum angular threshold between gesture trail interpolation segments in degree. dashdash>
         <attr name="gestureTrailMaxInterpolationAngularThreshold" format="integer" />
-        <!-- Maximum distance threshold between gesture trail interpolation segments. -->
+        <!dashdash Maximum distance threshold between gesture trail interpolation segments. dashdash>
         <attr name="gestureTrailMaxInterpolationDistanceThreshold" format="dimension" />
-        <!-- Maximum number of gesture trail interpolation segments. -->
+        <!dashdash Maximum number of gesture trail interpolation segments. dashdash>
         <attr name="gestureTrailMaxInterpolationSegments" format="integer" />
-        <!-- Delay after gesture trail starts fading out in millisecond. -->
+        <!dashdash Delay after gesture trail starts fading out in millisecond. dashdash>
         <attr name="gestureTrailFadeoutStartDelay" format="integer" />
-        <!-- Duration while gesture trail is fading out in millisecond. -->
+        <!dashdash Duration while gesture trail is fading out in millisecond. dashdash>
         <attr name="gestureTrailFadeoutDuration" format="integer" />
-        <!-- Interval of updating gesture trail in millisecond. -->
+        <!dashdash Interval of updating gesture trail in millisecond. dashdash>
         <attr name="gestureTrailUpdateInterval" format="integer" />
         <attr name="gestureTrailColor" format="color" />
         <attr name="gestureTrailStartWidth" format="dimension" />
         <attr name="gestureTrailEndWidth" format="dimension" />
         <attr name="gestureTrailBodyRatio" format="integer" />
         <attr name="gestureTrailShadowRatio" format="integer" />
-        <!-- Delay after gesture input and gesture floating preview text dismissing in millisecond -->
+        <!dashdash Delay after gesture input and gesture floating preview text dismissing in millisecond dashdash>
         <attr name="gestureFloatingPreviewTextLingerTimeout" format="integer" />
-        <!-- Attributes for GestureFloatingPreviewText -->
+        <!dashdash Attributes for GestureFloatingPreviewText dashdash>
         <attr name="gestureFloatingPreviewTextSize" format="dimension" />
         <attr name="gestureFloatingPreviewTextColor" format="color" />
         <attr name="gestureFloatingPreviewTextOffset" format="dimension" />
@@ -155,25 +157,25 @@
         <attr name="gestureFloatingPreviewHorizontalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewVerticalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewRoundRadius" format="dimension" />
-        <!-- Static threshold for gesture after fast typing (msec) -->
+        <!dashdash Static threshold for gesture after fast typing (msec) dashdash>
         <attr name="gestureStaticTimeThresholdAfterFastTyping" format="integer" />
-        <!-- Static threshold for starting gesture detection (keyWidth%/sec) -->
+        <!dashdash Static threshold for starting gesture detection (keyWidth%/sec) dashdash>
         <attr name="gestureDetectFastMoveSpeedThreshold" format="fraction" />
-        <!-- Dynamic threshold for gesture after fast typing (msec) -->
+        <!dashdash Dynamic threshold for gesture after fast typing (msec) dashdash>
         <attr name="gestureDynamicThresholdDecayDuration" format="integer" />
-        <!-- Time based threshold values for gesture detection (msec) -->
+        <!dashdash Time based threshold values for gesture detection (msec) dashdash>
         <attr name="gestureDynamicTimeThresholdFrom" format="integer" />
         <attr name="gestureDynamicTimeThresholdTo" format="integer" />
-        <!-- Distance based threshold values for gesture detection (keyWidth%/sec) -->
+        <!dashdash Distance based threshold values for gesture detection (keyWidth%/sec) dashdash>
         <attr name="gestureDynamicDistanceThresholdFrom" format="fraction" />
         <attr name="gestureDynamicDistanceThresholdTo" format="fraction" />
-        <!-- Parameter for gesture sampling (keyWidth%/sec) -->
+        <!dashdash Parameter for gesture sampling (keyWidth%/sec) dashdash>
         <attr name="gestureSamplingMinimumDistance" format="fraction" />
-        <!-- Parameters for gesture recognition (msec) and (keyWidth%/sec) -->
+        <!dashdash Parameters for gesture recognition (msec) and (keyWidth%/sec) dashdash>
         <attr name="gestureRecognitionMinimumTime" format="integer" />
         <attr name="gestureRecognitionUpdateTime" format="integer" />
         <attr name="gestureRecognitionSpeedThreshold" format="fraction" />
-        <!-- Suppress showing key preview duration after batch input in millisecond -->
+        <!dashdash Suppress showing key preview duration after batch input in millisecond dashdash>
         <attr name="suppressKeyPreviewAfterBatchInputDuration" format="integer" />
     </declare-styleable>
 
@@ -198,7 +200,7 @@
 
     <declare-styleable name="SuggestionStripView">
         <attr name="suggestionStripOptions" format="integer">
-            <!-- This should be aligned with SuggestionStripLayoutHelper.AUTO_CORRECT_* and etc. -->
+            <!dashdash This should be aligned with SuggestionStripLayoutHelper.AUTO_CORRECT_* and etc. dashdash>
             <flag name="autoCorrectBold" value="0x01" />
             <flag name="autoCorrectUnderline" value="0x02" />
             <flag name="validTypedWordBold" value="0x04" />
@@ -216,30 +218,30 @@
 
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
-            <!-- This should be aligned with KeyboardTheme.THEME_ID_*. -->
+            <!dashdash This should be aligned with KeyboardTheme.THEME_ID_*. dashdash>
             <enum name="ICS" value="0" />
             <enum name="KLP" value="2" />
             <enum name="LXXLight" value="3" />
             <enum name="LXXDark" value="4" />
         </attr>
-        <!-- Touch position correction -->
+        <!dashdash Touch position correction dashdash>
         <attr name="touchPositionCorrectionData" format="reference" />
-        <!-- Keyboard top, bottom, left, right edges paddings, in propotion of keyboard height. -->
+        <!dashdash Keyboard top, bottom, left, right edges paddings, in propotion of keyboard height. dashdash>
         <attr name="keyboardTopPadding" format="fraction" />
         <attr name="keyboardBottomPadding" format="fraction" />
         <attr name="keyboardLeftPadding" format="fraction" />
         <attr name="keyboardRightPadding" format="fraction" />
-        <!-- Default height of a row (key height + vertical gap), in pixels or in the proportion of
-             keyboard height. -->
+        <!dashdash Default height of a row (key height + vertical gap), in pixels or in the proportion of
+             keyboard height. dashdash>
         <attr name="rowHeight" format="dimension|fraction" />
-        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
+        <!dashdash Default horizontal gap between keys, in the proportion of keyboard width. dashdash>
         <attr name="horizontalGap" format="fraction" />
-        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
+        <!dashdash Default vertical gap between rows of keys, in the proportion of keyboard height. dashdash>
         <attr name="verticalGap" format="fraction" />
-        <!-- More keys keyboard layout template -->
+        <!dashdash More keys keyboard layout template dashdash>
         <attr name="moreKeysTemplate" format="reference" />
-        <!-- Icon set for key top and key preview.
-             These should be aligned with KeyboardIconsSet.NAMES_AND_ATTR_IDS[] -->
+        <!dashdash Icon set for key top and key preview.
+             These should be aligned with KeyboardIconsSet.NAMES_AND_ATTR_IDS[] dashdash>
         <attr name="iconShiftKey" format="reference" />
         <attr name="iconDeleteKey" format="reference" />
         <attr name="iconSettingsKey" format="reference" />
@@ -267,25 +269,27 @@
     <declare-styleable name="Keyboard_GridRows">
         <attr name="codesArray" format="reference" />
         <attr name="textsArray" format="reference" />
-    </declare-styleable>
+    </declare-styleable> -->
 
     <declare-styleable name="Keyboard_Key">
-        <!-- The alternate unicode value that this key outputs while typing.
+<!--
+        <!dashdash The alternate unicode value that this key outputs while typing.
              Code value represented in hexadecimal prefixed with "0x" or code value reference using
-             "!code/<code_name>" notation. -->
-        <attr name="altCode" format="string" />
+             "!code/<code_name>" notation. dashdash>
+        <attr name="altCode" format="string" /> -->
         <!-- The keys to display in the more keys keyboard. -->
         <attr name="moreKeys" format="string" />
+
         <!-- The keys to display in the more keys keyboard in addition to moreKeys.
              The additional more keys are inserted at the '%' markers in the moreKeys if any.
              They are inserted at the head of moreKeys if none.
              If there are remaining entries of additionalMoreKeys even after all '%' markers have
              been replaced, those remaining entries are appended at the end of moreKeys. -->
         <attr name="additionalMoreKeys" format="string" />
-        <!-- Maximum column of more keys keyboard -->
+<!--        <!dashdash Maximum column of more keys keyboard dashdash>
         <attr name="maxMoreKeysColumn" format="integer" />
         <attr name="backgroundType" format="enum">
-            <!-- This should be aligned with Key.BACKGROUND_TYPE_* -->
+            <!dashdash This should be aligned with Key.BACKGROUND_TYPE_* dashdash>
             <enum name="empty" value="0" />
             <enum name="normal" value="1" />
             <enum name="functional" value="2" />
@@ -294,23 +298,23 @@
             <enum name="action" value="5" />
             <enum name="spacebar" value="6" />
         </attr>
-        <!-- The key action flags. -->
+        <!dashdash The key action flags. dashdash>
         <attr name="keyActionFlags" format="integer">
-            <!-- This should be aligned with Key.ACTION_FLAGS_* -->
+            <!dashdash This should be aligned with Key.ACTION_FLAGS_* dashdash>
             <flag name="isRepeatable" value="0x01" />
             <flag name="noKeyPreview" value="0x02" />
             <flag name="altCodeWhileTyping" value="0x04" />
             <flag name="enableLongPress" value="0x08" />
-        </attr>
+        </attr> -->
         <!-- The label, icon to display on the key. And code, outputText of the key. -->
         <attr name="keySpec" format="string" />
         <!-- The hint label to display on the key in conjunction with the label. -->
         <attr name="keyHintLabel" format="string" />
-        <!-- The vertical adjustment of key hint label in proportion to its height. -->
+<!--        <!dashdash The vertical adjustment of key hint label in proportion to its height. dashdash>
         <attr name="keyHintLabelVerticalAdjustment" format="fraction" />
-        <!-- The key label flags. -->
+        <!dashdash The key label flags. dashdash>
         <attr name="keyLabelFlags" format="integer">
-            <!-- This should be aligned with Key.LABEL_FLAGS__* -->
+            <!dashdash This should be aligned with Key.LABEL_FLAGS__* dashdash>
             <flag name="alignHintLabelToBottom" value="0x02" />
             <flag name="alignIconToBottom" value="0x04" />
             <flag name="alignLabelOffCenter" value="0x08" />
@@ -325,105 +329,105 @@
             <flag name="hasShiftedLetterHint" value="0x400" />
             <flag name="hasHintLabel" value="0x800" />
             <flag name="autoXScale" value="0x4000" />
-            <!-- The autoScale value implies autoXScale bit on to optimize scaling code path. -->
+            <!dashdash The autoScale value implies autoXScale bit on to optimize scaling code path. dashdash>
             <flag name="autoScale" value="0xc000" />
-            <!-- If true, character case of code, altCode, moreKeys, keyOutputText, keyLabel,
-                 or keyHintLabel will never be subject to change. -->
+            <!dashdash If true, character case of code, altCode, moreKeys, keyOutputText, keyLabel,
+                 or keyHintLabel will never be subject to change. dashdash>
             <flag name="preserveCase" value="0x10000" />
-            <!-- If true, use keyShiftedLetterHintActivatedColor for the shifted letter hint and
-                 keyTextInactivatedColor for the primary key top label. -->
+            <!dashdash If true, use keyShiftedLetterHintActivatedColor for the shifted letter hint and
+                 keyTextInactivatedColor for the primary key top label. dashdash>
             <flag name="shiftedLetterActivated" value="0x20000" />
-            <!-- If true, use EditorInfo.actionLabel for the key label. -->
+            <!dashdash If true, use EditorInfo.actionLabel for the key label. dashdash>
             <flag name="fromCustomActionLabel" value="0x40000" />
-            <!-- If true, use functionalTextColor instead of ketTextColor to drawing the label on
-                 the key -->
+            <!dashdash If true, use functionalTextColor instead of ketTextColor to drawing the label on
+                 the key dashdash>
             <flag name="followFunctionalTextColor" value="0x80000" />
-            <!-- Keep aspect ratio of key background. -->
+            <!dashdash Keep aspect ratio of key background. dashdash>
             <flag name="keepBackgroundAspectRatio" value="0x100000" />
-            <!-- If true, disable keyHintLabel. -->
+            <!dashdash If true, disable keyHintLabel. dashdash>
             <flag name="disableKeyHintLabel" value="0x40000000" />
-            <!-- If true, disable additionalMoreKeys. -->
+            <!dashdash If true, disable additionalMoreKeys. dashdash>
             <flag name="disableAdditionalMoreKeys" value="0x80000000" />
         </attr>
-        <!-- The icon for disabled key -->
+        <!dashdash The icon for disabled key dashdash>
         <attr name="keyIconDisabled" format="string" />
-        <!-- The key style to specify a set of key attributes defined by <key_style/> -->
+        <!dashdash The key style to specify a set of key attributes defined by <key_style/> dashdash>
         <attr name="keyStyle" format="string" />
-        <!-- Visual insets, in the proportion of keyboard width. -->
+        <!dashdash Visual insets, in the proportion of keyboard width. dashdash>
         <attr name="visualInsetsLeft" format="fraction" />
         <attr name="visualInsetsRight" format="fraction" />
-        <!-- Width of the key, in the proportion of keyboard width.
+        <!dashdash Width of the key, in the proportion of keyboard width.
              If the value is fillRight, the actual key width will be determined to fill out the
-             area up to the right edge of the keyboard. -->
-        <!-- This should be aligned with KeyboardBuilder.Row.KEYWIDTH_* -->
+             area up to the right edge of the keyboard. dashdash>
+        <!dashdash This should be aligned with KeyboardBuilder.Row.KEYWIDTH_* dashdash> -->
         <attr name="keyWidth" format="fraction|enum">
             <enum name="fillRight" value="-1" />
         </attr>
         <!-- The X-coordinate of upper right corner of this key including horizontal gap, in the
              proportion of keyboard width.
-             If the value is negative, the origin is the right edge of the keyboard. -->
+             If the value is negative, the origin is the right edge of the keyboard. dashdash>
         <attr name="keyXPos" format="fraction" />
 
-        <!-- Key top visual attributes -->
+        <!dashdash Key top visual attributes dashdash>
         <attr name="keyTypeface" format="enum">
-            <!-- This should be aligned with Typeface.NORMAL etc. -->
+            <!dashdash This should be aligned with Typeface.NORMAL etc. dashdash>
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />
             <enum name="italic" value="2" />
             <enum name="boldItalic" value="3" />
         </attr>
-        <!-- Size of the text for one letter keys. If specified as fraction, the text size is
-             measured in the proportion of key height. -->
+        <!dashdash Size of the text for one letter keys. If specified as fraction, the text size is
+             measured in the proportion of key height. dashdash>
         <attr name="keyLetterSize" format="dimension|fraction" />
-        <!-- Size of the text for keys with multiple letters. If specified as fraction, the text
-             size is measured in the proportion of key height. -->
+        <!dashdash Size of the text for keys with multiple letters. If specified as fraction, the text
+             size is measured in the proportion of key height. dashdash>
         <attr name="keyLabelSize" format="dimension|fraction" />
-        <!-- Large size of the text for one letter keys, in the proportion of key height. -->
+        <!dashdash Large size of the text for one letter keys, in the proportion of key height. dashdash>
         <attr name="keyLargeLetterRatio" format="fraction" />
-        <!-- Size of the text for hint letter (= one character hint label), in the proportion of
-             key height. -->
+        <!dashdash Size of the text for hint letter (= one character hint label), in the proportion of
+             key height. dashdash>
         <attr name="keyHintLetterRatio" format="fraction" />
-        <!-- Size of the text for hint label, in the proportion of key height. -->
+        <!dashdash Size of the text for hint label, in the proportion of key height. dashdash>
         <attr name="keyHintLabelRatio" format="fraction" />
-        <!-- Size of the text for shifted letter hint, in the proportion of key height. -->
+        <!dashdash Size of the text for shifted letter hint, in the proportion of key height. dashdash>
         <attr name="keyShiftedLetterHintRatio" format="fraction" />
-        <!-- The label's horizontal offset to the center of the key. Negative is to left and
+        <!dashdash The label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             TypefaceUtils.KEY_LABEL_REFERENCE_CHAR. -->
+             TypefaceUtils.KEY_LABEL_REFERENCE_CHAR. dashdash>
         <attr name="keyLabelOffCenterRatio" format="fraction" />
-        <!-- The hint label's horizontal offset to the center of the key. Negative is to left and
+        <!dashdash The hint label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             TypefaceUtils.KEY_LABEL_REFERENCE_CHAR. -->
+             TypefaceUtils.KEY_LABEL_REFERENCE_CHAR. dashdash>
         <attr name="keyHintLabelOffCenterRatio" format="fraction" />
-        <!-- Color to use for the label in a key. -->
+        <!dashdash Color to use for the label in a key. dashdash>
         <attr name="keyTextColor" format="color" />
         <attr name="keyTextShadowColor" format="color" />
-        <!-- Color to use for the label in a key when in inactivated state. -->
+        <!dashdash Color to use for the label in a key when in inactivated state. dashdash>
         <attr name="keyTextInactivatedColor" format="color" />
-        <!-- Color to use for the label in a key that has followFunctionalTextColor keyLabelFlags. -->
+        <!dashdash Color to use for the label in a key that has followFunctionalTextColor keyLabelFlags. dashdash>
         <attr name="functionalTextColor" format="color" />
-        <!-- Key hint letter (= one character hint label) color -->
+        <!dashdash Key hint letter (= one character hint label) color dashdash>
         <attr name="keyHintLetterColor" format="color" />
-        <!-- Key hint label color -->
+        <!dashdash Key hint label color dashdash>
         <attr name="keyHintLabelColor" format="color" />
-        <!-- Shifted letter hint colors -->
+        <!dashdash Shifted letter hint colors dashdash>
         <attr name="keyShiftedLetterHintInactivatedColor" format="color" />
         <attr name="keyShiftedLetterHintActivatedColor" format="color" />
 
-        <!-- Key preview visual parameters -->
-        <!-- The text color for key press feedback. -->
+        <!dashdash Key preview visual parameters dashdash>
+        <!dashdash The text color for key press feedback. dashdash>
         <attr name="keyPreviewTextColor" format="color" />
-        <!-- Size of the text for key press feedback popup, in the proportion of key height. -->
-        <attr name="keyPreviewTextRatio" format="fraction" />
+        <!dashdash Size of the text for key press feedback popup, in the proportion of key height. dashdash>
+        <attr name="keyPreviewTextRatio" format="fraction" /> -->
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Include">
         <attr name="keyboardLayout" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="Keyboard_Case">
+<!--    <declare-styleable name="Keyboard_Case">
         <attr name="keyboardLayoutSet" format="string" />
-        <!-- This should be aligned with KeyboardLayoutSet_Element's elementName. -->
+        <!dashdash This should be aligned with KeyboardLayoutSet_Element's elementName. dashdash>
         <attr name="keyboardLayoutSetElement" format="enum|string">
             <enum name="alphabet" value="0" />
             <enum name="alphabetManualShifted" value="1" />
@@ -443,14 +447,14 @@
             <enum name="emojiCategory5" value="15" />
             <enum name="emojiCategory6" value="16" />
         </attr>
-        <!-- This should be aligned with Keyboard.themeId and KeyboardTheme.THEME_ID_* -->
+        <!dashdash This should be aligned with Keyboard.themeId and KeyboardTheme.THEME_ID_* dashdash>
         <attr name="keyboardTheme" format="enum|string">
             <enum name="ICS" value="0" />
             <enum name="KLP" value="2" />
             <enum name="LXXLight" value="3" />
             <enum name="LXXDark" value="4" />
         </attr>
-        <!-- This should be aligned with KeyboardId.MODE_* -->
+        <!dashdash This should be aligned with KeyboardId.MODE_* dashdash>
         <attr name="mode" format="enum|string">
             <enum name="text" value="0" />
             <enum name="url" value="1" />
@@ -467,7 +471,7 @@
         <attr name="languageSwitchKeyEnabled" format="boolean" />
         <attr name="isMultiLine" format="boolean" />
         <attr name="imeAction" format="enum">
-            <!-- This should be aligned with EditorInfo.IME_ACTION_* -->
+            <!dashdash This should be aligned with EditorInfo.IME_ACTION_* dashdash>
             <enum name="actionUnspecified" value="0" />
             <enum name="actionNone" value="1" />
             <enum name="actionGo" value="2" />
@@ -476,7 +480,7 @@
             <enum name="actionNext" value="5" />
             <enum name="actionDone" value="6" />
             <enum name="actionPrevious" value="7" />
-            <!--  This should be aligned with KeyboardId.IME_ACTION_* -->
+            <!dashdash  This should be aligned with KeyboardId.IME_ACTION_* dashdash>
             <enum name="actionCustomLabel" value="0x100" />
         </attr>
         <attr name="isIconDefined" format="string" />
@@ -488,7 +492,7 @@
     <declare-styleable name="Keyboard_KeyStyle">
         <attr name="styleName" format="string" />
         <attr name="parentStyle" format="string" />
-    </declare-styleable>
+    </declare-styleable> -->
 
     <declare-styleable name="KeyboardLayoutSet_Element">
         <!-- This should be aligned with KeyboardId.ELEMENT_* -->
@@ -516,6 +520,7 @@
         <attr name="enableProximityCharsCorrection" format="boolean" />
     </declare-styleable>
 
+
     <declare-styleable name="KeyboardLayoutSet_Feature">
         <!-- This should be aligned with ScriptUtils.SCRIPT_* -->
         <attr name="supportedScript" format="enum">
@@ -540,9 +545,9 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="SeekBarDialogPreference">
+<!--    <declare-styleable name="SeekBarDialogPreference">
         <attr name="maxValue" format="integer" />
         <attr name="minValue" format="integer" />
         <attr name="stepValue" format="integer" />
-    </declare-styleable>
+    </declare-styleable>-->
 </resources>

@@ -83,7 +83,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private void initInternal(final LatinIME latinIme, final SharedPreferences prefs) {
         mLatinIME = latinIme;
         mPrefs = prefs;
-        //mSubtypeSwitcher = SubtypeSwitcher.getInstance();
+        mSubtypeSwitcher = SubtypeSwitcher.getInstance();
         mState = new KeyboardState(this);
         //mIsHardwareAcceleratedDrawingEnabled =
             //InputMethodServiceCompatUtils.enableHardwareAcceleration(mLatinIME);

@@ -41,7 +41,7 @@ public class KeyboardParams {
     //public int mBaseHeight;
     //public int mBaseWidth;
 
-    //public int mTopPadding;
+    public int mTopPadding;
     //public int mBottomPadding;
     //public int mLeftPadding;
     //public int mRightPadding;
@@ -65,9 +65,9 @@ public class KeyboardParams {
     //public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
     //public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
     //public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
-    //public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
+    public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
 
-    //public KeysCache mKeysCache;
+    public KeysCache mKeysCache;
 
     //public int mMostCommonKeyHeight = 0;
     //public int mMostCommonKeyWidth = 0;
@@ -93,29 +93,29 @@ public class KeyboardParams {
         mSortedKeys.clear();
         mShiftKeys.clear();
         clearHistogram();
-    }
+    }*/
 
     public void onAddKey(final Key newKey) {
         final Key key = (mKeysCache != null) ? mKeysCache.get(newKey) : newKey;
-        final boolean isSpacer = key.isSpacer();
-        if (isSpacer && key.getWidth() == 0) {
+        //final boolean isSpacer = key.isSpacer();
+        //if (isSpacer && key.getWidth() == 0) {
             // Ignore zero width {@link Spacer}.
-            return;
-        }
+            //return;
+        //}
         mSortedKeys.add(key);
-        if (isSpacer) {
-            return;
-        }
-        updateHistogram(key);
-        if (key.getCode() == Constants.CODE_SHIFT) {
-            mShiftKeys.add(key);
-        }
-        if (key.altCodeWhileTyping()) {
-            mAltCodeKeysWhileTyping.add(key);
-        }
+        //if (isSpacer) {
+            //return;
+        //}
+        //updateHistogram(key);
+        //if (key.getCode() == Constants.CODE_SHIFT) {
+            //mShiftKeys.add(key);
+        //}
+        //if (key.altCodeWhileTyping()) {
+            //mAltCodeKeysWhileTyping.add(key);
+        //}
     }
 
-    private int mMaxHeightCount = 0;
+    /*private int mMaxHeightCount = 0;
     private int mMaxWidthCount = 0;
     private final SparseIntArray mHeightHistogram = new SparseIntArray();
     private final SparseIntArray mWidthHistogram = new SparseIntArray();

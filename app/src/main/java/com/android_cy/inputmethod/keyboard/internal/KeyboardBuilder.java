@@ -17,33 +17,34 @@
 package com.android_cy.inputmethod.keyboard.internal;
 
 import android.content.Context;
-//import android.content.res.Resources;
-//import android.content.res.TypedArray;
-//import android.content.res.XmlResourceParser;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 //import android.os.Build;
-//import android.text.TextUtils;
-//import android.util.AttributeSet;
+import android.text.TextUtils;
+import android.util.AttributeSet;
 //import android.util.Log;
 //import android.util.TypedValue;
-//import android.util.Xml;
+import android.util.Xml;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
-//import com.android.inputmethod.keyboard.Key;
+import com.android_cy.inputmethod.keyboard.Key;
 import com.android_cy.inputmethod.keyboard.Keyboard;
-//import com.android.inputmethod.keyboard.KeyboardId;
+import com.android_cy.inputmethod.keyboard.KeyboardId;
 //import com.android.inputmethod.keyboard.KeyboardTheme;
 //import com.android.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.utils.ResourceUtils;
 //import com.android.inputmethod.latin.utils.StringUtils;
 //import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
-//import com.android.inputmethod.latin.utils.XmlParseUtils;
+import com.android_cy.inputmethod.latin.utils.XmlParseUtils;
+import com.fyrecloud.andrinoime.R;
 //import com.android.inputmethod.latin.utils.XmlParseUtils.ParseException;
 
-//import org.xmlpull.v1.XmlPullParser;
-//import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-//import java.io.IOException;
+import java.io.IOException;
 //import java.util.Arrays;
 
 /**
@@ -122,35 +123,35 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
     //private static final boolean DEBUG = false;
 
     // Keyboard XML Tags
-    //private static final String TAG_KEYBOARD = "Keyboard";
-    //private static final String TAG_ROW = "Row";
+    private static final String TAG_KEYBOARD = "Keyboard";
+    private static final String TAG_ROW = "Row";
     //private static final String TAG_GRID_ROWS = "GridRows";
-    //private static final String TAG_KEY = "Key";
+    private static final String TAG_KEY = "Key";
     //private static final String TAG_SPACER = "Spacer";
-    //private static final String TAG_INCLUDE = "include";
-    //private static final String TAG_MERGE = "merge";
+    private static final String TAG_INCLUDE = "include";
+    private static final String TAG_MERGE = "merge";
     //private static final String TAG_SWITCH = "switch";
-    //private static final String TAG_CASE = "case";
-    //private static final String TAG_DEFAULT = "default";
+    private static final String TAG_CASE = "case";
+    private static final String TAG_DEFAULT = "default";
     //public static final String TAG_KEY_STYLE = "key-style";
 
     //private static final int DEFAULT_KEYBOARD_COLUMNS = 10;
     //private static final int DEFAULT_KEYBOARD_ROWS = 4;
 
     protected final KP mParams;
-    //protected final Context mContext;
-    //protected final Resources mResources;
+    protected final Context mContext;
+    protected final Resources mResources;
 
-    //private int mCurrentY = 0;
+    private int mCurrentY = 0;
     //private KeyboardRow mCurrentRow = null;
     //private boolean mLeftEdge;
-    //private boolean mTopEdge;
+    private boolean mTopEdge;
     //private Key mRightEdgeKey = null;
 
     public KeyboardBuilder(final Context context, final KP params) {
-        //mContext = context;
-        //final Resources res = context.getResources();
-        //mResources = res;
+        mContext = context;
+        final Resources res = context.getResources();
+        mResources = res;
 
         mParams = params;
 
@@ -162,22 +163,22 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         mParams.mKeysCache = keysCache;
     }*/
 
-    //public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
+    public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
         //mParams.mId = id;
-        //final XmlResourceParser parser = mResources.getXml(xmlId);
-        //try {
-            //parseKeyboard(parser);
-        //} catch (XmlPullParserException e) {
+        final XmlResourceParser parser = mResources.getXml(xmlId);
+        try {
+            parseKeyboard(parser);
+        } catch (XmlPullParserException e) {
             //Log.w(BUILDER_TAG, "keyboard XML parse error", e);
-            //throw new IllegalArgumentException(e.getMessage(), e);
-        //} catch (IOException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
+        } catch (IOException e) {
             //Log.w(BUILDER_TAG, "keyboard XML parse error", e);
-            //throw new RuntimeException(e.getMessage(), e);
-        //} finally {
-            //parser.close();
-        //}
-        //return this;
-    //}
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            parser.close();
+        }
+        return this;
+    }
 
     /*@UsedForTesting
     public void disableTouchPositionCorrectionDataForTest() {
@@ -210,11 +211,11 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
     private void startEndTag(final String format, final Object ... args) {
         Log.d(BUILDER_TAG, String.format(spaces(++mIndent * 2) + format, args));
         mIndent--;
-    }
+    }*/
 
     private void parseKeyboard(final XmlPullParser parser)
-            throws XmlPullParserException, IOException {
-        if (DEBUG) startTag("<%s> %s", TAG_KEYBOARD, mParams.mId);
+        throws XmlPullParserException, IOException {
+        //if (DEBUG) startTag("<%s> %s", TAG_KEYBOARD, mParams.mId);
         while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
             final int event = parser.next();
             if (event == XmlPullParser.START_TAG) {
@@ -232,7 +233,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     private void parseKeyboardAttributes(final XmlPullParser parser) {
         final AttributeSet attr = Xml.asAttributeSet(parser);
-        final TypedArray keyboardAttr = mContext.obtainStyledAttributes(
+        /*final TypedArray keyboardAttr = mContext.obtainStyledAttributes(
                 attr, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
         final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
         try {
@@ -288,50 +289,50 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         } finally {
             keyAttr.recycle();
             keyboardAttr.recycle();
-        }
+        }*/
     }
 
     private void parseKeyboardContent(final XmlPullParser parser, final boolean skip)
-            throws XmlPullParserException, IOException {
+        throws XmlPullParserException, IOException {
         while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
             final int event = parser.next();
             if (event == XmlPullParser.START_TAG) {
                 final String tag = parser.getName();
                 if (TAG_ROW.equals(tag)) {
-                    final KeyboardRow row = parseRowAttributes(parser);
-                    if (DEBUG) startTag("<%s>%s", TAG_ROW, skip ? " skipped" : "");
-                    if (!skip) {
-                        startRow(row);
-                    }
-                    parseRowContent(parser, row, skip);
-                } else if (TAG_GRID_ROWS.equals(tag)) {
-                    if (DEBUG) startTag("<%s>%s", TAG_GRID_ROWS, skip ? " skipped" : "");
-                    parseGridRows(parser, skip);
+                    //final KeyboardRow row = parseRowAttributes(parser);
+                    //if (DEBUG) startTag("<%s>%s", TAG_ROW, skip ? " skipped" : "");
+                    //if (!skip) {
+                        //startRow(row);
+                    //}
+                    //parseRowContent(parser, row, skip);
+                //} // else if (TAG_GRID_ROWS.equals(tag)) {
+                    //if (DEBUG) startTag("<%s>%s", TAG_GRID_ROWS, skip ? " skipped" : "");
+                    //parseGridRows(parser, skip);
                 } else if (TAG_INCLUDE.equals(tag)) {
                     parseIncludeKeyboardContent(parser, skip);
-                } else if (TAG_SWITCH.equals(tag)) {
-                    parseSwitchKeyboardContent(parser, skip);
-                } else if (TAG_KEY_STYLE.equals(tag)) {
-                    parseKeyStyle(parser, skip);
-                } else {
-                    throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_ROW);
-                }
+                } //else if (TAG_SWITCH.equals(tag)) {
+                    //parseSwitchKeyboardContent(parser, skip);
+                //} else if (TAG_KEY_STYLE.equals(tag)) {
+                    //parseKeyStyle(parser, skip);
+                //} else {
+                    //throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_ROW);
+                //}
             } else if (event == XmlPullParser.END_TAG) {
                 final String tag = parser.getName();
-                if (DEBUG) endTag("</%s>", tag);
+                //if (DEBUG) endTag("</%s>", tag);
                 if (TAG_KEYBOARD.equals(tag)) {
-                    endKeyboard();
-                    return;
+                    //endKeyboard();
+                    //return;
                 }
-                if (TAG_CASE.equals(tag) || TAG_DEFAULT.equals(tag) || TAG_MERGE.equals(tag)) {
-                    return;
-                }
-                throw new XmlParseUtils.IllegalEndTag(parser, tag, TAG_ROW);
+                //if (TAG_CASE.equals(tag) || TAG_DEFAULT.equals(tag) || TAG_MERGE.equals(tag)) {
+                    //return;
+                //}
+                //throw new XmlParseUtils.IllegalEndTag(parser, tag, TAG_ROW);
             }
         }
     }
 
-    private KeyboardRow parseRowAttributes(final XmlPullParser parser)
+    /*private KeyboardRow parseRowAttributes(final XmlPullParser parser)
             throws XmlPullParserException {
         final AttributeSet attr = Xml.asAttributeSet(parser);
         final TypedArray keyboardAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard);
@@ -346,7 +347,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         } finally {
             keyboardAttr.recycle();
         }
-    }
+    }*/
 
     private void parseRowContent(final XmlPullParser parser, final KeyboardRow row,
                                  final boolean skip) throws XmlPullParserException, IOException {
@@ -356,20 +357,20 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final String tag = parser.getName();
                 if (TAG_KEY.equals(tag)) {
                     parseKey(parser, row, skip);
-                } else if (TAG_SPACER.equals(tag)) {
-                    parseSpacer(parser, row, skip);
-                } else if (TAG_INCLUDE.equals(tag)) {
-                    parseIncludeRowContent(parser, row, skip);
-                } else if (TAG_SWITCH.equals(tag)) {
-                    parseSwitchRowContent(parser, row, skip);
-                } else if (TAG_KEY_STYLE.equals(tag)) {
-                    parseKeyStyle(parser, skip);
+                //} else if (TAG_SPACER.equals(tag)) {
+                    //parseSpacer(parser, row, skip);
+                //} else if (TAG_INCLUDE.equals(tag)) {
+                    //parseIncludeRowContent(parser, row, skip);
+                //} else if (TAG_SWITCH.equals(tag)) {
+                    //parseSwitchRowContent(parser, row, skip);
+                //} else if (TAG_KEY_STYLE.equals(tag)) {
+                    //parseKeyStyle(parser, skip);
                 } else {
                     throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_ROW);
                 }
             } else if (event == XmlPullParser.END_TAG) {
                 final String tag = parser.getName();
-                if (DEBUG) endTag("</%s>", tag);
+                //if (DEBUG) endTag("</%s>", tag);
                 if (TAG_ROW.equals(tag)) {
                     if (!skip) {
                         endRow(row);
@@ -384,9 +385,9 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         }
     }
 
-    private void parseGridRows(final XmlPullParser parser, final boolean skip)
-            throws XmlPullParserException, IOException {
-        if (skip) {
+    //private void parseGridRows(final XmlPullParser parser, final boolean skip)
+        //throws XmlPullParserException, IOException {
+        /*if (skip) {
             XmlParseUtils.checkEndTag(TAG_GRID_ROWS, parser);
             if (DEBUG) {
                 startEndTag("<%s /> skipped", TAG_GRID_ROWS);
@@ -460,41 +461,41 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             endRow(row);
         }
 
-        XmlParseUtils.checkEndTag(TAG_GRID_ROWS, parser);
-    }
+        XmlParseUtils.checkEndTag(TAG_GRID_ROWS, parser);*/
+    //}
 
     private void parseKey(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
             throws XmlPullParserException, IOException {
         if (skip) {
             XmlParseUtils.checkEndTag(TAG_KEY, parser);
-            if (DEBUG) startEndTag("<%s /> skipped", TAG_KEY);
+            //if (DEBUG) startEndTag("<%s /> skipped", TAG_KEY);
             return;
         }
         final TypedArray keyAttr = mResources.obtainAttributes(
                 Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
         final String keySpec = keyStyle.getString(keyAttr, R.styleable.Keyboard_Key_keySpec);
-        if (TextUtils.isEmpty(keySpec)) {
-            throw new ParseException("Empty keySpec", parser);
-        }
+        //if (TextUtils.isEmpty(keySpec)) {
+            //throw new ParseException("Empty keySpec", parser);
+        //}
         final Key key = new Key(keySpec, keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
-        if (DEBUG) {
-            startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.isEnabled() ? "" : " disabled"),
-                    key, Arrays.toString(key.getMoreKeys()));
-        }
+        //if (DEBUG) {
+            //startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.isEnabled() ? "" : " disabled"),
+                //key, Arrays.toString(key.getMoreKeys()));
+        //}
         XmlParseUtils.checkEndTag(TAG_KEY, parser);
         endKey(key);
     }
 
-    private void parseSpacer(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
+    /*private void parseSpacer(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
             throws XmlPullParserException, IOException {
         if (skip) {
             XmlParseUtils.checkEndTag(TAG_SPACER, parser);
             if (DEBUG) startEndTag("<%s /> skipped", TAG_SPACER);
             return;
         }
-        final TypedArray keyAttr = mResources.obtainAttributes(
+        final TypedArray keyAttr = mResource//s.obtainAttributes(
                 Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
         final Key spacer = new Key.Spacer(keyAttr, keyStyle, mParams, row);
@@ -502,59 +503,59 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         if (DEBUG) startEndTag("<%s />", TAG_SPACER);
         XmlParseUtils.checkEndTag(TAG_SPACER, parser);
         endKey(spacer);
-    }
+    }*/
 
     private void parseIncludeKeyboardContent(final XmlPullParser parser, final boolean skip)
             throws XmlPullParserException, IOException {
         parseIncludeInternal(parser, null, skip);
     }
 
-    private void parseIncludeRowContent(final XmlPullParser parser, final KeyboardRow row,
+    /*private void parseIncludeRowContent(final XmlPullParser parser, final KeyboardRow row,
                                         final boolean skip) throws XmlPullParserException, IOException {
         parseIncludeInternal(parser, row, skip);
-    }
+    }*/
 
     private void parseIncludeInternal(final XmlPullParser parser, final KeyboardRow row,
                                       final boolean skip) throws XmlPullParserException, IOException {
         if (skip) {
-            XmlParseUtils.checkEndTag(TAG_INCLUDE, parser);
-            if (DEBUG) startEndTag("</%s> skipped", TAG_INCLUDE);
+            //XmlParseUtils.checkEndTag(TAG_INCLUDE, parser);
+            //if (DEBUG) startEndTag("</%s> skipped", TAG_INCLUDE);
             return;
         }
         final AttributeSet attr = Xml.asAttributeSet(parser);
         final TypedArray keyboardAttr = mResources.obtainAttributes(
-                attr, R.styleable.Keyboard_Include);
-        final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
+            attr, R.styleable.Keyboard_Include);
+        //final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
         int keyboardLayout = 0;
         try {
             XmlParseUtils.checkAttributeExists(
-                    keyboardAttr, R.styleable.Keyboard_Include_keyboardLayout, "keyboardLayout",
-                    TAG_INCLUDE, parser);
+                keyboardAttr, R.styleable.Keyboard_Include_keyboardLayout, "keyboardLayout",
+                TAG_INCLUDE, parser);
             keyboardLayout = keyboardAttr.getResourceId(
-                    R.styleable.Keyboard_Include_keyboardLayout, 0);
+                R.styleable.Keyboard_Include_keyboardLayout, 0);
             if (row != null) {
                 // Override current x coordinate.
-                row.setXPos(row.getKeyX(keyAttr));
+                //row.setXPos(row.getKeyX(keyAttr));
                 // Push current Row attributes and update with new attributes.
-                row.pushRowAttributes(keyAttr);
+                //row.pushRowAttributes(keyAttr);
             }
         } finally {
-            keyboardAttr.recycle();
-            keyAttr.recycle();
+            //keyboardAttr.recycle();
+            //keyAttr.recycle();
         }
 
         XmlParseUtils.checkEndTag(TAG_INCLUDE, parser);
-        if (DEBUG) {
-            startEndTag("<%s keyboardLayout=%s />",TAG_INCLUDE,
-                    mResources.getResourceEntryName(keyboardLayout));
-        }
+        //if (DEBUG) {
+            //startEndTag("<%s keyboardLayout=%s />",TAG_INCLUDE,
+                    //mResources.getResourceEntryName(keyboardLayout));
+        //}
         final XmlResourceParser parserForInclude = mResources.getXml(keyboardLayout);
         try {
             parseMerge(parserForInclude, row, skip);
         } finally {
             if (row != null) {
                 // Restore Row attributes.
-                row.popRowAttributes();
+                //row.popRowAttributes();
             }
             parserForInclude.close();
         }
@@ -562,7 +563,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     private void parseMerge(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
             throws XmlPullParserException, IOException {
-        if (DEBUG) startTag("<%s>", TAG_MERGE);
+        //if (DEBUG) startTag("<%s>", TAG_MERGE);
         while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
             final int event = parser.next();
             if (event == XmlPullParser.START_TAG) {
@@ -581,7 +582,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         }
     }
 
-    private void parseSwitchKeyboardContent(final XmlPullParser parser, final boolean skip)
+    /*private void parseSwitchKeyboardContent(final XmlPullParser parser, final boolean skip)
             throws XmlPullParserException, IOException {
         parseSwitchInternal(parser, null, skip);
     }
@@ -805,47 +806,47 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             keyAttrs.recycle();
         }
         XmlParseUtils.checkEndTag(TAG_KEY_STYLE, parser);
-    }
+    }*/
 
     private void startKeyboard() {
         mCurrentY += mParams.mTopPadding;
         mTopEdge = true;
     }
 
-    private void startRow(final KeyboardRow row) {
+    /*private void startRow(final KeyboardRow row) {
         addEdgeSpace(mParams.mLeftPadding, row);
         mCurrentRow = row;
         mLeftEdge = true;
         mRightEdgeKey = null;
-    }
+    }*/
 
     private void endRow(final KeyboardRow row) {
-        if (mCurrentRow == null) {
-            throw new RuntimeException("orphan end row tag");
-        }
-        if (mRightEdgeKey != null) {
-            mRightEdgeKey.markAsRightEdge(mParams);
-            mRightEdgeKey = null;
-        }
-        addEdgeSpace(mParams.mRightPadding, row);
-        mCurrentY += row.getRowHeight();
-        mCurrentRow = null;
+        //if (mCurrentRow == null) {
+            //throw new RuntimeException("orphan end row tag");
+        //}
+        //if (mRightEdgeKey != null) {
+            //mRightEdgeKey.markAsRightEdge(mParams);
+            //mRightEdgeKey = null;
+        //}
+        //addEdgeSpace(mParams.mRightPadding, row);
+        //mCurrentY += row.getRowHeight();
+        //mCurrentRow = null;
         mTopEdge = false;
     }
 
     private void endKey(final Key key) {
-        mParams.onAddKey(key);
-        if (mLeftEdge) {
-            key.markAsLeftEdge(mParams);
-            mLeftEdge = false;
-        }
-        if (mTopEdge) {
-            key.markAsTopEdge(mParams);
-        }
-        mRightEdgeKey = key;
+        //mParams.onAddKey(key);
+        //if (mLeftEdge) {
+            //key.markAsLeftEdge(mParams);
+            //mLeftEdge = false;
+        //}
+        //if (mTopEdge) {
+            //key.markAsTopEdge(mParams);
+        //}
+        //mRightEdgeKey = key;
     }
 
-    private void endKeyboard() {
+    /*private void endKeyboard() {
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
         final int actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding;

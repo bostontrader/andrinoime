@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.latin;
 
 //import static com.android.inputmethod.latin.Constants.Subtype.KEYBOARD_MODE;
 
-//import android.content.Context;
+import android.content.Context;
 //import android.content.SharedPreferences;
 //import android.os.Build;
 //import android.os.IBinder;
@@ -47,19 +47,19 @@ public final class RichInputMethodManager {
         // This utility class is not publicly instantiable.
     }
 
-    /*private static final RichInputMethodManager sInstance = new RichInputMethodManager();
+    private static final RichInputMethodManager sInstance = new RichInputMethodManager();
 
-    private InputMethodManagerCompatWrapper mImmWrapper;
-    private InputMethodInfoCache mInputMethodInfoCache;
-    final HashMap<InputMethodInfo, List<InputMethodSubtype>>
-            mSubtypeListCacheWithImplicitlySelectedSubtypes = new HashMap<>();
-    final HashMap<InputMethodInfo, List<InputMethodSubtype>>
-            mSubtypeListCacheWithoutImplicitlySelectedSubtypes = new HashMap<>();
+    //private InputMethodManagerCompatWrapper mImmWrapper;
+    //private InputMethodInfoCache mInputMethodInfoCache;
+    //final HashMap<InputMethodInfo, List<InputMethodSubtype>>
+            //mSubtypeListCacheWithImplicitlySelectedSubtypes = new HashMap<>();
+    //final HashMap<InputMethodInfo, List<InputMethodSubtype>>
+            //mSubtypeListCacheWithoutImplicitlySelectedSubtypes = new HashMap<>();
 
-    private static final int INDEX_NOT_FOUND = -1;
+    //private static final int INDEX_NOT_FOUND = -1;
 
     public static RichInputMethodManager getInstance() {
-        sInstance.checkInitialized();
+        //sInstance.checkInitialized();
         return sInstance;
     }
 
@@ -67,7 +67,7 @@ public final class RichInputMethodManager {
         sInstance.initInternal(context);
     }
 
-    private boolean isInitialized() {
+    /*private boolean isInitialized() {
         return mImmWrapper != null;
     }
 
@@ -75,23 +75,23 @@ public final class RichInputMethodManager {
         if (!isInitialized()) {
             throw new RuntimeException(TAG + " is used before initialization");
         }
-    }
+    }*/
 
     private void initInternal(final Context context) {
-        if (isInitialized()) {
-            return;
-        }
-        mImmWrapper = new InputMethodManagerCompatWrapper(context);
-        mInputMethodInfoCache = new InputMethodInfoCache(
-                mImmWrapper.mImm, context.getPackageName());
+        //if (isInitialized()) {
+            //return;
+        //}
+        //mImmWrapper = new InputMethodManagerCompatWrapper(context);
+        //mInputMethodInfoCache = new InputMethodInfoCache(
+                //mImmWrapper.mImm, context.getPackageName());
 
         // Initialize additional subtypes.
-        SubtypeLocaleUtils.init(context);
-        final InputMethodSubtype[] additionalSubtypes = getAdditionalSubtypes(context);
-        setAdditionalInputMethodSubtypes(additionalSubtypes);
+        //SubtypeLocaleUtils.init(context);
+        //final InputMethodSubtype[] additionalSubtypes = getAdditionalSubtypes(context);
+        //setAdditionalInputMethodSubtypes(additionalSubtypes);
     }
 
-    public InputMethodSubtype[] getAdditionalSubtypes(final Context context) {
+    /*public InputMethodSubtype[] getAdditionalSubtypes(final Context context) {
         SubtypeLocaleUtils.init(context);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final String prefAdditionalSubtypes = Settings.readPrefAdditionalSubtypes(
