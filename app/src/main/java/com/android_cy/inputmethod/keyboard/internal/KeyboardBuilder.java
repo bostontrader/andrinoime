@@ -478,14 +478,14 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         //if (TextUtils.isEmpty(keySpec)) {
             //throw new ParseException("Empty keySpec", parser);
         //}
-        final Key key = new Key(keySpec, keyAttr, keyStyle, mParams, row);
+        //final Key key = new Key(keySpec, keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
         //if (DEBUG) {
             //startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.isEnabled() ? "" : " disabled"),
                 //key, Arrays.toString(key.getMoreKeys()));
         //}
         XmlParseUtils.checkEndTag(TAG_KEY, parser);
-        endKey(key);
+        //endKey(key);
     }
 
     /*private void parseSpacer(final XmlPullParser parser, final KeyboardRow row, final boolean skip)

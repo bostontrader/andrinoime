@@ -16,28 +16,30 @@
 
 package com.android_cy.inputmethod.keyboard.internal;
 
-//import android.content.res.TypedArray;
+import android.content.res.TypedArray;
 //import android.util.Log;
 //import android.util.SparseArray;
 
 //import com.android.inputmethod.latin.R;
-//import com.android.inputmethod.latin.utils.XmlParseUtils;
+import com.android_cy.inputmethod.latin.utils.XmlParseUtils;
 
-//import org.xmlpull.v1.XmlPullParser;
+import com.fyrecloud.andrinoime.R;
+
+import org.xmlpull.v1.XmlPullParser;
 //import org.xmlpull.v1.XmlPullParserException;
 
 //import java.util.Arrays;
-//import java.util.HashMap;
+import java.util.HashMap;
 
 public final class KeyStylesSet {
     //private static final String TAG = KeyStylesSet.class.getSimpleName();
     //private static final boolean DEBUG = false;
 
-    //private final HashMap<String, KeyStyle> mStyles = new HashMap<>();
+    private final HashMap<String, KeyStyle> mStyles = new HashMap<>();
 
-    //private final KeyboardTextsSet mTextsSet;
-    //private final KeyStyle mEmptyKeyStyle;
-    //private static final String EMPTY_STYLE_NAME = "<empty>";
+    private final KeyboardTextsSet mTextsSet;
+    private final KeyStyle mEmptyKeyStyle;
+    private static final String EMPTY_STYLE_NAME = "<empty>";
 
     public KeyStylesSet(final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
@@ -45,7 +47,7 @@ public final class KeyStylesSet {
         mStyles.put(EMPTY_STYLE_NAME, mEmptyKeyStyle);
     }
 
-    /*private static final class EmptyKeyStyle extends KeyStyle {
+    private static final class EmptyKeyStyle extends KeyStyle {
         EmptyKeyStyle(final KeyboardTextsSet textsSet) {
             super(textsSet);
         }
@@ -71,7 +73,7 @@ public final class KeyStylesSet {
         }
     }
 
-    private static final class DeclaredKeyStyle extends KeyStyle {
+    /*private static final class DeclaredKeyStyle extends KeyStyle {
         private final HashMap<String, KeyStyle> mStyles;
         private final String mParentStyleName;
         private final SparseArray<Object> mStyleAttributes = new SparseArray<>();
@@ -196,7 +198,7 @@ public final class KeyStylesSet {
         final DeclaredKeyStyle style = new DeclaredKeyStyle(parentStyleName, mTextsSet, mStyles);
         style.readKeyAttributes(keyAttrs);
         mStyles.put(styleName, style);
-    }
+    }*/
 
     public KeyStyle getKeyStyle(final TypedArray keyAttr, final XmlPullParser parser)
             throws XmlParseUtils.ParseException {
@@ -208,5 +210,5 @@ public final class KeyStylesSet {
             throw new XmlParseUtils.ParseException("Unknown key style: " + styleName, parser);
         }
         return mStyles.get(styleName);
-    }*/
+    }
 }

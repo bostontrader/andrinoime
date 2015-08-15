@@ -64,7 +64,7 @@ public class KeyboardParams {
     //public final ArrayList<Key> mShiftKeys = new ArrayList<>();
     //public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
     //public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
-    //public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
+    public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
     public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
 
     public KeysCache mKeysCache;

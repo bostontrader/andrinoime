@@ -350,10 +350,10 @@
             <flag name="disableAdditionalMoreKeys" value="0x80000000" />
         </attr>
         <!dashdash The icon for disabled key dashdash>
-        <attr name="keyIconDisabled" format="string" />
-        <!dashdash The key style to specify a set of key attributes defined by <key_style/> dashdash>
+        <attr name="keyIconDisabled" format="string" />-->
+        <!-- The key style to specify a set of key attributes defined by <key_style/> -->
         <attr name="keyStyle" format="string" />
-        <!dashdash Visual insets, in the proportion of keyboard width. dashdash>
+        <!-- Visual insets, in the proportion of keyboard width. dashdash>
         <attr name="visualInsetsLeft" format="fraction" />
         <attr name="visualInsetsRight" format="fraction" />
         <!dashdash Width of the key, in the proportion of keyboard width.
