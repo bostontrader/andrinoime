@@ -16,11 +16,11 @@
 
 package com.android_cy.inputmethod.keyboard.internal;
 
-//import static com.android.inputmethod.latin.Constants.CODE_OUTPUT_TEXT;
-//import static com.android.inputmethod.latin.Constants.CODE_UNSPECIFIED;
+import static com.android_cy.inputmethod.latin.Constants.CODE_OUTPUT_TEXT;
+import static com.android_cy.inputmethod.latin.Constants.CODE_UNSPECIFIED;
 
-//import com.android.inputmethod.latin.Constants;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.Constants;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 /**
  * The string parser of the key specification.
@@ -45,15 +45,15 @@ package com.android_cy.inputmethod.keyboard.internal;
 // TODO: Rename to KeySpec and make this class to the key specification object.
 public final class KeySpecParser {
     // Constants for parsing.
-    //private static final char BACKSLASH = Constants.CODE_BACKSLASH;
-    //private static final char VERTICAL_BAR = Constants.CODE_VERTICAL_BAR;
-    //private static final String PREFIX_HEX = "0x";
+    private static final char BACKSLASH = Constants.CODE_BACKSLASH;
+    private static final char VERTICAL_BAR = Constants.CODE_VERTICAL_BAR;
+    private static final String PREFIX_HEX = "0x";
 
     private KeySpecParser() {
         // Intentional empty constructor for utility class.
     }
 
-    /*private static boolean hasIcon(final String keySpec) {
+    private static boolean hasIcon(final String keySpec) {
         return keySpec.startsWith(KeyboardIconsSet.PREFIX_ICON);
     }
 
@@ -121,7 +121,7 @@ public final class KeySpecParser {
     }
 
     private static String getAfterLabelEnd(final String keySpec, final int labelEnd) {
-        return keySpec.substring(labelEnd + /star VERTICAL_BAR star/1);
+        return keySpec.substring(labelEnd + /* VERTICAL_BAR */ 1);
     }
 
     private static void checkDoubleLabelEnd(final String keySpec, final int labelEnd) {
@@ -136,14 +136,14 @@ public final class KeySpecParser {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
             return null;
         }
-        if (hasIcon(keySpec)) {
-            return null;
-        }
+        //if (hasIcon(keySpec)) {
+            //return null;
+        //}
         final int labelEnd = indexOfLabelEnd(keySpec);
         final String label = parseEscape(getBeforeLabelEnd(keySpec, labelEnd));
-        if (label.isEmpty()) {
-            throw new KeySpecParserError("Empty label: " + keySpec);
-        }
+        //if (label.isEmpty()) {
+            //throw new KeySpecParserError("Empty label: " + keySpec);
+        //}
         return label;
     }
 
@@ -156,32 +156,33 @@ public final class KeySpecParser {
     }
 
     public static String getOutputText(final String keySpec) {
-        if (keySpec == null) {
+        //if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return null;
-        }
-        final int labelEnd = indexOfLabelEnd(keySpec);
-        if (hasCode(keySpec, labelEnd)) {
-            return null;
-        }
-        final String outputText = getOutputTextInternal(keySpec, labelEnd);
-        if (outputText != null) {
-            if (StringUtils.codePointCount(outputText) == 1) {
+            //return null;
+        //}
+        //final int labelEnd = indexOfLabelEnd(keySpec);
+        //if (hasCode(keySpec, labelEnd)) {
+            //return null;
+        //}
+        //final String outputText = getOutputTextInternal(keySpec, labelEnd);
+        //if (outputText != null) {
+            //if (StringUtils.codePointCount(outputText) == 1) {
                 // If output text is one code point, it should be treated as a code.
                 // See {@link #getCode(Resources, String)}.
-                return null;
-            }
-            if (outputText.isEmpty()) {
-                throw new KeySpecParserError("Empty outputText: " + keySpec);
-            }
-            return outputText;
-        }
-        final String label = getLabel(keySpec);
-        if (label == null) {
-            throw new KeySpecParserError("Empty label: " + keySpec);
-        }
+                //return null;
+            //}
+            //if (outputText.isEmpty()) {
+                //throw new KeySpecParserError("Empty outputText: " + keySpec);
+            //}
+            //return outputText;
+        //}
+        //final String label = getLabel(keySpec);
+        //if (label == null) {
+            //throw new KeySpecParserError("Empty label: " + keySpec);
+        //}
         // Code is automatically generated for one letter label. See {@link getCode()}.
-        return (StringUtils.codePointCount(label) == 1) ? null : label;
+        //return (StringUtils.codePointCount(label) == 1) ? null : label;
+        return null; // tfr
     }
 
     public static int getCode(final String keySpec) {
@@ -227,23 +228,24 @@ public final class KeySpecParser {
     }
 
     public static int getIconId(final String keySpec) {
-        if (keySpec == null) {
+        //if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return KeyboardIconsSet.ICON_UNDEFINED;
-        }
-        if (!hasIcon(keySpec)) {
-            return KeyboardIconsSet.ICON_UNDEFINED;
-        }
-        final int labelEnd = indexOfLabelEnd(keySpec);
-        final String iconName = getBeforeLabelEnd(keySpec, labelEnd)
-                .substring(KeyboardIconsSet.PREFIX_ICON.length());
-        return KeyboardIconsSet.getIconId(iconName);
+            //return KeyboardIconsSet.ICON_UNDEFINED;
+        //}
+        //if (!hasIcon(keySpec)) {
+            //return KeyboardIconsSet.ICON_UNDEFINED;
+        //}
+        //final int labelEnd = indexOfLabelEnd(keySpec);
+        //final String iconName = getBeforeLabelEnd(keySpec, labelEnd)
+                //.substring(KeyboardIconsSet.PREFIX_ICON.length());
+        //return KeyboardIconsSet.getIconId(iconName);
+        return -1; // tfr
     }
 
-    @SuppressWarnings("serial")
+    //@SuppressWarnings("serial")
     public static final class KeySpecParserError extends RuntimeException {
         public KeySpecParserError(final String message) {
             super(message);
         }
-    }*/
+    }
 }

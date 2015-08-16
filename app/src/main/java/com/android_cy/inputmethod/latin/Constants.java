@@ -195,9 +195,9 @@ public final class Constants {
     /**
      * Some common keys code. Must be positive.
      */
-    //public static final int CODE_ENTER = '\n';
-    //public static final int CODE_TAB = '\t';
-    //public static final int CODE_SPACE = ' ';
+    public static final int CODE_ENTER = '\n';
+    public static final int CODE_TAB = '\t';
+    public static final int CODE_SPACE = ' ';
     //public static final int CODE_PERIOD = '.';
     //public static final int CODE_COMMA = ',';
     //public static final int CODE_DASH = '-';
@@ -207,7 +207,7 @@ public final class Constants {
     //public static final int CODE_EXCLAMATION_MARK = '!';
     //public static final int CODE_SLASH = '/';
     public static final int CODE_BACKSLASH = '\\';
-    //public static final int CODE_VERTICAL_BAR = '|';
+    public static final int CODE_VERTICAL_BAR = '|';
     //public static final int CODE_COMMERCIAL_AT = '@';
     //public static final int CODE_PLUS = '+';
     //public static final int CODE_PERCENT = '%';
@@ -230,7 +230,7 @@ public final class Constants {
     //public static final int CODE_SHIFT = -1;
     //public static final int CODE_CAPSLOCK = -2;
     //public static final int CODE_SWITCH_ALPHA_SYMBOL = -3;
-    //public static final int CODE_OUTPUT_TEXT = -4;
+    public static final int CODE_OUTPUT_TEXT = -4;
     //public static final int CODE_DELETE = -5;
     //public static final int CODE_SETTINGS = -6;
     //public static final int CODE_SHORTCUT = -7;
@@ -242,14 +242,14 @@ public final class Constants {
     //public static final int CODE_SYMBOL_SHIFT = -13;
     //public static final int CODE_ALPHA_FROM_EMOJI = -14;
     // Code value representing the code is not specified.
-    //public static final int CODE_UNSPECIFIED = -15;
+    public static final int CODE_UNSPECIFIED = -15;
 
     //public static boolean isLetterCode(final int code) {
         //return code >= CODE_SPACE;
     //}
 
-    //public static String printableCode(final int code) {
-        //switch (code) {
+    public static String printableCode(final int code) {
+        switch (code) {
             //case CODE_SHIFT: return "shift";
             //case CODE_CAPSLOCK: return "capslock";
             //case CODE_SWITCH_ALPHA_SYMBOL: return "symbol";
@@ -264,16 +264,16 @@ public final class Constants {
             //case CODE_SHIFT_ENTER: return "shiftEnter";
             //case CODE_ALPHA_FROM_EMOJI: return "alpha";
             //case CODE_UNSPECIFIED: return "unspec";
-            //case CODE_TAB: return "tab";
-            //case CODE_ENTER: return "enter";
-            //case CODE_SPACE: return "space";
-            //default:
+            case CODE_TAB: return "tab";
+            case CODE_ENTER: return "enter";
+            case CODE_SPACE: return "space";
+            default:
                 //if (code < CODE_SPACE) return String.format("\\u%02X", code);
                 //if (code < 0x100) return String.format("%c", code);
                 //if (code < 0x10000) return String.format("\\u%04X", code);
-                //return String.format("\\U%05X", code);
-        //}
-    //}
+                return String.format("\\U%05X", code);
+        }
+    }
 
     //public static String printableCodes(final int[] codes) {
         //final StringBuilder sb = new StringBuilder();
