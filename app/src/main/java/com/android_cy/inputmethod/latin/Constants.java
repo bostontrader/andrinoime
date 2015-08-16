@@ -232,9 +232,9 @@ public final class Constants {
     //public static final int CODE_SWITCH_ALPHA_SYMBOL = -3;
     public static final int CODE_OUTPUT_TEXT = -4;
     //public static final int CODE_DELETE = -5;
-    //public static final int CODE_SETTINGS = -6;
+    public static final int CODE_SETTINGS = -6;
     //public static final int CODE_SHORTCUT = -7;
-    //public static final int CODE_ACTION_NEXT = -8;
+    public static final int CODE_ACTION_NEXT = -8;
     //public static final int CODE_ACTION_PREVIOUS = -9;
     //public static final int CODE_LANGUAGE_SWITCH = -10;
     //public static final int CODE_EMOJI = -11;

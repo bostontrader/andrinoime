@@ -16,17 +16,17 @@
 
 package com.android_cy.inputmethod.keyboard.internal;
 
-//import android.content.Context;
-//import android.content.res.Resources;
+import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
 import com.android_cy.inputmethod.latin.Constants;
-//import com.android.inputmethod.latin.utils.RunInLocale;
-//import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
+import com.android_cy.inputmethod.latin.utils.RunInLocale;
+import com.android_cy.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.HashMap;
-//import java.util.Locale;
+import java.util.Locale;
 
 public final class KeyboardTextsSet {
     public static final String PREFIX_TEXT = "!text/";
@@ -39,31 +39,31 @@ public final class KeyboardTextsSet {
     // Resource name to text map.
     private HashMap<String, String> mResourceNameToTextsMap = new HashMap<>();
 
-    //public void setLocale(final Locale locale, final Context context) {
-        //mTextsTable = KeyboardTextsTable.getTextsTable(locale);
-        //final Resources res = context.getResources();
-        //final int referenceId = context.getApplicationInfo().labelRes;
-        //final String resourcePackageName = res.getResourcePackageName(referenceId);
-        //final RunInLocale<Void> job = new RunInLocale<Void>() {
-            //@Override
-            //protected Void job(final Resources resource) {
-                //loadStringResourcesInternal(res, RESOURCE_NAMES, resourcePackageName);
-                //return null;
-            //}
-        //};
+    public void setLocale(final Locale locale, final Context context) {
+        mTextsTable = KeyboardTextsTable.getTextsTable(locale);
+        final Resources res = context.getResources();
+        final int referenceId = context.getApplicationInfo().labelRes;
+        final String resourcePackageName = res.getResourcePackageName(referenceId);
+        final RunInLocale<Void> job = new RunInLocale<Void>() {
+            @Override
+            protected Void job(final Resources resource) {
+                loadStringResourcesInternal(res, RESOURCE_NAMES, resourcePackageName);
+                return null;
+            }
+        };
         // Null means the current system locale.
-        //job.runInLocale(res,
-            //SubtypeLocaleUtils.NO_LANGUAGE.equals(locale.toString()) ? null : locale);
-    //}
+        job.runInLocale(res,
+            SubtypeLocaleUtils.NO_LANGUAGE.equals(locale.toString()) ? null : locale);
+    }
 
-    /*@UsedForTesting
+    //@UsedForTesting
     void loadStringResourcesInternal(final Resources res, final String[] resourceNames,
                                      final String resourcePackageName) {
         for (final String resName : resourceNames) {
             final int resId = res.getIdentifier(resName, "string", resourcePackageName);
             mResourceNameToTextsMap.put(resName, res.getString(resId));
         }
-    }*/
+    }
 
     public String getText(final String name) {
         final String text = mResourceNameToTextsMap.get(name);
@@ -132,7 +132,7 @@ public final class KeyboardTextsSet {
         return TextUtils.isEmpty(text) ? null : text;
     }
 
-    /*// These texts' name should be aligned with the @string/<name> in
+    // These texts' name should be aligned with the @string/<name> in
     // values /strings-action-keys.xml.
     static final String[] RESOURCE_NAMES = {
             // Labels for action.
@@ -145,5 +145,5 @@ public final class KeyboardTextsSet {
             // Other labels.
             "label_pause_key",
             "label_wait_key",
-    };*/
+    };
 }

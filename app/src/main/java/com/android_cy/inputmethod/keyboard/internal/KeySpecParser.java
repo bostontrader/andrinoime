@@ -136,14 +136,14 @@ public final class KeySpecParser {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
             return null;
         }
-        //if (hasIcon(keySpec)) {
-            //return null;
-        //}
+        if (hasIcon(keySpec)) {
+            return null;
+        }
         final int labelEnd = indexOfLabelEnd(keySpec);
         final String label = parseEscape(getBeforeLabelEnd(keySpec, labelEnd));
-        //if (label.isEmpty()) {
-            //throw new KeySpecParserError("Empty label: " + keySpec);
-        //}
+        if (label.isEmpty()) {
+            throw new KeySpecParserError("Empty label: " + keySpec);
+        }
         return label;
     }
 
@@ -156,33 +156,32 @@ public final class KeySpecParser {
     }
 
     public static String getOutputText(final String keySpec) {
-        //if (keySpec == null) {
+        if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            //return null;
-        //}
-        //final int labelEnd = indexOfLabelEnd(keySpec);
-        //if (hasCode(keySpec, labelEnd)) {
-            //return null;
-        //}
-        //final String outputText = getOutputTextInternal(keySpec, labelEnd);
-        //if (outputText != null) {
-            //if (StringUtils.codePointCount(outputText) == 1) {
+            return null;
+        }
+        final int labelEnd = indexOfLabelEnd(keySpec);
+        if (hasCode(keySpec, labelEnd)) {
+            return null;
+        }
+        final String outputText = getOutputTextInternal(keySpec, labelEnd);
+        if (outputText != null) {
+            if (StringUtils.codePointCount(outputText) == 1) {
                 // If output text is one code point, it should be treated as a code.
                 // See {@link #getCode(Resources, String)}.
-                //return null;
-            //}
-            //if (outputText.isEmpty()) {
-                //throw new KeySpecParserError("Empty outputText: " + keySpec);
-            //}
-            //return outputText;
-        //}
-        //final String label = getLabel(keySpec);
-        //if (label == null) {
-            //throw new KeySpecParserError("Empty label: " + keySpec);
-        //}
+                return null;
+            }
+            if (outputText.isEmpty()) {
+                throw new KeySpecParserError("Empty outputText: " + keySpec);
+            }
+            return outputText;
+        }
+        final String label = getLabel(keySpec);
+        if (label == null) {
+            throw new KeySpecParserError("Empty label: " + keySpec);
+        }
         // Code is automatically generated for one letter label. See {@link getCode()}.
-        //return (StringUtils.codePointCount(label) == 1) ? null : label;
-        return null; // tfr
+        return (StringUtils.codePointCount(label) == 1) ? null : label;
     }
 
     public static int getCode(final String keySpec) {
@@ -228,18 +227,17 @@ public final class KeySpecParser {
     }
 
     public static int getIconId(final String keySpec) {
-        //if (keySpec == null) {
+        if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            //return KeyboardIconsSet.ICON_UNDEFINED;
-        //}
-        //if (!hasIcon(keySpec)) {
-            //return KeyboardIconsSet.ICON_UNDEFINED;
-        //}
-        //final int labelEnd = indexOfLabelEnd(keySpec);
-        //final String iconName = getBeforeLabelEnd(keySpec, labelEnd)
-                //.substring(KeyboardIconsSet.PREFIX_ICON.length());
-        //return KeyboardIconsSet.getIconId(iconName);
-        return -1; // tfr
+            return KeyboardIconsSet.ICON_UNDEFINED;
+        }
+        if (!hasIcon(keySpec)) {
+            return KeyboardIconsSet.ICON_UNDEFINED;
+        }
+        final int labelEnd = indexOfLabelEnd(keySpec);
+        final String iconName = getBeforeLabelEnd(keySpec, labelEnd)
+            .substring(KeyboardIconsSet.PREFIX_ICON.length());
+        return KeyboardIconsSet.getIconId(iconName);
     }
 
     //@SuppressWarnings("serial")

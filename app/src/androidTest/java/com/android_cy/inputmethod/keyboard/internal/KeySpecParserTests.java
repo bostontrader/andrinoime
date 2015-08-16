@@ -48,8 +48,8 @@ public final class KeySpecParserTests extends KeySpecParserTestsBase {
     // These should throw {@link KeySpecParserError} when Key.keyLabel attribute become mandatory.
     public void testEmptySpec() {
         assertParser("Null spec", null,
-                null, null, ICON_UNDEFINED, CODE_UNSPECIFIED);
+            null, null, ICON_UNDEFINED, CODE_UNSPECIFIED);
         assertParser("Empty spec", "",
-                null, null, ICON_UNDEFINED, CODE_UNSPECIFIED);
+            null, null, ICON_UNDEFINED, CODE_UNSPECIFIED);
     }
 }

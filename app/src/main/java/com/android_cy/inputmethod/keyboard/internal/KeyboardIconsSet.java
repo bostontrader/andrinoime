@@ -24,6 +24,8 @@ import android.util.SparseIntArray;
 
 //import com.android.inputmethod.latin.R;
 
+import com.fyrecloud.andrinoime.R;
+
 import java.util.HashMap;
 
 public final class KeyboardIconsSet {
@@ -31,13 +33,13 @@ public final class KeyboardIconsSet {
 
     public static final String PREFIX_ICON = "!icon/";
     public static final int ICON_UNDEFINED = 0;
-    //private static final int ATTR_UNDEFINED = 0;
+    private static final int ATTR_UNDEFINED = 0;
 
     //private static final String NAME_UNDEFINED = "undefined";
     //public static final String NAME_SHIFT_KEY = "shift_key";
     //public static final String NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted";
     //public static final String NAME_DELETE_KEY = "delete_key";
-    //public static final String NAME_SETTINGS_KEY = "settings_key";
+    public static final String NAME_SETTINGS_KEY = "settings_key";
     //public static final String NAME_SPACE_KEY = "space_key";
     //public static final String NAME_SPACE_KEY_FOR_NUMBER_LAYOUT = "space_key_for_number_layout";
     //public static final String NAME_ENTER_KEY = "enter_key";
@@ -65,7 +67,7 @@ public final class KeyboardIconsSet {
         //NAME_UNDEFINED,                   ATTR_UNDEFINED,
         //NAME_SHIFT_KEY,                   R.styleable.Keyboard_iconShiftKey,
         //NAME_DELETE_KEY,                  R.styleable.Keyboard_iconDeleteKey,
-        //NAME_SETTINGS_KEY,                R.styleable.Keyboard_iconSettingsKey,
+        NAME_SETTINGS_KEY,                R.styleable.Keyboard_iconSettingsKey,
         //NAME_SPACE_KEY,                   R.styleable.Keyboard_iconSpaceKey,
         //NAME_ENTER_KEY,                   R.styleable.Keyboard_iconEnterKey,
         //NAME_GO_KEY,                      R.styleable.Keyboard_iconGoKey,
@@ -86,24 +88,24 @@ public final class KeyboardIconsSet {
         //NAME_EMOJI_NORMAL_KEY,            R.styleable.Keyboard_iconEmojiNormalKey,
     };
 
-    //private static int NUM_ICONS = NAMES_AND_ATTR_IDS.length / 2;
-    //private static final String[] ICON_NAMES = new String[NUM_ICONS];
+    private static int NUM_ICONS = NAMES_AND_ATTR_IDS.length / 2;
+    private static final String[] ICON_NAMES = new String[NUM_ICONS];
     //private final Drawable[] mIcons = new Drawable[NUM_ICONS];
     //private final int[] mIconResourceIds = new int[NUM_ICONS];
 
-    //static {
-        //int iconId = ICON_UNDEFINED;
-        //for (int i = 0; i < NAMES_AND_ATTR_IDS.length; i += 2) {
-            //final String name = (String)NAMES_AND_ATTR_IDS[i];
-            //final Integer attrId = (Integer)NAMES_AND_ATTR_IDS[i + 1];
-            //if (attrId != ATTR_UNDEFINED) {
-                //ATTR_ID_TO_ICON_ID.put(attrId, iconId);
-            //}
-            //sNameToIdsMap.put(name, iconId);
-            //ICON_NAMES[iconId] = name;
-            //iconId++;
-        //}
-    //}
+    static {
+        int iconId = ICON_UNDEFINED;
+        for (int i = 0; i < NAMES_AND_ATTR_IDS.length; i += 2) {
+            final String name = (String)NAMES_AND_ATTR_IDS[i];
+            final Integer attrId = (Integer)NAMES_AND_ATTR_IDS[i + 1];
+            if (attrId != ATTR_UNDEFINED) {
+                ATTR_ID_TO_ICON_ID.put(attrId, iconId);
+            }
+            sNameToIdsMap.put(name, iconId);
+            ICON_NAMES[iconId] = name;
+            iconId++;
+        }
+    }
 
     //public void loadIcons(final TypedArray keyboardAttrs) {
         //final int size = ATTR_ID_TO_ICON_ID.size();
@@ -132,13 +134,13 @@ public final class KeyboardIconsSet {
         return null; // tfr
     }
 
-    //public static int getIconId(final String name) {
-        //Integer iconId = sNameToIdsMap.get(name);
-        //if (iconId != null) {
-            //return iconId;
-        //}
-        //throw new RuntimeException("unknown icon name: " + name);
-    //}
+    public static int getIconId(final String name) {
+        Integer iconId = sNameToIdsMap.get(name);
+        if (iconId != null) {
+            return iconId;
+        }
+        throw new RuntimeException("unknown icon name: " + name);
+    }
 
     //public int getIconResourceId(final String name) {
         //final int iconId = getIconId(name);
