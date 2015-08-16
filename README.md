@@ -1,43 +1,56 @@
 #Executive Summary
 The purpose of the **AndrinoIME** is to implement an input method editor (IME) for Android
-devices that is customized for use in typing Javascript source code.
+devices that is customized for use in typing JavaScript source code.
 
-##What makes a Javascript IME?
+##What makes a JavaScript IME?
 
-If you've ever tried to deal with Javascript source code using other IMEs, you've no
-doubt encountered the frustration of finding the various symbols needed.  They are typically
-scattered across several keyboard views and it's very tedious to switch back and forth between
-them in order to do anything.  We felt your pain so we created the **AndrinoIME** to help
-alleviate this noxious issue.  In order to do so we employ the following methods:
+There are at least four approaches to making a JavaScript friendly IME.  In order of
+feasibility of implementation they are:
 
 ###Rethink the keyboard
-There are two basic approaches would could take.  Is it possible to squeeze a minimum usable
-character set onto a single keyboard?  It is it possible to squeeze a more conventional keyboard
-into the small area of a mobile device?  The **AndrinoIME** gives you a choice of either method.
+If you've ever tried to deal with JavaScript source code using other IMEs, you've no
+doubt encountered the frustration of finding the various symbols needed.  They are
+frequently scattered across several keyboards and it can be very tedious to switch back
+and forth between them.
 
-####Minimal character collection
-The main keyboard of the **AndrinoIME** has:
+However, upon close examination, it turns out that with minimal stretch-to-fit action, the digits
+ and symbols can easily fit on a single keyboard, the 26 lower-case letters can fit on another,
+ with a 3rd keyboard reserved for the 26 upper-case letters, while still leaving a bit of room
+ for other random and required keys.
 
-* 10 numeric digits
-* 17 essential symbols
-* 13 of the most commonly used lower-case English letters.
+###Most recently used symbols
+The **AndrinoIME** also provides a keyboard composed of the most recently used digits,
+symbols, and letters.
 
-Given this character set, it is easy to quickly enter the digits and symbols that are
-needed by Javascript.  There is plenty of Javascript work that we can do, such as
-exploration of functionality, that does not require every English letter.
+###Keyword suggestions
+The **AndrinoIME** offers keyword suggestions, and only that.  No need for these suggestions
+to get lost in the clutter of all the other words in the language.
 
-####The Jumbo keyboard
-A conventional keyboard as found on laptops and desktops works fairly well.  It provides
-a large selection of characters, with an alternate set just a single shift-key away.
-We also happen to already know the arrangement of the symbols.  This makes life easier
-when looking for them. Although it may be a tight fit in close quarters, the keys stretch-to-fit.
-As with the clothing of similar characteristics of other people in your life, this _can_ work.
+###Identifier suggestions
+Well, maybe not keywords only.  The **AndrinoIME** also suggests identifiers that are
+presently defined.  However, this feature will only function with software specifically
+designed to communicate information about said identifiers to the IME.  Please see
+  [**Andrino**](https://github.com/bostontrader/andrino) for an example.
 
-###Predict keywords and identifiers
-Regardless of the keyboard used, it's also handy to do some predicting.
-The **AndrinoIME** attempts to predict keywords and identifiers.
+###Statement auto-completion
+You wish.  Maybe someday.
 
-###Don't forget Unicode
-Although this is not directly a feature of **AndrinoIME**, you can readily type "\u"
-Unicode escape sequences for any scraps of Klingon or whatever you need, that just
-don't fit on the keyboard.
+##The Saga
+
+Finding suitable documentation and examples proved to be remarkably difficult.  It's
+not too difficult to find the SoftKeyboard sample from the Android SDK.  Unfortunately,
+it's too simple, it doesn't come with any tests, and it doesn't seem to have attracted
+any developer attention in its five year lifetime.  Hence no updates.
+I looked at a few other forgettable examples that were obvious knock-offs of SoftKeyboard
+and they all suffered from the same issues.
+
+I finally tried out the [CyanogenMod LatinIME](https://github.com/CyanogenMod/android_packages_inputmethods_LatinIME)
+This ROX! And it has lots and lots of tests to dissect and study.  The only problem is that's
+a monster!  The repo is about 500mb. It has all sorts of provisions for various locales
+and accessibility.  This is all fine-and-dandy you might think, until you wade into
+it to figure it out.  The complexity of dealing with all of this requires a poorly-documented
+Devil's brew of XML, parsers, styling, themes, locales, enumerations, and collections.  There's
+ one lump of this that's generated by other source code!
+
+Individually none of these things are rocket-science.  But collectively, there are a lot of moving
+parts just to make a simple keyboard!
