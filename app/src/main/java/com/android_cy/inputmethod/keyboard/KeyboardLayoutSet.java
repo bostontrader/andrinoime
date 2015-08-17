@@ -85,7 +85,7 @@ public final class KeyboardLayoutSet {
             //new HashMap<>();
     //private static final KeysCache sKeysCache = new KeysCache();
 
-    /*@SuppressWarnings("serial")
+    //@SuppressWarnings("serial")
     public static final class KeyboardLayoutSetException extends RuntimeException {
         public final KeyboardId mKeyboardId;
 
@@ -93,7 +93,7 @@ public final class KeyboardLayoutSet {
             super(cause);
             mKeyboardId = keyboardId;
         }
-    }*/
+    }
 
     private static final class ElementParams {
         int mKeyboardXmlId;
@@ -171,12 +171,12 @@ public final class KeyboardLayoutSet {
         // specified as an elementKeyboard attribute in the file.
         // The KeyboardId is an internal key for a Keyboard object.
         final KeyboardId id = new KeyboardId(keyboardLayoutSetElementId, mParams);
-        //try {
+        try {
             return getKeyboard(elementParams, id);
-        //} catch (final RuntimeException e) {
+        } catch (final RuntimeException e) {
             //Log.e(TAG, "Can't create keyboard: " + id, e);
-            //throw new KeyboardLayoutSetException(e, id);
-        //}
+            throw new KeyboardLayoutSetException(e, id);
+        }
     }
 
     private Keyboard getKeyboard(final ElementParams elementParams, final KeyboardId id) {
@@ -330,11 +330,11 @@ public final class KeyboardLayoutSet {
                     final int event = parser.next();
                     if (event == XmlPullParser.START_TAG) {
                         final String tag = parser.getName();
-                        //if (TAG_KEYBOARD_SET.equals(tag)) {
+                        if (TAG_KEYBOARD_SET.equals(tag)) {
                             parseKeyboardLayoutSetContent(parser);
-                        //} else {
-                            //throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
-                        //}
+                        } else {
+                            throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
+                        }
                     }
                 }
             } finally {

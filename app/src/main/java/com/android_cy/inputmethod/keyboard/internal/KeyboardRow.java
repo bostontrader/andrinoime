@@ -16,8 +16,8 @@
 
 package com.android_cy.inputmethod.keyboard.internal;
 
-//import android.content.res.Resources;
-//import android.content.res.TypedArray;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 //import android.util.Xml;
 
 //import com.android.inputmethod.keyboard.Key;
@@ -25,7 +25,7 @@ package com.android_cy.inputmethod.keyboard.internal;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.utils.ResourceUtils;
 
-//import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParser;
 
 //import java.util.ArrayDeque;
 
@@ -93,8 +93,8 @@ public final class KeyboardRow {
     // Will be updated by {@link Key}'s constructor.
     //private float mCurrentX;
 
-    //public KeyboardRow(final Resources res, final KeyboardParams params,
-                       //final XmlPullParser parser, final int y) {
+    public KeyboardRow(final Resources res, final KeyboardParams params,
+                       final XmlPullParser parser, final int y) {
         //mParams = params;
         //final TypedArray keyboardAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 //R.styleable.Keyboard);
@@ -109,7 +109,7 @@ public final class KeyboardRow {
 
         //mCurrentY = y;
         //mCurrentX = 0.0f;
-    //}
+    }
 
     /*public int getRowHeight() {
         return mRowHeight;
@@ -143,14 +143,15 @@ public final class KeyboardRow {
 
     public void advanceXPos(final float width) {
         mCurrentX += width;
-    }
+    }*/
 
     public int getKeyY() {
-        return mCurrentY;
+        //return mCurrentY;
+        return 0; // tfr
     }
 
     public float getKeyX(final TypedArray keyAttr) {
-        if (keyAttr == null || !keyAttr.hasValue(R.styleable.Keyboard_Key_keyXPos)) {
+        /*if (keyAttr == null || !keyAttr.hasValue(R.styleable.Keyboard_Key_keyXPos)) {
             return mCurrentX;
         }
         final float keyXPos = keyAttr.getFraction(R.styleable.Keyboard_Key_keyXPos,
@@ -164,10 +165,11 @@ public final class KeyboardRow {
         // key starts at mCurrentX. Or, this key will overlaps the adjacent key on
         // its left hand side.
         final int keyboardRightEdge = mParams.mOccupiedWidth - mParams.mRightPadding;
-        return Math.max(keyXPos + keyboardRightEdge, mCurrentX);
+        return Math.max(keyXPos + keyboardRightEdge, mCurrentX);*/
+        return 0; // tfr
     }
 
-    public float getKeyWidth(final TypedArray keyAttr, final float keyXPos) {
+    /*public float getKeyWidth(final TypedArray keyAttr, final float keyXPos) {
         if (keyAttr == null) {
             return getDefaultKeyWidth();
         }

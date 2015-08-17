@@ -19,7 +19,7 @@ package com.android_cy.inputmethod.keyboard.internal;
 //import android.util.SparseIntArray;
 
 import com.android_cy.inputmethod.keyboard.Key;
-//import com.android.inputmethod.keyboard.KeyboardId;
+import com.android_cy.inputmethod.keyboard.KeyboardId;
 //import com.android.inputmethod.latin.Constants;
 
 //import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class KeyboardParams {
-    //public KeyboardId mId;
+    public KeyboardId mId;
     //public int mThemeId;
 
     /** Total height and width of the keyboard, including the paddings and keys */
@@ -50,8 +50,8 @@ public class KeyboardParams {
 
     //public int mDefaultRowHeight;
     //public int mDefaultKeyWidth;
-    //public int mHorizontalGap;
-    //public int mVerticalGap;
+    public int mHorizontalGap;
+    public int mVerticalGap;
 
     //public int mMoreKeysTemplate;
     //public int mMaxMoreKeysKeyboardColumn;

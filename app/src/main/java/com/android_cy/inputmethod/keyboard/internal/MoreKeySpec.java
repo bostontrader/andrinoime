@@ -18,15 +18,15 @@ package com.android_cy.inputmethod.keyboard.internal;
 
 import android.text.TextUtils;
 
-//import com.android.inputmethod.keyboard.Key;
-//import com.android.inputmethod.latin.Constants;
+import com.android_cy.inputmethod.keyboard.Key;
+import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.define.DebugFlags;
 //import com.android.inputmethod.latin.utils.CollectionUtils;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 //import java.util.ArrayList;
 //import java.util.Arrays;
-//import java.util.Locale;
+import java.util.Locale;
 
 /**
  * The more key specification object. The more keys are an array of {@link MoreKeySpec}.
@@ -44,43 +44,43 @@ public final class MoreKeySpec {
     //public final int mCode;
     //public final String mLabel;
     //public final String mOutputText;
-    //public final int mIconId;
+    public final int mIconId;
 
-    /*public MoreKeySpec(final String moreKeySpec, boolean needsToUpperCase, final Locale locale) {
+    public MoreKeySpec(final String moreKeySpec, boolean needsToUpperCase, final Locale locale) {
         if (TextUtils.isEmpty(moreKeySpec)) {
             throw new KeySpecParser.KeySpecParserError("Empty more key spec");
         }
-        mLabel = StringUtils.toUpperCaseOfStringForLocale(
-                KeySpecParser.getLabel(moreKeySpec), needsToUpperCase, locale);
-        final int code = StringUtils.toUpperCaseOfCodeForLocale(
-                KeySpecParser.getCode(moreKeySpec), needsToUpperCase, locale);
-        if (code == Constants.CODE_UNSPECIFIED) {
+        //mLabel = StringUtils.toUpperCaseOfStringForLocale(
+                //KeySpecParser.getLabel(moreKeySpec), needsToUpperCase, locale);
+        //final int code = StringUtils.toUpperCaseOfCodeForLocale(
+                //KeySpecParser.getCode(moreKeySpec), needsToUpperCase, locale);
+        //if (code == Constants.CODE_UNSPECIFIED) {
             // Some letter, for example German Eszett (U+00DF: "ß"), has multiple characters
             // upper case representation ("SS").
-            mCode = Constants.CODE_OUTPUT_TEXT;
-            mOutputText = mLabel;
-        } else {
-            mCode = code;
-            mOutputText = StringUtils.toUpperCaseOfStringForLocale(
-                    KeySpecParser.getOutputText(moreKeySpec), needsToUpperCase, locale);
-        }
+            //mCode = Constants.CODE_OUTPUT_TEXT;
+            //mOutputText = mLabel;
+        //} else {
+            //mCode = code;
+            //mOutputText = StringUtils.toUpperCaseOfStringForLocale(
+                    //KeySpecParser.getOutputText(moreKeySpec), needsToUpperCase, locale);
+        //}
         mIconId = KeySpecParser.getIconId(moreKeySpec);
-    }*/
-
-    /*public Key buildKey(final int x, final int y, final int labelFlags,
-                        final KeyboardParams params) {
-        return new Key(mLabel, mIconId, mCode, mOutputText, null /star hintLabel star/, labelFlags,
-                Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
-                params.mHorizontalGap, params.mVerticalGap);
     }
+
+    //public Key buildKey(final int x, final int y, final int labelFlags,
+                        //final KeyboardParams params) {
+        //return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
+                //Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
+                //params.mHorizontalGap, params.mVerticalGap);
+    //}
 
     @Override
     public int hashCode() {
         int hashCode = 1;
-        hashCode = 31 + mCode;
-        hashCode = hashCode * 31 + mIconId;
-        hashCode = hashCode * 31 + (mLabel == null ? 0 : mLabel.hashCode());
-        hashCode = hashCode * 31 + (mOutputText == null ? 0 : mOutputText.hashCode());
+        //hashCode = 31 + mCode;
+        //hashCode = hashCode * 31 + mIconId;
+        //hashCode = hashCode * 31 + (mLabel == null ? 0 : mLabel.hashCode());
+        //hashCode = hashCode * 31 + (mOutputText == null ? 0 : mOutputText.hashCode());
         return hashCode;
     }
 
@@ -89,33 +89,34 @@ public final class MoreKeySpec {
         if (this == o) return true;
         if (o instanceof MoreKeySpec) {
             final MoreKeySpec other = (MoreKeySpec)o;
-            return mCode == other.mCode
-                    && mIconId == other.mIconId
-                    && TextUtils.equals(mLabel, other.mLabel)
-                    && TextUtils.equals(mOutputText, other.mOutputText);
+            //return mCode == other.mCode
+                    //&& mIconId == other.mIconId
+                    //&& TextUtils.equals(mLabel, other.mLabel)
+                    //&& TextUtils.equals(mOutputText, other.mOutputText);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        final String label = (mIconId == KeyboardIconsSet.ICON_UNDEFINED ? mLabel
-                : KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(mIconId));
-        final String output = (mCode == Constants.CODE_OUTPUT_TEXT ? mOutputText
-                : Constants.printableCode(mCode));
-        if (StringUtils.codePointCount(label) == 1 && label.codePointAt(0) == mCode) {
-            return output;
-        } else {
-            return label + "|" + output;
-        }
+        //final String label = (mIconId == KeyboardIconsSet.ICON_UNDEFINED ? mLabel
+                //: KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(mIconId));
+        //final String output = (mCode == Constants.CODE_OUTPUT_TEXT ? mOutputText
+                //: Constants.printableCode(mCode));
+        //if (StringUtils.codePointCount(label) == 1 && label.codePointAt(0) == mCode) {
+            //return output;
+        //} else {
+            //return label + "|" + output;
+        //}
+        return null; // tfr
     }
 
     //private static final boolean DEBUG = DebugFlags.DEBUG_ENABLED;
     // Constants for parsing.
-    private static final char COMMA = Constants.CODE_COMMA;
+    //private static final char COMMA = Constants.CODE_COMMA;
     private static final char BACKSLASH = Constants.CODE_BACKSLASH;
-    private static final String ADDITIONAL_MORE_KEY_MARKER =
-            StringUtils.newSingleCodePointString(Constants.CODE_PERCENT);*/
+    //private static final String ADDITIONAL_MORE_KEY_MARKER =
+        //StringUtils.newSingleCodePointString(Constants.CODE_PERCENT);
 
     /**
      * Split the text containing multiple key specifications separated by commas into an array of
@@ -257,7 +258,7 @@ public final class MoreKeySpec {
         } else {
             return null;
         }
-    }
+    }*/
 
     public static int getIntValue(final String[] moreKeys, final String key,
                                   final int defaultValue) {
@@ -300,5 +301,5 @@ public final class MoreKeySpec {
             value = true;
         }
         return value;
-    }*/
+    }
 }

@@ -20,11 +20,11 @@
 
 <resources>
 
-<!--
+
     <declare-styleable name="KeyboardTheme">
-        <!dashdash Keyboard style dashdash>
+        <!-- Keyboard style -->
         <attr name="keyboardStyle" format="reference" />
-        <!dashdash KeyboardView style dashdash>
+        <!-- KeyboardView style dashdash>
         <attr name="keyboardViewStyle" format="reference" />
         <!dashdash MainKeyboardView style dashdash>
         <attr name="mainKeyboardViewStyle" format="reference" />
@@ -39,10 +39,10 @@
         <!dashdash Suggestions strip style dashdash>
         <attr name="suggestionStripViewStyle" format="reference" />
         <!dashdash Suggestion word style dashdash>
-        <attr name="suggestionWordStyle" format="reference" />
+        <attr name="suggestionWordStyle" format="reference" />-->
     </declare-styleable>
 
-    <declare-styleable name="KeyboardView">
+    <!--<declare-styleable name="KeyboardView">
         <!dashdash Background image for the key. This image needs to be a {@link StateListDrawable},
              with the following possible states: normal, pressed, checkable, checkable+pressed,
              checkable+checked, checkable+checked+pressed. dashdash>
