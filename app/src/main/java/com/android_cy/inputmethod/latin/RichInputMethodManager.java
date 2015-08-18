@@ -25,13 +25,16 @@ import android.content.Context;
 //import android.preference.PreferenceManager;
 //import android.util.Log;
 //import android.view.inputmethod.InputMethodInfo;
-//import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-//import com.android.inputmethod.compat.InputMethodManagerCompatWrapper;
+import com.android_cy.inputmethod.compat.InputMethodManagerCompatWrapper;
 //import com.android.inputmethod.latin.settings.Settings;
 //import com.android.inputmethod.latin.utils.AdditionalSubtypeUtils;
-//import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
+import com.android_cy.inputmethod.latin.utils.SubtypeLocaleUtils;
+
+import java.util.List;
 
 //import java.util.Collections;
 //import java.util.HashMap;
@@ -41,7 +44,7 @@ import android.view.inputmethod.InputMethodSubtype;
  * Enrichment class for InputMethodManager to simplify interaction and add functionality.
  */
 public final class RichInputMethodManager {
-    //private static final String TAG = RichInputMethodManager.class.getSimpleName();
+    private static final String TAG = RichInputMethodManager.class.getSimpleName();
 
     private RichInputMethodManager() {
         // This utility class is not publicly instantiable.
@@ -49,8 +52,8 @@ public final class RichInputMethodManager {
 
     private static final RichInputMethodManager sInstance = new RichInputMethodManager();
 
-    //private InputMethodManagerCompatWrapper mImmWrapper;
-    //private InputMethodInfoCache mInputMethodInfoCache;
+    private InputMethodManagerCompatWrapper mImmWrapper;
+    private InputMethodInfoCache mInputMethodInfoCache;
     //final HashMap<InputMethodInfo, List<InputMethodSubtype>>
             //mSubtypeListCacheWithImplicitlySelectedSubtypes = new HashMap<>();
     //final HashMap<InputMethodInfo, List<InputMethodSubtype>>
@@ -59,7 +62,7 @@ public final class RichInputMethodManager {
     //private static final int INDEX_NOT_FOUND = -1;
 
     public static RichInputMethodManager getInstance() {
-        //sInstance.checkInitialized();
+        sInstance.checkInitialized();
         return sInstance;
     }
 
@@ -67,7 +70,7 @@ public final class RichInputMethodManager {
         sInstance.initInternal(context);
     }
 
-    /*private boolean isInitialized() {
+    private boolean isInitialized() {
         return mImmWrapper != null;
     }
 
@@ -75,18 +78,18 @@ public final class RichInputMethodManager {
         if (!isInitialized()) {
             throw new RuntimeException(TAG + " is used before initialization");
         }
-    }*/
+    }
 
     private void initInternal(final Context context) {
-        //if (isInitialized()) {
-            //return;
-        //}
-        //mImmWrapper = new InputMethodManagerCompatWrapper(context);
-        //mInputMethodInfoCache = new InputMethodInfoCache(
-                //mImmWrapper.mImm, context.getPackageName());
+        if (isInitialized()) {
+            return;
+        }
+        mImmWrapper = new InputMethodManagerCompatWrapper(context);
+        mInputMethodInfoCache = new InputMethodInfoCache(
+            mImmWrapper.mImm, context.getPackageName());
 
         // Initialize additional subtypes.
-        //SubtypeLocaleUtils.init(context);
+        SubtypeLocaleUtils.init(context);
         //final InputMethodSubtype[] additionalSubtypes = getAdditionalSubtypes(context);
         //setAdditionalInputMethodSubtypes(additionalSubtypes);
     }
@@ -206,7 +209,7 @@ public final class RichInputMethodManager {
             }
         }
         return true;
-    }
+    }*/
 
     private static class InputMethodInfoCache {
         private final InputMethodManager mImm;
@@ -224,6 +227,7 @@ public final class RichInputMethodManager {
                 return mCachedValue;
             }
             for (final InputMethodInfo imi : mImm.getInputMethodList()) {
+
                 if (imi.getPackageName().equals(mImePackageName)) {
                     mCachedValue = imi;
                     return imi;
@@ -241,7 +245,7 @@ public final class RichInputMethodManager {
         return mInputMethodInfoCache.get();
     }
 
-    public String getInputMethodIdOfThisIme() {
+    /*public String getInputMethodIdOfThisIme() {
         return getInputMethodInfoOfThisIme().getId();
     }
 
@@ -362,24 +366,42 @@ public final class RichInputMethodManager {
             }
         }
         return keyboardCount > 1;
-    }
+    }*/
 
+    // There is something totally fucked up about this method.
+    // It successfully compiles but will only return null.
+    // Setting a breakpoint on "return subtype" gives us "no executuable code".
+    // This problem comes and goes when being positioned inside the for loop.
+    // When outside the loop, it works fine.  When inside the loop, it does not.  WTF?
     public InputMethodSubtype findSubtypeByLocaleAndKeyboardLayoutSet(final String localeString,
                                                                       final String keyboardLayoutSetName) {
         final InputMethodInfo myImi = getInputMethodInfoOfThisIme();
         final int count = myImi.getSubtypeCount();
-        for (int i = 0; i < count; i++) {
-            final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
-            final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
-            if (localeString.equals(subtype.getLocale())
-                    && keyboardLayoutSetName.equals(layoutName)) {
+
+        //for (int i = 0; i < count; i++) {
+
+            // original. This can't work!
+            //final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
+            //InputMethodSubtype subtype = myImi.getSubtypeAt(i);
+            InputMethodSubtype subtype = myImi.getSubtypeAt(3); // hack this to be the one we want
+            //final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
+            //String s1 = subtype.getLocale();
+
+            // Very bizarre.  This comparison is not working.  Why not?
+            // Hack to make it work for now.
+            //boolean b1 = localeString.equals(subtype.getLocale());
+            //boolean b2 = keyboardLayoutSetName.equals(layoutName);
+            //if (localeString.equals(subtype.getLocale())
+                //&& keyboardLayoutSetName.equals(layoutName)) {
+            //if (b1 && b2) {
+            //if (b1) {
                 return subtype;
-            }
-        }
-        return null;
+            //}
+        //}
+        //return null;
     }
 
-    public void setInputMethodAndSubtype(final IBinder token, final InputMethodSubtype subtype) {
+    /*public void setInputMethodAndSubtype(final IBinder token, final InputMethodSubtype subtype) {
         mImmWrapper.mImm.setInputMethodAndSubtype(
                 token, getInputMethodIdOfThisIme(), subtype);
     }

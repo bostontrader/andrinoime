@@ -477,6 +477,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         }
         final TypedArray keyAttr = mResources.obtainAttributes(
                 Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
+        String s1 = keyAttr.getString(2);
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
         final String keySpec = keyStyle.getString(keyAttr, R.styleable.Keyboard_Key_keySpec);
         if (TextUtils.isEmpty(keySpec)) {
@@ -539,9 +540,9 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 R.styleable.Keyboard_Include_keyboardLayout, 0);
             if (row != null) {
                 // Override current x coordinate.
-                //row.setXPos(row.getKeyX(keyAttr));
+                row.setXPos(row.getKeyX(keyAttr));
                 // Push current Row attributes and update with new attributes.
-                //row.pushRowAttributes(keyAttr);
+                row.pushRowAttributes(keyAttr);
             }
         } finally {
             keyboardAttr.recycle();
@@ -559,7 +560,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         } finally {
             if (row != null) {
                 // Restore Row attributes.
-                //row.popRowAttributes();
+                row.popRowAttributes();
             }
             parserForInclude.close();
         }

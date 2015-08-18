@@ -14,6 +14,7 @@
             </intent-filter>
         </activity>
 
+<!--
         <service android:name="com.example.android.softkeyboard.SoftKeyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
@@ -21,6 +22,7 @@
             </intent-filter>
             <meta-data android:name="android.view.im" android:resource="@xml/method" />
         </service>
+-->
 
         <service android:name="com.android_cy.inputmethod.latin.LatinIME"
             android:permission="android.permission.BIND_INPUT_METHOD">

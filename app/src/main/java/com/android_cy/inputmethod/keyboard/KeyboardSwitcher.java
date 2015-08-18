@@ -30,7 +30,7 @@ import android.view.inputmethod.EditorInfo;
 //import com.android.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
 //import com.android.inputmethod.keyboard.emoji.EmojiPalettesView;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardState;
-//import com.android.inputmethod.keyboard.internal.KeyboardTextsSet;
+import com.android_cy.inputmethod.keyboard.internal.KeyboardTextsSet;
 import com.android_cy.inputmethod.latin.InputView;
 import com.fyrecloud.andrinoime.R;
 import com.android_cy.inputmethod.latin.LatinIME;
@@ -60,7 +60,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private KeyboardLayoutSet mKeyboardLayoutSet;
     // TODO: The following {@link KeyboardTextsSet} should be in {@link KeyboardLayoutSet}.
-    //private final KeyboardTextsSet mKeyboardTextsSet = new KeyboardTextsSet();
+    private final KeyboardTextsSet mKeyboardTextsSet = new KeyboardTextsSet();
 
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
@@ -122,7 +122,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardLayoutSet = builder.build();
         //try {
             //mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState);
-            //mKeyboardTextsSet.setLocale(mSubtypeSwitcher.getCurrentSubtypeLocale(), mThemeContext);
+            mKeyboardTextsSet.setLocale(mSubtypeSwitcher.getCurrentSubtypeLocale(), mThemeContext);
         //} catch (KeyboardLayoutSetException e) {
             //Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             //return;

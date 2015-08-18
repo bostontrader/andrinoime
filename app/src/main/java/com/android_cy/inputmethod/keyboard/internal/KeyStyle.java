@@ -29,9 +29,10 @@ public abstract class KeyStyle {
     protected KeyStyle(final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
     }
-
     protected String parseString(final TypedArray a, final int index) {
         if (a.hasValue(index)) {
+            String s1 = a.getString(index);
+            String s2 = mTextsSet.resolveTextReference(s1);
             return mTextsSet.resolveTextReference(a.getString(index));
         }
         return null;

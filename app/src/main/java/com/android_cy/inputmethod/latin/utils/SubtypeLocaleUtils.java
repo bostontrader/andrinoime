@@ -19,24 +19,26 @@ package com.android_cy.inputmethod.latin.utils;
 //import static com.android.inputmethod.latin.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 //import static com.android.inputmethod.latin.Constants.Subtype.ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME;
 
-//import android.content.Context;
-//import android.content.res.Resources;
+import android.content.Context;
+import android.content.res.Resources;
 //import android.os.Build;
 //import android.util.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
-//import com.android.inputmethod.latin.Constants;
+import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 
 //import java.util.Arrays;
-//import java.util.HashMap;
-//import java.util.Locale;
+import com.fyrecloud.andrinoime.R;
+
+import java.util.HashMap;
+import java.util.Locale;
 
 public final class SubtypeLocaleUtils {
     //private static final String TAG = SubtypeLocaleUtils.class.getSimpleName();
 
     // This reference class {@link Constants} must be located in the same package as LatinIME.java.
-    //private static final String RESOURCE_PACKAGE_NAME = Constants.class.getPackage().getName();
+    private static final String RESOURCE_PACKAGE_NAME = Constants.class.getPackage().getName();
 
     // Special language code to represent "no language".
     public static final String NO_LANGUAGE = "zz";
@@ -44,31 +46,31 @@ public final class SubtypeLocaleUtils {
     //public static final String EMOJI = "emoji";
     //public static final int UNKNOWN_KEYBOARD_LAYOUT = R.string.subtype_generic;
 
-    //private static volatile boolean sInitialized = false;
-    //private static final Object sInitializeLock = new Object();
-    //private static Resources sResources;
-    //private static String[] sPredefinedKeyboardLayoutSet;
+    private static volatile boolean sInitialized = false;
+    private static final Object sInitializeLock = new Object();
+    private static Resources sResources;
+    private static String[] sPredefinedKeyboardLayoutSet;
     // Keyboard layout to its display name map.
-    //private static final HashMap<String, String> sKeyboardLayoutToDisplayNameMap = new HashMap<>();
+    private static final HashMap<String, String> sKeyboardLayoutToDisplayNameMap = new HashMap<>();
     // Keyboard layout to subtype name resource id map.
-    //private static final HashMap<String, Integer> sKeyboardLayoutToNameIdsMap = new HashMap<>();
+    private static final HashMap<String, Integer> sKeyboardLayoutToNameIdsMap = new HashMap<>();
     // Exceptional locale to subtype name resource id map.
-    //private static final HashMap<String, Integer> sExceptionalLocaleToNameIdsMap = new HashMap<>();
+    private static final HashMap<String, Integer> sExceptionalLocaleToNameIdsMap = new HashMap<>();
     // Exceptional locale to subtype name with layout resource id map.
-    //private static final HashMap<String, Integer> sExceptionalLocaleToWithLayoutNameIdsMap =
-            //new HashMap<>();
-    //private static final String SUBTYPE_NAME_RESOURCE_PREFIX =
-            //"string/subtype_";
-    //private static final String SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX =
-            //"string/subtype_generic_";
-    //private static final String SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX =
-            //"string/subtype_with_layout_";
-    //private static final String SUBTYPE_NAME_RESOURCE_NO_LANGUAGE_PREFIX =
-            //"string/subtype_no_language_";
+    private static final HashMap<String, Integer> sExceptionalLocaleToWithLayoutNameIdsMap =
+        new HashMap<>();
+    private static final String SUBTYPE_NAME_RESOURCE_PREFIX =
+        "string/subtype_";
+    private static final String SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX =
+        "string/subtype_generic_";
+    private static final String SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX =
+        "string/subtype_with_layout_";
+    private static final String SUBTYPE_NAME_RESOURCE_NO_LANGUAGE_PREFIX =
+        "string/subtype_no_language_";
     // Keyboard layout set name for the subtypes that don't have a keyboardLayoutSet extra value.
     // This is for compatibility to keep the same subtype ids as pre-JellyBean.
-    /*private static final HashMap<String, String> sLocaleAndExtraValueToKeyboardLayoutSetMap =
-            new HashMap<>();
+    private static final HashMap<String, String> sLocaleAndExtraValueToKeyboardLayoutSetMap =
+        new HashMap<>();
 
     private SubtypeLocaleUtils() {
         // Intentional empty constructor for utility class.
@@ -129,19 +131,19 @@ public final class SubtypeLocaleUtils {
         }
     }
 
-    public static String[] getPredefinedKeyboardLayoutSet() {
+    /*public static String[] getPredefinedKeyboardLayoutSet() {
         return sPredefinedKeyboardLayoutSet;
     }
 
     public static boolean isExceptionalLocale(final String localeString) {
         return sExceptionalLocaleToNameIdsMap.containsKey(localeString);
-    }
+    }*/
 
     private static final String getNoLanguageLayoutKey(final String keyboardLayoutName) {
         return NO_LANGUAGE + "_" + keyboardLayoutName;
     }
 
-    public static int getSubtypeNameId(final String localeString, final String keyboardLayoutName) {
+    /*public static int getSubtypeNameId(final String localeString, final String keyboardLayoutName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && isExceptionalLocale(localeString)) {
             return sExceptionalLocaleToWithLayoutNameIdsMap.get(localeString);
@@ -267,21 +269,21 @@ public final class SubtypeLocaleUtils {
     public static boolean isNoLanguage(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
         return NO_LANGUAGE.equals(localeString);
-    }
+    }*/
 
     public static Locale getSubtypeLocale(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
         return LocaleUtils.constructLocaleFromString(localeString);
     }
 
-    public static String getKeyboardLayoutSetDisplayName(final InputMethodSubtype subtype) {
-        final String layoutName = getKeyboardLayoutSetName(subtype);
-        return getKeyboardLayoutSetDisplayName(layoutName);
-    }
+    //public static String getKeyboardLayoutSetDisplayName(final InputMethodSubtype subtype) {
+        //final String layoutName = getKeyboardLayoutSetName(subtype);
+        //return getKeyboardLayoutSetDisplayName(layoutName);
+    //}
 
-    public static String getKeyboardLayoutSetDisplayName(final String layoutName) {
-        return sKeyboardLayoutToDisplayNameMap.get(layoutName);
-    }*/
+    //public static String getKeyboardLayoutSetDisplayName(final String layoutName) {
+        //return sKeyboardLayoutToDisplayNameMap.get(layoutName);
+    //}
 
     public static String getKeyboardLayoutSetName(final InputMethodSubtype subtype) {
         //String keyboardLayoutSet = subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET);

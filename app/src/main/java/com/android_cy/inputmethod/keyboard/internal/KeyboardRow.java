@@ -27,7 +27,7 @@ import android.content.res.TypedArray;
 
 import org.xmlpull.v1.XmlPullParser;
 
-//import java.util.ArrayDeque;
+import java.util.ArrayDeque;
 
 /**
  * Container for keys in the keyboard. All keys in a row are at the same Y-coordinate.
@@ -39,14 +39,14 @@ public final class KeyboardRow {
     //private static final int KEYWIDTH_NOT_ENUM = 0;
     //private static final int KEYWIDTH_FILL_RIGHT = -1;
 
-    //private final KeyboardParams mParams;
+    private final KeyboardParams mParams;
     /** The height of this row. */
     //private final int mRowHeight;
 
-    //private final ArrayDeque<RowAttributes> mRowAttributesStack = new ArrayDeque<>();
+    private final ArrayDeque<RowAttributes> mRowAttributesStack = new ArrayDeque<>();
 
     // TODO: Add keyActionFlags.
-    //private static class RowAttributes {
+    private static class RowAttributes {
         /** Default width of a key in this row. */
         //public final float mDefaultKeyWidth;
         /** Default keyLabelFlags in this row. */
@@ -78,24 +78,24 @@ public final class KeyboardRow {
          * @param defaultRowAttr default Row attributes.
          * @param keyboardWidth the keyboard width that is required to calculate keyWidth attribute.
          */
-        //public RowAttributes(final TypedArray keyAttr, final RowAttributes defaultRowAttr,
-                             //final int keyboardWidth) {
+        public RowAttributes(final TypedArray keyAttr, final RowAttributes defaultRowAttr,
+                             final int keyboardWidth) {
             //mDefaultKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     //keyboardWidth, keyboardWidth, defaultRowAttr.mDefaultKeyWidth);
             //mDefaultKeyLabelFlags = keyAttr.getInt(R.styleable.Keyboard_Key_keyLabelFlags, 0)
                     //| defaultRowAttr.mDefaultKeyLabelFlags;
             //mDefaultBackgroundType = keyAttr.getInt(R.styleable.Keyboard_Key_backgroundType,
                     //defaultRowAttr.mDefaultBackgroundType);
-        //}
-    //}
+        }
+    }
 
-    //private final int mCurrentY;
+    private final int mCurrentY;
     // Will be updated by {@link Key}'s constructor.
-    //private float mCurrentX;
+    private float mCurrentX;
 
     public KeyboardRow(final Resources res, final KeyboardParams params,
                        final XmlPullParser parser, final int y) {
-        //mParams = params;
+        mParams = params;
         //final TypedArray keyboardAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 //R.styleable.Keyboard);
         //mRowHeight = (int)ResourceUtils.getDimensionOrFraction(keyboardAttr,
@@ -107,13 +107,13 @@ public final class KeyboardRow {
                 //keyAttr, params.mDefaultKeyWidth, params.mBaseWidth));
         //keyAttr.recycle();
 
-        //mCurrentY = y;
-        //mCurrentX = 0.0f;
+        mCurrentY = y;
+        mCurrentX = 0.0f;
     }
 
-    /*public int getRowHeight() {
-        return mRowHeight;
-    }
+    //public int getRowHeight() {
+        //return mRowHeight;
+    //}
 
     public void pushRowAttributes(final TypedArray keyAttr) {
         final RowAttributes newAttributes = new RowAttributes(
@@ -125,7 +125,7 @@ public final class KeyboardRow {
         mRowAttributesStack.pop();
     }
 
-    public float getDefaultKeyWidth() {
+    /*public float getDefaultKeyWidth() {
         return mRowAttributesStack.peek().mDefaultKeyWidth;
     }
 
@@ -135,19 +135,18 @@ public final class KeyboardRow {
 
     public int getDefaultBackgroundType() {
         return mRowAttributesStack.peek().mDefaultBackgroundType;
-    }
+    }*/
 
     public void setXPos(final float keyXPos) {
         mCurrentX = keyXPos;
     }
 
-    public void advanceXPos(final float width) {
-        mCurrentX += width;
-    }*/
+    //public void advanceXPos(final float width) {
+        //mCurrentX += width;
+    //}
 
     public int getKeyY() {
-        //return mCurrentY;
-        return 0; // tfr
+        return mCurrentY;
     }
 
     public float getKeyX(final TypedArray keyAttr) {

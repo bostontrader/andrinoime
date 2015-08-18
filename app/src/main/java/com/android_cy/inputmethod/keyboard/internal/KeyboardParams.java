@@ -38,8 +38,8 @@ public class KeyboardParams {
     /** Base height and width of the keyboard used to calculate rows' or keys' heights and
      *  widths
      */
-    //public int mBaseHeight;
-    //public int mBaseWidth;
+    public int mBaseHeight;
+    public int mBaseWidth;
 
     public int mTopPadding;
     //public int mBottomPadding;
