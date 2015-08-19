@@ -40,6 +40,8 @@ import com.android_cy.inputmethod.latin.SubtypeSwitcher;
 //import com.android.inputmethod.latin.WordComposer;
 //import com.android.inputmethod.latin.settings.Settings;
 import com.android_cy.inputmethod.latin.settings.SettingsValues;
+
+import java.util.Locale;
 //import com.android.inputmethod.latin.utils.ResourceUtils;
 //import com.android.inputmethod.latin.utils.ScriptUtils;
 
@@ -121,9 +123,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         //builder.setLanguageSwitchKeyEnabled(mLatinIME.shouldShowLanguageSwitchKey());
         mKeyboardLayoutSet = builder.build();
         //try {
-            //mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState);
-            mKeyboardTextsSet.setLocale(mSubtypeSwitcher.getCurrentSubtypeLocale(), mThemeContext);
-        //} catch (KeyboardLayoutSetException e) {
+            mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState);
+            Locale o1 = mSubtypeSwitcher.getCurrentSubtypeLocale();
+            mKeyboardTextsSet.setLocale(o1, mThemeContext);
+        //catch (KeyboardLayoutSetException e) {
             //Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             //return;
         //}

@@ -16,16 +16,16 @@
 
 package com.android_cy.inputmethod.latin.settings;
 
-//import android.content.Context;
-//import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.SharedPreferences;
 //import android.content.pm.PackageInfo;
 //import android.content.res.Configuration;
-//import android.content.res.Resources;
+import android.content.res.Resources;
 //import android.util.Log;
-//import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.EditorInfo;
 
 //import com.android.inputmethod.compat.AppWorkaroundsUtils;
-//import com.android.inputmethod.latin.InputAttributes;
+import com.android_cy.inputmethod.latin.InputAttributes;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.RichInputMethodManager;
 //import com.android.inputmethod.latin.SubtypeSwitcher;
@@ -34,56 +34,56 @@ package com.android_cy.inputmethod.latin.settings;
 //import com.android.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 //import java.util.Arrays;
-//import java.util.Locale;
+import java.util.Locale;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
  * using {@link com.android.inputmethod.latin.utils.RunInLocale}.
  */
 public final class SettingsValues {
-    /* private static final String TAG = SettingsValues.class.getSimpleName();
-    // "floatMaxValue" and "floatNegativeInfinity" are special marker strings for
-    // Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
-    private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
-    private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
-    private static final int TIMEOUT_TO_GET_TARGET_PACKAGE = 5; // seconds
+    //private static final String TAG = SettingsValues.class.getSimpleName();
+    //"floatMaxValue" and "floatNegativeInfinity" are special marker strings for
+    //Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
+    //private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
+    //private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
+    //private static final int TIMEOUT_TO_GET_TARGET_PACKAGE = 5; // seconds
 
     // From resources:
-    public final SpacingAndPunctuations mSpacingAndPunctuations;
-    public final int mDelayInMillisecondsToUpdateOldSuggestions;
-    public final long mDoubleSpacePeriodTimeout;
+    //public final SpacingAndPunctuations mSpacingAndPunctuations;
+    //public final int mDelayInMillisecondsToUpdateOldSuggestions;
+    //public final long mDoubleSpacePeriodTimeout;*/
     // From configuration:
     public final Locale mLocale;
     public final boolean mHasHardwareKeyboard;
-    public final int mDisplayOrientation;
+    //public final int mDisplayOrientation;
     // From preferences, in the same order as xml/prefs.xml:
-    public final boolean mAutoCap;
-    public final boolean mVibrateOn;
-    public final boolean mSoundOn;
-    public final boolean mKeyPreviewPopupOn;
-    public final boolean mShowsVoiceInputKey;
-    public final boolean mIncludesOtherImesInLanguageSwitchList;
-    public final boolean mShowsLanguageSwitchKey;
-    public final boolean mUseContactsDict;
-    public final boolean mUsePersonalizedDicts;
-    public final boolean mUseDoubleSpacePeriod;
-    public final boolean mBlockPotentiallyOffensive;
+    //public final boolean mAutoCap;
+    //public final boolean mVibrateOn;
+    //public final boolean mSoundOn;
+    //public final boolean mKeyPreviewPopupOn;
+    //public final boolean mShowsVoiceInputKey;
+    //public final boolean mIncludesOtherImesInLanguageSwitchList;
+    //public final boolean mShowsLanguageSwitchKey;
+    //public final boolean mUseContactsDict;
+    //public final boolean mUsePersonalizedDicts;
+    //public final boolean mUseDoubleSpacePeriod;
+    //public final boolean mBlockPotentiallyOffensive;
     // Use bigrams to predict the next word when there is no input for it yet
-    public final boolean mBigramPredictionEnabled;
-    public final boolean mGestureInputEnabled;
-    public final boolean mGestureTrailEnabled;
-    public final boolean mGestureFloatingPreviewTextEnabled;
-    public final boolean mSlidingKeyInputPreviewEnabled;
-    public final boolean mPhraseGestureEnabled;
-    public final int mKeyLongpressTimeout;
-    public final boolean mEnableMetricsLogging;
-    public final boolean mShouldShowUiToAcceptTypedWord;
+    //public final boolean mBigramPredictionEnabled;
+    //public final boolean mGestureInputEnabled;
+    //public final boolean mGestureTrailEnabled;
+    //public final boolean mGestureFloatingPreviewTextEnabled;
+    //public final boolean mSlidingKeyInputPreviewEnabled;
+    //public final boolean mPhraseGestureEnabled;
+    //public final int mKeyLongpressTimeout;
+    //public final boolean mEnableMetricsLogging;
+    //public final boolean mShouldShowUiToAcceptTypedWord;
 
     // From the input box
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
-    public final int mKeypressVibrationDuration;
+    /*public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
     public final int mKeyPreviewPopupDismissDelay;
     private final boolean mAutoCorrectEnabled;
@@ -107,26 +107,26 @@ public final class SettingsValues {
     public final float mKeyPreviewShowUpStartXScale;
     public final float mKeyPreviewShowUpStartYScale;
     public final float mKeyPreviewDismissEndXScale;
-    public final float mKeyPreviewDismissEndYScale;
+    public final float mKeyPreviewDismissEndYScale;*/
 
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
         // Get the resources
-        mDelayInMillisecondsToUpdateOldSuggestions =
-                res.getInteger(R.integer.config_delay_in_milliseconds_to_update_old_suggestions);
-        mSpacingAndPunctuations = new SpacingAndPunctuations(res);
+        //mDelayInMillisecondsToUpdateOldSuggestions =
+                //res.getInteger(R.integer.config_delay_in_milliseconds_to_update_old_suggestions);
+        //mSpacingAndPunctuations = new SpacingAndPunctuations(res);
 
         // Store the input attributes
         if (null == inputAttributes) {
-            mInputAttributes = new InputAttributes(star/
-                    //null, false /star isFullscreenMode star/, context.getPackageName());
-        /star} else {
+            mInputAttributes = new InputAttributes(
+                null, false /* isFullscreenMode */, context.getPackageName());
+        } else {
             mInputAttributes = inputAttributes;
         }
 
         // Get the settings preferences
-        mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true);
+        /*mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true);
         mVibrateOn = Settings.readVibrationEnabled(prefs, res);
         mSoundOn = Settings.readKeypressSoundEnabled(prefs, res);
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
@@ -150,9 +150,9 @@ public final class SettingsValues {
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
         mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(autoCorrectionThresholdRawValue, res);
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
-        mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
+        mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);*/
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mEnableMetricsLogging = prefs.getBoolean(Settings.PREF_ENABLE_METRICS_LOGGING, true);
+        /*mEnableMetricsLogging = prefs.getBoolean(Settings.PREF_ENABLE_METRICS_LOGGING, true);
         mShouldShowUiToAcceptTypedWord = Settings.HAS_UI_TO_ACCEPT_TYPED_WORD
                 && prefs.getBoolean(DebugSettings.PREF_SHOW_UI_TO_ACCEPT_TYPED_WORD, true);
         // Compute other readable settings
@@ -208,10 +208,10 @@ public final class SettingsValues {
         } else {
             new TargetPackageInfoGetterTask(context, mAppWorkarounds)
                     .execute(mInputAttributes.mTargetApplicationPackageName);
-        }
+        }*/
     }
 
-    public boolean isApplicationSpecifiedCompletionsOn() {
+/*    public boolean isApplicationSpecifiedCompletionsOn() {
         return mInputAttributes.mApplicationSpecifiedCompletionOn;
     }
 
@@ -259,13 +259,13 @@ public final class SettingsValues {
         } else {
             return imm.hasMultipleEnabledSubtypesInThisIme(false /star include aux subtypes star/);
         }
-    }
+    }*/
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
         return mInputAttributes.isSameInputType(editorInfo);
     }
 
-    public boolean hasSameOrientation(final Configuration configuration) {
+    /*public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
     }
 

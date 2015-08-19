@@ -27,7 +27,7 @@ import android.content.Context;
 //import android.os.AsyncTask;
 //import android.os.IBinder;
 //import android.util.Log;
-//import android.view.inputmethod.InputMethodInfo;
+import android.view.inputmethod.InputMethodInfo;
 //import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -40,9 +40,9 @@ import com.android_cy.inputmethod.latin.utils.LocaleUtils;
 import com.android_cy.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 //import java.util.HashSet;
-//import java.util.List;
+import java.util.List;
 import java.util.Locale;
-//import java.util.Map;
+import java.util.Map;
 //import java.util.Set;
 
 public final class SubtypeSwitcher {
@@ -56,8 +56,8 @@ public final class SubtypeSwitcher {
 
     //private final LanguageOnSpacebarHelper mLanguageOnSpacebarHelper =
             //new LanguageOnSpacebarHelper();
-    //private InputMethodInfo mShortcutInputMethodInfo;
-    //private InputMethodSubtype mShortcutSubtype;
+    private InputMethodInfo mShortcutInputMethodInfo;
+    private InputMethodSubtype mShortcutSubtype;
     private InputMethodSubtype mNoLanguageSubtype;
     //private InputMethodSubtype mEmojiSubtype;
     //private boolean mIsNetworkConnected;
@@ -125,22 +125,22 @@ public final class SubtypeSwitcher {
     /**
      * Update parameters which are changed outside LatinIME. This parameters affect UI so that they
      * should be updated every time onStartInputView is called.
-     star/
+     */
     public void updateParametersOnStartInputView() {
         final List<InputMethodSubtype> enabledSubtypesOfThisIme =
                 mRichImm.getMyEnabledInputMethodSubtypeList(true);
-        mLanguageOnSpacebarHelper.updateEnabledSubtypes(enabledSubtypesOfThisIme);
+        //mLanguageOnSpacebarHelper.updateEnabledSubtypes(enabledSubtypesOfThisIme);
         updateShortcutIME();
     }
 
     private void updateShortcutIME() {
-        if (DBG) {
-            Log.d(TAG, "Update shortcut IME from : "
-                    + (mShortcutInputMethodInfo == null
-                    ? "<null>" : mShortcutInputMethodInfo.getId()) + ", "
-                    + (mShortcutSubtype == null ? "<null>" : (
-                    mShortcutSubtype.getLocale() + ", " + mShortcutSubtype.getMode())));
-        }
+        //if (DBG) {
+            //Log.d(TAG, "Update shortcut IME from : "
+                    //+ (mShortcutInputMethodInfo == null
+                    //? "<null>" : mShortcutInputMethodInfo.getId()) + ", "
+                    //+ (mShortcutSubtype == null ? "<null>" : (
+                    //mShortcutSubtype.getLocale() + ", " + mShortcutSubtype.getMode())));
+        //}
         // TODO: Update an icon for shortcut IME
         final Map<InputMethodInfo, List<InputMethodSubtype>> shortcuts =
                 mRichImm.getInputMethodManager().getShortcutInputMethodsAndSubtypes();
@@ -156,17 +156,17 @@ public final class SubtypeSwitcher {
             mShortcutSubtype = subtypes.size() > 0 ? subtypes.get(0) : null;
             break;
         }
-        if (DBG) {
-            Log.d(TAG, "Update shortcut IME to : "
-                    + (mShortcutInputMethodInfo == null
-                    ? "<null>" : mShortcutInputMethodInfo.getId()) + ", "
-                    + (mShortcutSubtype == null ? "<null>" : (
-                    mShortcutSubtype.getLocale() + ", " + mShortcutSubtype.getMode())));
-        }
+        //if (DBG) {
+            //Log.d(TAG, "Update shortcut IME to : "
+                    //+ (mShortcutInputMethodInfo == null
+                    //? "<null>" : mShortcutInputMethodInfo.getId()) + ", "
+                    //+ (mShortcutSubtype == null ? "<null>" : (
+                    //mShortcutSubtype.getLocale() + ", " + mShortcutSubtype.getMode())));
+        //}
     }
 
     // Update the current subtype. LatinIME.onCurrentInputMethodSubtypeChanged calls this function.
-    public void onSubtypeChanged(final InputMethodSubtype newSubtype) {
+    /*public void onSubtypeChanged(final InputMethodSubtype newSubtype) {
         if (DBG) {
             Log.w(TAG, "onSubtypeChanged: "
                     + SubtypeLocaleUtils.getSubtypeNameForLogging(newSubtype));

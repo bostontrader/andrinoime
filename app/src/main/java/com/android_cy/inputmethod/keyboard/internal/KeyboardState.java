@@ -118,21 +118,21 @@ public final class KeyboardState {
         //mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
     }
 
-/*    public void onLoadKeyboard(final int currentAutoCapsState,
+    public void onLoadKeyboard(final int currentAutoCapsState,
                                final int currentRecapitalizeState) {
-        if (DEBUG_EVENT) {
-            Log.d(TAG, "onLoadKeyboard: " + this);
-        }
+        //if (DEBUG_EVENT) {
+            //Log.d(TAG, "onLoadKeyboard: " + this);
+        //}
         // Reset alphabet shift state.
-        mAlphabetShiftState.setShiftLocked(false);
-        mPrevMainKeyboardWasShiftLocked = false;
-        mPrevSymbolsKeyboardWasShifted = false;
-        mShiftKeyState.onRelease();
-        mSymbolKeyState.onRelease();
-        onRestoreKeyboardState(currentAutoCapsState, currentRecapitalizeState);
+        //mAlphabetShiftState.setShiftLocked(false);
+        //mPrevMainKeyboardWasShiftLocked = false;
+        //mPrevSymbolsKeyboardWasShifted = false;
+        //mShiftKeyState.onRelease();
+        //mSymbolKeyState.onRelease();
+        //onRestoreKeyboardState(currentAutoCapsState, currentRecapitalizeState);
     }
 
-    private static final int UNSHIFT = 0;
+/*    private static final int UNSHIFT = 0;
     private static final int MANUAL_SHIFT = 1;
     private static final int AUTOMATIC_SHIFT = 2;
     private static final int SHIFT_LOCK_SHIFTED = 3;

@@ -33,7 +33,7 @@ import android.inputmethodservice.InputMethodService;
 //import android.media.AudioManager;
 //import android.net.ConnectivityManager;
 //import android.os.Debug;
-//import android.os.IBinder;
+import android.os.IBinder;
 //import android.os.Message;
 //import android.preference.PreferenceManager;
 //import android.text.InputType;
@@ -52,7 +52,7 @@ import android.view.View;
 //import android.view.inputmethod.CompletionInfo;
 //import android.view.inputmethod.CursorAnchorInfo;
 import android.view.inputmethod.EditorInfo;
-//import android.view.inputmethod.InputMethodSubtype;
+import android.view.inputmethod.InputMethodSubtype;
 //import android.widget.TextView;
 
 //import com.android.inputmethod.accessibility.AccessibilityUtils;
@@ -74,14 +74,14 @@ import com.android_cy.inputmethod.keyboard.KeyboardSwitcher;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 //import com.android.inputmethod.latin.define.DebugFlags;
 //import com.android.inputmethod.latin.define.ProductionFlags;
-//import com.android.inputmethod.latin.inputlogic.InputLogic;
+import com.android_cy.inputmethod.latin.inputlogic.InputLogic;
 //import com.android.inputmethod.latin.personalization.ContextualDictionaryUpdater;
 //import com.android.inputmethod.latin.personalization.DictionaryDecayBroadcastReciever;
 //import com.android.inputmethod.latin.personalization.PersonalizationDictionaryUpdater;
 //import com.android.inputmethod.latin.personalization.PersonalizationHelper;
-//import com.android.inputmethod.latin.settings.Settings;
+import com.android_cy.inputmethod.latin.settings.Settings;
 //import com.android.inputmethod.latin.settings.SettingsActivity;
-//import com.android.inputmethod.latin.settings.SettingsValues;
+import com.android_cy.inputmethod.latin.settings.SettingsValues;
 //import com.android.inputmethod.latin.suggestions.SuggestionStripView;
 //import com.android.inputmethod.latin.suggestions.SuggestionStripViewAccessor;
 //import com.android.inputmethod.latin.utils.ApplicationUtils;
@@ -102,7 +102,7 @@ import com.android_cy.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 //import java.io.PrintWriter;
 //import java.util.ArrayList;
 //import java.util.List;
-//import java.util.Locale;
+import java.util.Locale;
 //import java.util.concurrent.TimeUnit;
 
 /**
@@ -130,9 +130,9 @@ public class LatinIME extends InputMethodService
      * The name of the scheme used by the Package Manager to warn of a new package installation,
      * replacement or removal.
      star/
-    //private static final String SCHEME_PACKAGE = "package";
+    //private static final String SCHEME_PACKAGE = "package";*/
 
-    //private final Settings mSettings;
+    private final Settings mSettings;
     //private final DictionaryFacilitator mDictionaryFacilitator =
             //new DictionaryFacilitator(
                     //new DistracterFilterCheckingExactMatchesAndSuggestions(this /star context star/));
@@ -147,24 +147,24 @@ public class LatinIME extends InputMethodService
                             //mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
                         //}
                     //});
-    //private final InputLogic mInputLogic = new InputLogic(this /star LatinIME star/,
-            //this /star SuggestionStripViewAccessor star/, mDictionaryFacilitator);
+    //private final InputLogic mInputLogic = new InputLogic(this /* LatinIME */,
+        //this /* SuggestionStripViewAccessor */, mDictionaryFacilitator);
     // We expect to have only one decoder in almost all cases, hence the default capacity of 1.
     // If it turns out we need several, it will get grown seamlessly.
     //final SparseArray<HardwareEventDecoder> mHardwareEventDecoders = new SparseArray<>(1);
-*/
+
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
     private View mInputView;
     //private SuggestionStripView mSuggestionStripView;
     //private TextView mExtractEditText;
 
-    //private RichInputMethodManager mRichImm;
+    private RichInputMethodManager mRichImm;
     //@UsedForTesting
     final KeyboardSwitcher mKeyboardSwitcher;
 
-    /*    private final SubtypeSwitcher mSubtypeSwitcher;
+    private final SubtypeSwitcher mSubtypeSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
-    private final SpecialKeyDetector mSpecialKeyDetector;
+    /*private final SpecialKeyDetector mSpecialKeyDetector;
     // Working variable for {@link #startShowingInputView()} and
     // {@link #onEvaluateInputViewShown()}.
     private boolean mIsExecutingStartShowingInputView;
@@ -484,7 +484,7 @@ public class LatinIME extends InputMethodService
         }*/
     }
 
-    /*static final class SubtypeState {
+    static final class SubtypeState {
         private InputMethodSubtype mLastActiveSubtype;
         private boolean mCurrentSubtypeHasBeenUsed;
 
@@ -507,20 +507,20 @@ public class LatinIME extends InputMethodService
                 richImm.setInputMethodAndSubtype(token, lastActiveSubtype);
                 return;
             }
-            richImm.switchToNextInputMethod(token, true /star onlyCurrentIme star/);
+            richImm.switchToNextInputMethod(token, true /* onlyCurrentIme */);
         }
     }
 
     // Loading the native library eagerly to avoid unexpected UnsatisfiedLinkError at the initial
     // JNI call as much as possible.
-    static {
+    /*static {
         JniUtils.loadNativeLibrary();
     }
 */
     public LatinIME() {
         super();
-        //mSettings = Settings.getInstance();
-        //mSubtypeSwitcher = SubtypeSwitcher.getInstance();
+        mSettings = Settings.getInstance();
+        mSubtypeSwitcher = SubtypeSwitcher.getInstance();
         mKeyboardSwitcher = KeyboardSwitcher.getInstance();
         //mSpecialKeyDetector = new SpecialKeyDetector(this);
         //mIsHardwareAcceleratedDrawingEnabled =
@@ -530,10 +530,10 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void onCreate() {
-        //Settings.init(this);
+        Settings.init(this);
         //DebugFlags.init(PreferenceManager.getDefaultSharedPreferences(this));
-        //RichInputMethodManager.init(this);
-        //mRichImm = RichInputMethodManager.getInstance();
+        RichInputMethodManager.init(this);
+        mRichImm = RichInputMethodManager.getInstance();
         SubtypeSwitcher.init(this);
         KeyboardSwitcher.init(this);
         //AudioAndHapticFeedbackManager.init(this);
@@ -546,7 +546,7 @@ public class LatinIME extends InputMethodService
         //DEBUG = DebugFlags.DEBUG_ENABLED;
 
         // TODO: Resolve mutual dependencies of {@link #loadSettings()} and {@link #initSuggest()}.
-        //loadSettings();
+        loadSettings();
         //resetSuggest();
 
         // Register to receive ringer mode change and network state change.
@@ -576,28 +576,28 @@ public class LatinIME extends InputMethodService
     }
 
     // Has to be package-visible for unit tests
-    /*@UsedForTesting
+    //@UsedForTesting
     void loadSettings() {
         final Locale locale = mSubtypeSwitcher.getCurrentSubtypeLocale();
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         final InputAttributes inputAttributes = new InputAttributes(
-                editorInfo, isFullscreenMode(), getPackageName());
+            editorInfo, isFullscreenMode(), getPackageName());
         mSettings.loadSettings(this, locale, inputAttributes);
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
-        AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
+        //AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
         // This method is called on startup and language switch, before the new layout has
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.
-        if (!mHandler.hasPendingReopenDictionaries()) {
-            resetSuggestForLocale(locale);
-        }
-        mDictionaryFacilitator.updateEnabledSubtypes(mRichImm.getMyEnabledInputMethodSubtypeList(
-                true /star allowsImplicitlySelectedSubtypes star/));
-        refreshPersonalizationDictionarySession(currentSettingsValues);
-        StatsUtils.onLoadSettings(currentSettingsValues);
+        //if (!mHandler.hasPendingReopenDictionaries()) {
+            //resetSuggestForLocale(locale);
+        //}
+        //mDictionaryFacilitator.updateEnabledSubtypes(mRichImm.getMyEnabledInputMethodSubtypeList(
+                //true /star allowsImplicitlySelectedSubtypes star/));
+        //refreshPersonalizationDictionarySession(currentSettingsValues);
+        //StatsUtils.onLoadSettings(currentSettingsValues);
     }
 
-    private void refreshPersonalizationDictionarySession(
+    /*private void refreshPersonalizationDictionarySession(
             final SettingsValues currentSettingsValues) {
         mPersonalizationDictionaryUpdater.onLoadSettings(
                 currentSettingsValues.mUsePersonalizedDicts,
@@ -829,13 +829,13 @@ public class LatinIME extends InputMethodService
     //@SuppressWarnings("deprecation")
     private void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
-        //mRichImm.clearSubtypeCaches();
+        mRichImm.clearSubtypeCaches();
         final KeyboardSwitcher switcher = mKeyboardSwitcher;
         //switcher.updateKeyboardTheme();
         //final MainKeyboardView mainKeyboardView = switcher.getMainKeyboardView();
         // If we are starting input in a different text field from before, we'll have to reload
         // settings, so currentSettingsValues can't be final.
-        //SettingsValues currentSettingsValues = mSettings.getCurrent();
+        SettingsValues currentSettingsValues = mSettings.getCurrent();
 
         //if (editorInfo == null) {
             //Log.e(TAG, "Null EditorInfo in onStartInputView()");
@@ -878,11 +878,11 @@ public class LatinIME extends InputMethodService
             //accessUtils.onStartInputViewInternal(mainKeyboardView, editorInfo, restarting);
         //}
 
-        //final boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
-        //final boolean isDifferentTextField = !restarting || inputTypeChanged;
-        //if (isDifferentTextField) {
-            //mSubtypeSwitcher.updateParametersOnStartInputView();
-        //}
+        final boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
+        final boolean isDifferentTextField = !restarting || inputTypeChanged;
+        if (isDifferentTextField) {
+            mSubtypeSwitcher.updateParametersOnStartInputView();
+        }
 
         // The EditorInfo might have a flag that affects fullscreen mode.
         // Note: This call should be done by InputMethodService?
@@ -897,13 +897,13 @@ public class LatinIME extends InputMethodService
         // can go into the correct mode, so we need to do some housekeeping here.
         //final boolean needToCallLoadKeyboardLater;
         //final Suggest suggest = mInputLogic.mSuggest;
-        //if (!currentSettingsValues.mHasHardwareKeyboard) {
+        if (!currentSettingsValues.mHasHardwareKeyboard) {
             // The app calling setText() has the effect of clearing the composing
             // span, so we should reset our state unconditionally, even if restarting is true.
             // We also tell the input logic about the combining rules for the current subtype, so
             // it can adjust its combiners if needed.
             //mInputLogic.startInput(mSubtypeSwitcher.getCombiningRulesExtraValueOfCurrentSubtype(),
-                    //currentSettingsValues);
+                //currentSettingsValues);
 
             // Note: the following does a round-trip IPC on the main thread: be careful
             //final Locale currentLocale = mSubtypeSwitcher.getCurrentSubtypeLocale();
@@ -931,10 +931,10 @@ public class LatinIME extends InputMethodService
                         //true /star shouldDelay star/);
                 //needToCallLoadKeyboardLater = false;
             //}
-        //} else {
+        } else {
             // If we have a hardware keyboard we don't need to call loadKeyboard later anyway.
             //needToCallLoadKeyboardLater = false;
-        //}
+        }
 
         //if (isDifferentTextField ||
                 //!currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
@@ -963,7 +963,7 @@ public class LatinIME extends InputMethodService
 
             //switcher.resetKeyboardStateToAlphabet(getCurrentAutoCapsState(),
                 //getCurrentRecapitalizeState());
-            switcher.resetKeyboardStateToAlphabet(0,0); // tfr
+            //switcher.resetKeyboardStateToAlphabet(0,0); // tfr
 
             // In apps like Talk, we come here when the text is sent and the field gets emptied and
             // we need to re-evaluate the shift state, but not the whole layout which would be
