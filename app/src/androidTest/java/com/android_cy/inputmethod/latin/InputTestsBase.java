@@ -21,7 +21,7 @@ import android.content.Context;
 //import android.os.Looper;
 //import android.preference.PreferenceManager;
 import android.test.ServiceTestCase;
-//import android.text.InputType;
+import android.text.InputType;
 //import android.text.SpannableStringBuilder;
 //import android.text.style.CharacterStyle;
 //import android.text.style.SuggestionSpan;
@@ -30,7 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-//import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputConnection;
 //import android.view.inputmethod.InputMethodSubtype;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -41,7 +41,7 @@ import android.widget.FrameLayout;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 //import com.android.inputmethod.latin.settings.DebugSettings;
 //import com.android.inputmethod.latin.settings.Settings;
-//import com.android.inputmethod.latin.utils.LocaleUtils;
+import com.android_cy.inputmethod.latin.utils.LocaleUtils;
 //import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import com.android_cy.inputmethod.keyboard.Key;
@@ -49,7 +49,7 @@ import com.android_cy.inputmethod.keyboard.Keyboard;
 import com.android_cy.inputmethod.latin.LatinIME;
 import com.fyrecloud.andrinoime.R;
 
-//import java.util.Locale;
+import java.util.Locale;
 //import java.util.concurrent.TimeUnit;
 
 //public class InputTestsBase extends ServiceTestCase<LatinIMEForTests> {
@@ -70,7 +70,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     protected Keyboard mKeyboard;
     protected MyEditText mEditText;
     protected View mInputView;
-    //protected InputConnection mInputConnection;
+    protected InputConnection mInputConnection;
     //private boolean mPreviousBigramPredictionSettings;
     //private String mPreviousAutoCorrectSetting;
 
@@ -111,7 +111,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
 
     // A helper class to increase control over the EditText
     public static class MyEditText extends EditText {
-        //public Locale mCurrentLocale;
+        public Locale mCurrentLocale;
         public MyEditText(final Context c) {
             super(c);
         }
@@ -172,14 +172,14 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     protected void setDebugMode(final boolean value) {
         setBooleanPreference(DebugSettings.PREF_DEBUG_MODE, value, false);
         setBooleanPreference(Settings.PREF_KEY_IS_INTERNAL, value, false);
-    }
+    }*/
 
     protected EditorInfo enrichEditorInfo(final EditorInfo ei) {
         // Some tests that inherit from us need to add some data in the EditorInfo (see
         // AppWorkaroundsTests#enrichEditorInfo() for a concrete example of this). Since we
         // control the EditorInfo, we supply a hook here for children to override.
         return ei;
-    }*/
+    }
 
     //@Override public void testServiceTestCaseSetUpProperly() {
         //assertTrue(true);
@@ -189,15 +189,10 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     protected void setUp() throws Exception {
         super.setUp();
         mEditText = new MyEditText(getContext());
-        //final int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
-                //| InputType.TYPE_TEXT_FLAG_MULTI_LINE;
-        //mEditText.setInputType(inputType);
-        //mEditText.setEnabled(true);
-
-        // tfr- use this or...
-        //java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
-        //Looper l = Looper.getMainLooper();
-        //Looper.prepare();
+        final int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+        mEditText.setInputType(inputType);
+        mEditText.setEnabled(true);
 
         setupService();
         mLatinIME = getService();
@@ -208,18 +203,18 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
                 //DEFAULT_AUTO_CORRECTION_THRESHOLD, DEFAULT_AUTO_CORRECTION_THRESHOLD);
         mLatinIME.onCreate();
         EditorInfo ei = new EditorInfo();
-        //final InputConnection ic = mEditText.onCreateInputConnection(ei);
+        final InputConnection ic = mEditText.onCreateInputConnection(ei);
         final LayoutInflater inflater =
             (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final ViewGroup vg = new FrameLayout(getContext());
         mInputView = inflater.inflate(R.layout.input_view, vg);
-        //ei = enrichEditorInfo(ei);
-        //mLatinIME.onCreateInputMethodInterface().startInput(ic, ei);
+        ei = enrichEditorInfo(ei);
+        mLatinIME.onCreateInputMethodInterface().startInput(ic, ei);
         mLatinIME.setInputView(mInputView);
-        //mLatinIME.onBindInput();
+        mLatinIME.onBindInput();
         mLatinIME.onCreateInputView();
         mLatinIME.onStartInputView(ei, false);
-        //mInputConnection = ic;
+        mInputConnection = ic;
         changeLanguage("en_US");
         // Run messages to avoid the messages enqueued by startInputView() and its friends
         // to run on a later call and ruin things. We need to wait first because some of them
@@ -287,6 +282,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
             //final int x = key.getX() + key.getWidth() / 2;
             //final int y = key.getY() + key.getHeight() / 2;
             //mLatinIME.onCodeInput(codePoint, x, y, isKeyRepeat);
+            mLatinIME.onCodeInput(codePoint, 0, 0, isKeyRepeat);
         }
         // Also see the comment at the top of this function about onReleaseKey
         //mLatinIME.onReleaseKey(codePoint, false /* withSliding */);
@@ -325,7 +321,7 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
     }
 
     protected void changeLanguageWithoutWait(final String locale, final String combiningSpec) {
-        //mEditText.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
+        mEditText.mCurrentLocale = LocaleUtils.constructLocaleFromString(locale);
         // TODO: this is forcing a QWERTY keyboard for all locales, which is wrong.
         // It's still better than using whatever keyboard is the current one, but we
         // should actually use the default keyboard for this locale.
@@ -338,14 +334,14 @@ public class InputTestsBase extends ServiceTestCase<LatinIME> {
                         //+ "," + Constants.Subtype.ExtraValue.EMOJI_CAPABLE
                         //+ null == combiningSpec ? "" : ("," + combiningSpec);
         //final InputMethodSubtype subtype = InputMethodSubtypeCompatUtils.newInputMethodSubtype(
-                //R.string.subtype_no_language_qwerty,
-                //R.drawable.ic_ime_switcher_dark,
-                //locale,
-                //Constants.Subtype.KEYBOARD_MODE,
-                //EXTRA_VALUE_FOR_TEST,
-                //false /star isAuxiliary star/,
-                //false /star overridesImplicitlyEnabledSubtype star/,
-                //0 /star id star/);
+            //R.string.subtype_no_language_qwerty,
+            //R.drawable.ic_ime_switcher_dark,
+            //locale,
+            //Constants.Subtype.KEYBOARD_MODE,
+            //EXTRA_VALUE_FOR_TEST,
+            //false /star isAuxiliary star/,
+            //false /star overridesImplicitlyEnabledSubtype star/,
+            //0 /star id star/);
         //SubtypeSwitcher.getInstance().forceSubtype(subtype);
         //mLatinIME.onCurrentInputMethodSubtypeChanged(subtype);
         //runMessages();

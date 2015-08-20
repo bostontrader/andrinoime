@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 //import com.android.inputmethod.compat.InputMethodServiceCompatUtils;
-//import com.android.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
+import com.android_cy.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
 //import com.android.inputmethod.keyboard.emoji.EmojiPalettesView;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardState;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardTextsSet;
@@ -122,27 +122,28 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         //builder.setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey);
         //builder.setLanguageSwitchKeyEnabled(mLatinIME.shouldShowLanguageSwitchKey());
         mKeyboardLayoutSet = builder.build();
-        //try {
+        try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState);
             Locale o1 = mSubtypeSwitcher.getCurrentSubtypeLocale();
             mKeyboardTextsSet.setLocale(o1, mThemeContext);
-        //catch (KeyboardLayoutSetException e) {
+        } catch (KeyboardLayoutSetException e) {
             //Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
-            //return;
-        //}
+            return;
+        }
     }
 
-    /*public void saveKeyboardState() {
-        if (getKeyboard() != null || isShowingEmojiPalettes()) {
+    public void saveKeyboardState() {
+        //if (getKeyboard() != null || isShowingEmojiPalettes()) {
+        if (getKeyboard() != null) {
             mState.onSaveKeyboardState();
         }
     }
 
-    public void onHideWindow() {
-        if (mKeyboardView != null) {
-            mKeyboardView.onHideWindow();
-        }
-    }*/
+    //public void onHideWindow() {
+        //if (mKeyboardView != null) {
+            //mKeyboardView.onHideWindow();
+        //}
+    //}
 
     private void setKeyboard(final Keyboard keyboard) {
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
@@ -306,15 +307,15 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return keyboardView != null && keyboardView.isInDoubleTapShiftKeyTimeout();
     }
 
-    /star*
+    /**
      * Updates state machine to figure out when to automatically switch back to the previous mode.
-     star/
+     */
     public void onCodeInput(final int code, final int currentAutoCapsState,
                             final int currentRecapitalizeState) {
         mState.onCodeInput(code, currentAutoCapsState, currentRecapitalizeState);
     }
 
-    public boolean isShowingEmojiPalettes() {
+    /*public boolean isShowingEmojiPalettes() {
         return mEmojiPalettesView != null && mEmojiPalettesView.isShown();
     }
 
@@ -330,13 +331,13 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return mEmojiPalettesView;
         }
         return mKeyboardView;
-    }
+    }*/
 
     public MainKeyboardView getMainKeyboardView() {
         return mKeyboardView;
     }
 
-    public void deallocateMemory() {
+    /*public void deallocateMemory() {
         if (mKeyboardView != null) {
             mKeyboardView.cancelAllOngoingEvents();
             mKeyboardView.deallocateMemory();

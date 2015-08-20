@@ -20,7 +20,7 @@ package com.android_cy.inputmethod.latin;
 
 import android.content.Context;
 //import android.content.Intent;
-//import android.content.res.Resources;
+import android.content.res.Resources;
 //import android.inputmethodservice.InputMethodService;
 //import android.net.ConnectivityManager;
 //import android.net.NetworkInfo;
@@ -34,7 +34,7 @@ import android.view.inputmethod.InputMethodSubtype;
 //import com.android.inputmethod.annotations.UsedForTesting;
 //import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
 //import com.android.inputmethod.keyboard.KeyboardSwitcher;
-//import com.android.inputmethod.keyboard.internal.LanguageOnSpacebarHelper;
+import com.android_cy.inputmethod.keyboard.internal.LanguageOnSpacebarHelper;
 //import com.android.inputmethod.latin.define.DebugFlags;
 import com.android_cy.inputmethod.latin.utils.LocaleUtils;
 import com.android_cy.inputmethod.latin.utils.SubtypeLocaleUtils;
@@ -52,10 +52,10 @@ public final class SubtypeSwitcher {
     private static final SubtypeSwitcher sInstance = new SubtypeSwitcher();
 
     private /* final */ RichInputMethodManager mRichImm;
-    //private /star final star/ Resources mResources;
+    private /* final */ Resources mResources;
 
-    //private final LanguageOnSpacebarHelper mLanguageOnSpacebarHelper =
-            //new LanguageOnSpacebarHelper();
+    private final LanguageOnSpacebarHelper mLanguageOnSpacebarHelper =
+        new LanguageOnSpacebarHelper();
     private InputMethodInfo mShortcutInputMethodInfo;
     private InputMethodSubtype mShortcutSubtype;
     private InputMethodSubtype mNoLanguageSubtype;
@@ -107,19 +107,19 @@ public final class SubtypeSwitcher {
     }
 
     private void initialize(final Context context) {
-        //if (mResources != null) {
-            //return;
-        //}
-        //mResources = context.getResources();
+        if (mResources != null) {
+            return;
+        }
+        mResources = context.getResources();
         mRichImm = RichInputMethodManager.getInstance();
         //ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
-                //Context.CONNECTIVITY_SERVICE);
+            //Context.CONNECTIVITY_SERVICE);
 
         //final NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         //mIsNetworkConnected = (info != null && info.isConnected());
 
-        //onSubtypeChanged(getCurrentSubtype());
-        //updateParametersOnStartInputView();
+        onSubtypeChanged(getCurrentSubtype());
+        updateParametersOnStartInputView();
     }
 
     /**
@@ -166,24 +166,24 @@ public final class SubtypeSwitcher {
     }
 
     // Update the current subtype. LatinIME.onCurrentInputMethodSubtypeChanged calls this function.
-    /*public void onSubtypeChanged(final InputMethodSubtype newSubtype) {
-        if (DBG) {
-            Log.w(TAG, "onSubtypeChanged: "
-                    + SubtypeLocaleUtils.getSubtypeNameForLogging(newSubtype));
-        }
+    public void onSubtypeChanged(final InputMethodSubtype newSubtype) {
+        //if (DBG) {
+            //Log.w(TAG, "onSubtypeChanged: "
+                    //+ SubtypeLocaleUtils.getSubtypeNameForLogging(newSubtype));
+        //}
 
         final Locale newLocale = SubtypeLocaleUtils.getSubtypeLocale(newSubtype);
         final Locale systemLocale = mResources.getConfiguration().locale;
         final boolean sameLocale = systemLocale.equals(newLocale);
         final boolean sameLanguage = systemLocale.getLanguage().equals(newLocale.getLanguage());
         final boolean implicitlyEnabled =
-                mRichImm.checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(newSubtype);
+            mRichImm.checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(newSubtype);
         mLanguageOnSpacebarHelper.updateIsSystemLanguageSameAsInputLanguage(
-                sameLocale || (sameLanguage && implicitlyEnabled));
+            sameLocale || (sameLanguage && implicitlyEnabled));
 
         updateShortcutIME();
     }
-
+/*
     ////////////////////////////
     // Shortcut IME functions //
     ////////////////////////////

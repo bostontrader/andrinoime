@@ -34,7 +34,7 @@ import android.inputmethodservice.InputMethodService;
 //import android.net.ConnectivityManager;
 //import android.os.Debug;
 import android.os.IBinder;
-//import android.os.Message;
+import android.os.Message;
 //import android.preference.PreferenceManager;
 //import android.text.InputType;
 //import android.text.TextUtils;
@@ -60,12 +60,12 @@ import android.view.inputmethod.InputMethodSubtype;
 //import com.android.inputmethod.compat.CursorAnchorInfoCompatWrapper;
 //import com.android.inputmethod.compat.InputMethodServiceCompatUtils;
 //import com.android.inputmethod.dictionarypack.DictionaryPackConstants;
-//import com.android.inputmethod.event.Event;
+import com.android_cy.inputmethod.event.Event;
 //import com.android.inputmethod.event.HardwareEventDecoder;
 //import com.android.inputmethod.event.HardwareKeyboardEventDecoder;
-//import com.android.inputmethod.event.InputTransaction;
+import com.android_cy.inputmethod.event.InputTransaction;
 //import com.android.inputmethod.keyboard.Keyboard;
-//import com.android.inputmethod.keyboard.KeyboardActionListener;
+import com.android_cy.inputmethod.keyboard.KeyboardActionListener;
 //import com.android.inputmethod.keyboard.KeyboardId;
 import com.android_cy.inputmethod.keyboard.KeyboardSwitcher;
 //import com.android.inputmethod.keyboard.MainKeyboardView;
@@ -95,7 +95,7 @@ import com.android_cy.inputmethod.latin.settings.SettingsValues;
 //import com.android.inputmethod.latin.utils.JniUtils;
 import com.android_cy.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 //import com.android.inputmethod.latin.utils.StatsUtils;
-//import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
+import com.android_cy.inputmethod.latin.utils.SubtypeLocaleUtils;
 //import com.android.inputmethod.latin.utils.ViewLayoutUtils;
 
 //import java.io.FileDescriptor;
@@ -109,7 +109,7 @@ import java.util.Locale;
  * Input method implementation for Qwerty'ish keyboard.
  */
 public class LatinIME extends InputMethodService 
-    //implements KeyboardActionListener,
+    implements KeyboardActionListener
     //SuggestionStripView.Listener, SuggestionStripViewAccessor,
     //DictionaryFacilitator.DictionaryInitializationListener,
     //ImportantNoticeDialog.ImportantNoticeDialogListener 
@@ -147,8 +147,11 @@ public class LatinIME extends InputMethodService
                             //mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
                         //}
                     //});
+
     //private final InputLogic mInputLogic = new InputLogic(this /* LatinIME */,
         //this /* SuggestionStripViewAccessor */, mDictionaryFacilitator);
+    private final InputLogic mInputLogic = new InputLogic(this);
+
     // We expect to have only one decoder in almost all cases, hence the default capacity of 1.
     // If it turns out we need several, it will get grown seamlessly.
     //final SparseArray<HardwareEventDecoder> mHardwareEventDecoders = new SparseArray<>(1);
@@ -221,13 +224,13 @@ public class LatinIME extends InputMethodService
                     //R.integer.config_delay_in_milliseconds_to_update_shift_state);
         }
 
-        /*@Override
+        @Override
         public void handleMessage(final Message msg) {
             final LatinIME latinIme = getOwnerInstance();
             if (latinIme == null) {
                 return;
             }
-            final KeyboardSwitcher switcher = latinIme.mKeyboardSwitcher;
+            /*final KeyboardSwitcher switcher = latinIme.mKeyboardSwitcher;
             switch (msg.what) {
                 case MSG_UPDATE_SUGGESTION_STRIP:
                     cancelUpdateSuggestionStrip();
@@ -279,10 +282,10 @@ public class LatinIME extends InputMethodService
                 case MSG_WAIT_FOR_DICTIONARY_LOAD:
                     Log.i(TAG, "Timeout waiting for dictionary load");
                     break;
-            }
+            }*/
         }
 
-        public void postUpdateSuggestionStrip(final int inputStyle) {
+        /*public void postUpdateSuggestionStrip(final int inputStyle) {
             sendMessageDelayed(obtainMessage(MSG_UPDATE_SUGGESTION_STRIP, inputStyle,star/
                     //0 /star ignored star/), mDelayInMillisecondsToUpdateSuggestions);
         /star}
@@ -810,7 +813,7 @@ public class LatinIME extends InputMethodService
     @Override
     public void onFinishInput() {
         mHandler.onFinishInput();
-    }
+    }*/
 
     @Override
     public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
@@ -824,7 +827,7 @@ public class LatinIME extends InputMethodService
 
     private void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
-    }*/
+    }
 
     //@SuppressWarnings("deprecation")
     private void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
@@ -895,7 +898,7 @@ public class LatinIME extends InputMethodService
         // In some cases the input connection has not been reset yet and we can't access it. In
         // this case we will need to call loadKeyboard() later, when it's accessible, so that we
         // can go into the correct mode, so we need to do some housekeeping here.
-        //final boolean needToCallLoadKeyboardLater;
+        final boolean needToCallLoadKeyboardLater;
         //final Suggest suggest = mInputLogic.mSuggest;
         if (!currentSettingsValues.mHasHardwareKeyboard) {
             // The app calling setText() has the effect of clearing the composing
@@ -929,18 +932,18 @@ public class LatinIME extends InputMethodService
                 //mInputLogic.mConnection.tryFixLyingCursorPosition();
                 //mHandler.postResumeSuggestions(true /star shouldIncludeResumedWordInSuggestions star/,
                         //true /star shouldDelay star/);
-                //needToCallLoadKeyboardLater = false;
+                needToCallLoadKeyboardLater = false;
             //}
         } else {
             // If we have a hardware keyboard we don't need to call loadKeyboard later anyway.
-            //needToCallLoadKeyboardLater = false;
+            needToCallLoadKeyboardLater = false;
         }
 
-        //if (isDifferentTextField ||
-                //!currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
-            //loadSettings();
-        //}
-        //if (isDifferentTextField) {
+        if (isDifferentTextField ||
+            !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
+            loadSettings();
+        }
+        if (isDifferentTextField) {
             //mainKeyboardView.closing();
             //currentSettingsValues = mSettings.getCurrent();
 
@@ -952,12 +955,12 @@ public class LatinIME extends InputMethodService
             //switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(),
                 //getCurrentRecapitalizeState());
             switcher.loadKeyboard(editorInfo, null, 0, 0);
-            //if (needToCallLoadKeyboardLater) {
+            if (needToCallLoadKeyboardLater) {
                 // If we need to call loadKeyboard again later, we need to save its state now. The
                 // later call will be done in #retryResetCaches.
-                //switcher.saveKeyboardState();
-            //}
-        //} else if (restarting) {
+                switcher.saveKeyboardState();
+            }
+        } else if (restarting) {
             // TODO: Come up with a more comprehensive way to reset the keyboard layout when
             // a keyboard layout set doesn't get reloaded in this method.
 
@@ -971,7 +974,8 @@ public class LatinIME extends InputMethodService
             // Space state must be updated before calling updateShiftState
             //switcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     //getCurrentRecapitalizeState());
-        //}
+        }
+
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         //setNeutralSuggestionStrip();
@@ -1335,45 +1339,49 @@ public class LatinIME extends InputMethodService
             return;
         }
         mSubtypeState.switchSubtype(token, mRichImm);
-    }
+    }*/
 
     // Implementation of {@link KeyboardActionListener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y,
                             final boolean isKeyRepeat) {
-        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        //final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         // x and y include some padding, but everything down the line (especially native
         // code) needs the coordinates in the keyboard frame.
         // TODO: We should reconsider which coordinate system should be used to represent
         // keyboard event. Also we should pull this up -- LatinIME has no business doing
         // this transformation, it should be done already before calling onCodeInput.
-        final int keyX = mainKeyboardView.getKeyX(x);
-        final int keyY = mainKeyboardView.getKeyY(y);
+        //final int keyX = mainKeyboardView.getKeyX(x);
+        //final int keyY = mainKeyboardView.getKeyY(y);
         final int codeToSend;
-        if (Constants.CODE_SHIFT == codePoint) {
+        //if (Constants.CODE_SHIFT == codePoint) {
             // TODO: Instead of checking for alphabetic keyboard here, separate keycodes for
             // alphabetic shift and shift while in symbol layout.
-            final Keyboard currentKeyboard = mKeyboardSwitcher.getKeyboard();
-            if (null != currentKeyboard && currentKeyboard.mId.isAlphabetKeyboard()) {
-                codeToSend = codePoint;
-            } else {
-                codeToSend = Constants.CODE_SYMBOL_SHIFT;
-            }
-        } else {
+            //final Keyboard currentKeyboard = mKeyboardSwitcher.getKeyboard();
+            //if (null != currentKeyboard && currentKeyboard.mId.isAlphabetKeyboard()) {
+                //codeToSend = codePoint;
+            //} else {
+                //codeToSend = Constants.CODE_SYMBOL_SHIFT;
+            //}
+        //} else {
             codeToSend = codePoint;
-        }
-        if (Constants.CODE_SHORTCUT == codePoint) {
-            mSubtypeSwitcher.switchToShortcutIME(this);
+        //}
+        //if (Constants.CODE_SHORTCUT == codePoint) {
+            //mSubtypeSwitcher.switchToShortcutIME(this);
             // Still call the *#onCodeInput methods for readability.
-        }
-        final Event event = createSoftwareKeypressEvent(codeToSend, keyX, keyY, isKeyRepeat);
+        //}
+        //final Event event = createSoftwareKeypressEvent(codeToSend, keyX, keyY, isKeyRepeat);
+        final Event event = createSoftwareKeypressEvent(codeToSend, 0, 0, isKeyRepeat);
         final InputTransaction completeInputTransaction =
-                mInputLogic.onCodeInput(mSettings.getCurrent(), event,
-                        mKeyboardSwitcher.getKeyboardShiftMode(),
-                        mKeyboardSwitcher.getCurrentKeyboardScriptId(), mHandler);
+            mInputLogic.onCodeInput(mSettings.getCurrent(), event,
+                0, //mKeyboardSwitcher.getKeyboardShiftMode(),
+                0, //mKeyboardSwitcher.getCurrentKeyboardScriptId(),
+                mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
-        mKeyboardSwitcher.onCodeInput(codePoint, getCurrentAutoCapsState(),
-                getCurrentRecapitalizeState());
+
+        //mKeyboardSwitcher.onCodeInput(codePoint, getCurrentAutoCapsState(),
+            //getCurrentRecapitalizeState());
+        mKeyboardSwitcher.onCodeInput(codePoint, 0,0 );
     }
 
     // A helper method to split the code point and the key code. Ultimately, they should not be
@@ -1393,7 +1401,7 @@ public class LatinIME extends InputMethodService
     }
 
     // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
+    /*@Override
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
         final Event event = Event.createSoftwareTextEvent(rawText, Event.NOT_A_KEY_CODE);
@@ -1575,61 +1583,64 @@ public class LatinIME extends InputMethodService
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
                 ? SuggestedWords.EMPTY : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
-    }
+    }*/
 
     // TODO: Make this private
     // Outside LatinIME, only used by the {@link InputTestsBase} test suite.
-    @UsedForTesting
+    //@UsedForTesting
     void loadKeyboard() {
         // Since we are switching languages, the most urgent thing is to let the keyboard graphics
         // update. LoadKeyboard does that, but we need to wait for buffer flip for it to be on
         // the screen. Anything we do right now will delay this, so wait until the next frame
         // before we do the rest, like reopening dictionaries and updating suggestions. So we
         // post a message.
-        mHandler.postReopenDictionaries();
+        //mHandler.postReopenDictionaries();
         loadSettings();
         if (mKeyboardSwitcher.getMainKeyboardView() != null) {
             // Reload keyboard because the current language has been changed.
-            mKeyboardSwitcher.loadKeyboard(getCurrentInputEditorInfo(), mSettings.getCurrent(),
-                    getCurrentAutoCapsState(), getCurrentRecapitalizeState());
-        }
-    }star/
 
-    /star*
+            //mKeyboardSwitcher.loadKeyboard(getCurrentInputEditorInfo(), mSettings.getCurrent(),
+                //getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            mKeyboardSwitcher.loadKeyboard(getCurrentInputEditorInfo(), mSettings.getCurrent(),
+                0,0);
+        }
+    }
+
+    /**
      * After an input transaction has been executed, some state must be updated. This includes
      * the shift state of the keyboard and suggestions. This method looks at the finished
      * inputTransaction to find out what is necessary and updates the state accordingly.
      * @param inputTransaction The transaction that has been executed.
-     star/
-    /starprivate void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
-        switch (inputTransaction.getRequiredShiftUpdate()) {
-            case InputTransaction.SHIFT_UPDATE_LATER:
-                mHandler.postUpdateShiftState();
-                break;
-            case InputTransaction.SHIFT_UPDATE_NOW:
-                mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
-                        getCurrentRecapitalizeState());
-                break;
-            default: // SHIFT_NO_UPDATE
-        }
-        if (inputTransaction.requiresUpdateSuggestions()) {
-            final int inputStyle;
-            if (inputTransaction.mEvent.isSuggestionStripPress()) {
+     */
+    private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
+        //switch (inputTransaction.getRequiredShiftUpdate()) {
+            //case InputTransaction.SHIFT_UPDATE_LATER:
+                //mHandler.postUpdateShiftState();
+                //break;
+            //case InputTransaction.SHIFT_UPDATE_NOW:
+                //mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
+                    //getCurrentRecapitalizeState());
+                //break;
+            //default: // SHIFT_NO_UPDATE
+        //}
+        //if (inputTransaction.requiresUpdateSuggestions()) {
+            //final int inputStyle;
+            //if (inputTransaction.mEvent.isSuggestionStripPress()) {
                 // Suggestion strip press: no input.
-                inputStyle = SuggestedWords.INPUT_STYLE_NONE;
-            } else if (inputTransaction.mEvent.isGesture()) {
-                inputStyle = SuggestedWords.INPUT_STYLE_TAIL_BATCH;
-            } else {
-                inputStyle = SuggestedWords.INPUT_STYLE_TYPING;
-            }
-            mHandler.postUpdateSuggestionStrip(inputStyle);
-        }
-        if (inputTransaction.didAffectContents()) {
-            mSubtypeState.setCurrentSubtypeHasBeenUsed();
-        }
+                //inputStyle = SuggestedWords.INPUT_STYLE_NONE;
+            //} else if (inputTransaction.mEvent.isGesture()) {
+                //inputStyle = SuggestedWords.INPUT_STYLE_TAIL_BATCH;
+            //} else {
+                //inputStyle = SuggestedWords.INPUT_STYLE_TYPING;
+            //}
+            //mHandler.postUpdateSuggestionStrip(inputStyle);
+        //}
+        //if (inputTransaction.didAffectContents()) {
+            //mSubtypeState.setCurrentSubtypeHasBeenUsed();
+        //}
     }
 
-    private void hapticAndAudioFeedback(final int code, final int repeatCount) {
+    /*private void hapticAndAudioFeedback(final int code, final int repeatCount) {
         final MainKeyboardView keyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (keyboardView != null && keyboardView.isInDraggingFinger()) {
             // No need to feedback while finger is dragging.

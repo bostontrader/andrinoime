@@ -62,13 +62,13 @@ public final class Constants {
         //}
     //}
 
-    //public static final class Subtype {
+    public static final class Subtype {
         /**
          * The subtype mode used to indicate that the subtype is a keyboard.
          */
         //public static final String KEYBOARD_MODE = "keyboard";
 
-        //public static final class ExtraValue {
+        public static final class ExtraValue {
             /**
              * The subtype extra value used to indicate that this subtype is capable of
              * entering ASCII characters.
@@ -118,7 +118,7 @@ public final class Constants {
             /**
              * The subtype extra value used to specify the combining rules.
              */
-            //public static final String COMBINING_RULES = "CombiningRules";
+            public static final String COMBINING_RULES = "CombiningRules";
 
             //private ExtraValue() {
                 // This utility class is not publicly instantiable.
@@ -127,8 +127,8 @@ public final class Constants {
 
         //private Subtype() {
             // This utility class is not publicly instantiable.
-        //}
-    //}
+        }
+    }
 
     //public static final class TextUtils {
         /**

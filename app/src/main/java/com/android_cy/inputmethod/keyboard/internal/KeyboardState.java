@@ -68,17 +68,17 @@ public final class KeyboardState {
     // TODO: Merge {@link #mSwitchState}, {@link #mIsAlphabetMode}, {@link #mAlphabetShiftState},
     // {@link #mIsSymbolShifted}, {@link #mPrevMainKeyboardWasShiftLocked}, and
     // {@link #mPrevSymbolsKeyboardWasShifted} into single state variable.
-    //private static final int SWITCH_STATE_ALPHA = 0;
+    private static final int SWITCH_STATE_ALPHA = 0;
     //private static final int SWITCH_STATE_SYMBOL_BEGIN = 1;
     //private static final int SWITCH_STATE_SYMBOL = 2;
     //private static final int SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL = 3;
     //private static final int SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE = 4;
     //private static final int SWITCH_STATE_MOMENTARY_ALPHA_SHIFT = 5;
-    //private int mSwitchState = SWITCH_STATE_ALPHA;
+    private int mSwitchState = SWITCH_STATE_ALPHA;
 
     // TODO: Consolidate these two mode booleans into one integer to distinguish between alphabet,
     // symbols, and emoji mode.
-    //private boolean mIsAlphabetMode;
+    private boolean mIsAlphabetMode;
     //private boolean mIsEmojiMode;
     //private AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
     //private boolean mIsSymbolShifted;
@@ -90,28 +90,28 @@ public final class KeyboardState {
     //private boolean mIsInAlphabetUnshiftedFromShifted;
     //private boolean mIsInDoubleTapShiftKey;
 
-    //private final SavedKeyboardState mSavedKeyboardState = new SavedKeyboardState();
+    private final SavedKeyboardState mSavedKeyboardState = new SavedKeyboardState();
 
-    //static final class SavedKeyboardState {
-        /*public boolean mIsValid;
+    static final class SavedKeyboardState {
+        public boolean mIsValid;
         public boolean mIsAlphabetMode;
-        public boolean mIsAlphabetShiftLocked;
-        public boolean mIsEmojiMode;
-        public int mShiftMode;
+        //public boolean mIsAlphabetShiftLocked;
+        //public boolean mIsEmojiMode;
+        //public int mShiftMode;
 
-        @Override
-        public String toString() {
-            if (!mIsValid) return "INVALID";
-            if (mIsAlphabetMode) {
-                if (mIsAlphabetShiftLocked) return "ALPHABET_SHIFT_LOCKED";
-                return "ALPHABET_" + shiftModeToString(mShiftMode);
-            } else if (mIsEmojiMode) {
-                return "EMOJI";
-            } else {
-                return "SYMBOLS_" + shiftModeToString(mShiftMode);
-            }
-        }
-    }*/
+        //@Override
+        //public String toString() {
+            //if (!mIsValid) return "INVALID";
+            //if (mIsAlphabetMode) {
+                //if (mIsAlphabetShiftLocked) return "ALPHABET_SHIFT_LOCKED";
+                //return "ALPHABET_" + shiftModeToString(mShiftMode);
+            //} else if (mIsEmojiMode) {
+                //return "EMOJI";
+            //} else {
+                //return "SYMBOLS_" + shiftModeToString(mShiftMode);
+            //}
+        //}
+    }
 
     public KeyboardState(final SwitchActions switchActions) {
         mSwitchActions = switchActions;
@@ -129,64 +129,64 @@ public final class KeyboardState {
         //mPrevSymbolsKeyboardWasShifted = false;
         //mShiftKeyState.onRelease();
         //mSymbolKeyState.onRelease();
-        //onRestoreKeyboardState(currentAutoCapsState, currentRecapitalizeState);
+        onRestoreKeyboardState(currentAutoCapsState, currentRecapitalizeState);
     }
 
-/*    private static final int UNSHIFT = 0;
-    private static final int MANUAL_SHIFT = 1;
-    private static final int AUTOMATIC_SHIFT = 2;
-    private static final int SHIFT_LOCK_SHIFTED = 3;
+    //private static final int UNSHIFT = 0;
+    //private static final int MANUAL_SHIFT = 1;
+    //private static final int AUTOMATIC_SHIFT = 2;
+    //private static final int SHIFT_LOCK_SHIFTED = 3;
 
     public void onSaveKeyboardState() {
         final SavedKeyboardState state = mSavedKeyboardState;
         state.mIsAlphabetMode = mIsAlphabetMode;
-        state.mIsEmojiMode = mIsEmojiMode;
-        if (mIsAlphabetMode) {
-            state.mIsAlphabetShiftLocked = mAlphabetShiftState.isShiftLocked();
-            state.mShiftMode = mAlphabetShiftState.isAutomaticShifted() ? AUTOMATIC_SHIFT
-                    : (mAlphabetShiftState.isShiftedOrShiftLocked() ? MANUAL_SHIFT : UNSHIFT);
-        } else {
-            state.mIsAlphabetShiftLocked = mPrevMainKeyboardWasShiftLocked;
-            state.mShiftMode = mIsSymbolShifted ? MANUAL_SHIFT : UNSHIFT;
-        }
+        //state.mIsEmojiMode = mIsEmojiMode;
+        //if (mIsAlphabetMode) {
+            //state.mIsAlphabetShiftLocked = mAlphabetShiftState.isShiftLocked();
+            //state.mShiftMode = mAlphabetShiftState.isAutomaticShifted() ? AUTOMATIC_SHIFT
+                //: (mAlphabetShiftState.isShiftedOrShiftLocked() ? MANUAL_SHIFT : UNSHIFT);
+        //} else {
+            //state.mIsAlphabetShiftLocked = mPrevMainKeyboardWasShiftLocked;
+            //state.mShiftMode = mIsSymbolShifted ? MANUAL_SHIFT : UNSHIFT;
+        //}
         state.mIsValid = true;
-        if (DEBUG_EVENT) {
-            Log.d(TAG, "onSaveKeyboardState: saved=" + state + " " + this);
-        }
+        //if (DEBUG_EVENT) {
+            //Log.d(TAG, "onSaveKeyboardState: saved=" + state + " " + this);
+        //}
     }
 
     private void onRestoreKeyboardState(final int currentAutoCapsState,
                                         final int currentRecapitalizeState) {
         final SavedKeyboardState state = mSavedKeyboardState;
-        if (DEBUG_EVENT) {
-            Log.d(TAG, "onRestoreKeyboardState: saved=" + state + " " + this);
-        }
-        if (!state.mIsValid || state.mIsAlphabetMode) {
+        //if (DEBUG_EVENT) {
+            //Log.d(TAG, "onRestoreKeyboardState: saved=" + state + " " + this);
+        //}
+        //if (!state.mIsValid || state.mIsAlphabetMode) {
             setAlphabetKeyboard(currentAutoCapsState, currentRecapitalizeState);
-        } else if (state.mIsEmojiMode) {
-            setEmojiKeyboard();
-        } else {
-            if (state.mShiftMode == MANUAL_SHIFT) {
-                setSymbolsShiftedKeyboard();
-            } else {
-                setSymbolsKeyboard();
-            }
-        }
+        //} else if (state.mIsEmojiMode) {
+            //setEmojiKeyboard();
+        //} else {
+            //if (state.mShiftMode == MANUAL_SHIFT) {
+                //setSymbolsShiftedKeyboard();
+            //} else {
+                //setSymbolsKeyboard();
+            //}
+        //}
 
-        if (!state.mIsValid) return;
-        state.mIsValid = false;
+        //if (!state.mIsValid) return;
+        //state.mIsValid = false;
 
-        if (state.mIsAlphabetMode) {
-            setShiftLocked(state.mIsAlphabetShiftLocked);
-            if (!state.mIsAlphabetShiftLocked) {
-                setShifted(state.mShiftMode);
-            }
-        } else {
-            mPrevMainKeyboardWasShiftLocked = state.mIsAlphabetShiftLocked;
-        }
+        //if (state.mIsAlphabetMode) {
+            //setShiftLocked(state.mIsAlphabetShiftLocked);
+            //if (!state.mIsAlphabetShiftLocked) {
+                //setShifted(state.mShiftMode);
+            //}
+        //} else {
+            //mPrevMainKeyboardWasShiftLocked = state.mIsAlphabetShiftLocked;
+        //}
     }
 
-    private void setShifted(final int shiftMode) {
+    /*private void setShifted(final int shiftMode) {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setShifted: shiftMode=" + shiftModeToString(shiftMode) + " " + this);
         }
@@ -295,11 +295,11 @@ public final class KeyboardState {
         //}
 
         mSwitchActions.setAlphabetKeyboard();
-        //mIsAlphabetMode = true;
+        mIsAlphabetMode = true;
         //mIsEmojiMode = false;
         //mIsSymbolShifted = false;
         //mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
-        //mSwitchState = SWITCH_STATE_ALPHA;
+        mSwitchState = SWITCH_STATE_ALPHA;
         //mSwitchActions.requestUpdatingShiftState(currentAutoCapsState, currentRecapitalizeState);
     }
 
@@ -608,65 +608,65 @@ public final class KeyboardState {
 
     private static boolean isSpaceOrEnter(final int c) {
         return c == Constants.CODE_SPACE || c == Constants.CODE_ENTER;
-    }
+    }*/
 
     public void onCodeInput(final int code, final int currentAutoCapsState,
                             final int currentRecapitalizeState) {
-        if (DEBUG_EVENT) {
-            Log.d(TAG, "onCodeInput: code=" + Constants.printableCode(code)
-                    + " autoCaps=" + currentAutoCapsState + " " + this);
-        }
+        //if (DEBUG_EVENT) {
+            //Log.d(TAG, "onCodeInput: code=" + Constants.printableCode(code)
+                //+ " autoCaps=" + currentAutoCapsState + " " + this);
+        //}
 
         switch (mSwitchState) {
-            case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL:
-                if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+            //case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL:
+                //if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
                     // Detected only the mode change key has been pressed, and then released.
-                    if (mIsAlphabetMode) {
-                        mSwitchState = SWITCH_STATE_ALPHA;
-                    } else {
-                        mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
-                    }
-                }
-                break;
-            case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE:
-                if (code == Constants.CODE_SHIFT) {
+                    //if (mIsAlphabetMode) {
+                        //mSwitchState = SWITCH_STATE_ALPHA;
+                    //} else {
+                        //mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
+                    //}
+                //}
+                //break;
+            //case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE:
+                //if (code == Constants.CODE_SHIFT) {
                     // Detected only the shift key has been pressed on symbol layout, and then
                     // released.
-                    mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
-                }
-                break;
-            case SWITCH_STATE_SYMBOL_BEGIN:
-                if (mIsEmojiMode) {
+                    //mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
+                //}
+                //break;
+            //case SWITCH_STATE_SYMBOL_BEGIN:
+                //if (mIsEmojiMode) {
                     // When in the Emoji keyboard, we don't want to switch back to the main layout even
                     // after the user hits an emoji letter followed by an enter or a space.
-                    break;
-                }
-                if (!isSpaceOrEnter(code) && (Constants.isLetterCode(code)
-                        || code == Constants.CODE_OUTPUT_TEXT)) {
-                    mSwitchState = SWITCH_STATE_SYMBOL;
-                }
-                break;
-            case SWITCH_STATE_SYMBOL:
+                    //break;
+                //}
+                //if (!isSpaceOrEnter(code) && (Constants.isLetterCode(code)
+                        //|| code == Constants.CODE_OUTPUT_TEXT)) {
+                    //mSwitchState = SWITCH_STATE_SYMBOL;
+                //}
+                //break;
+            //case SWITCH_STATE_SYMBOL:
                 // Switch back to alpha keyboard mode if user types one or more non-space/enter
                 // characters followed by a space/enter.
-                if (isSpaceOrEnter(code)) {
-                    toggleAlphabetAndSymbols(currentAutoCapsState, currentRecapitalizeState);
-                    mPrevSymbolsKeyboardWasShifted = false;
-                }
-                break;
+                //if (isSpaceOrEnter(code)) {
+                    //toggleAlphabetAndSymbols(currentAutoCapsState, currentRecapitalizeState);
+                    //mPrevSymbolsKeyboardWasShifted = false;
+                //}
+                //break;
         }
 
         // If the code is a letter, update keyboard shift state.
-        if (Constants.isLetterCode(code)) {
-            updateAlphabetShiftState(currentAutoCapsState, currentRecapitalizeState);
-        } else if (code == Constants.CODE_EMOJI) {
-            setEmojiKeyboard();
-        } else if (code == Constants.CODE_ALPHA_FROM_EMOJI) {
-            setAlphabetKeyboard(currentAutoCapsState, currentRecapitalizeState);
-        }
+        //if (Constants.isLetterCode(code)) {
+            //updateAlphabetShiftState(currentAutoCapsState, currentRecapitalizeState);
+        //} else if (code == Constants.CODE_EMOJI) {
+            //setEmojiKeyboard();
+        //} else if (code == Constants.CODE_ALPHA_FROM_EMOJI) {
+            //setAlphabetKeyboard(currentAutoCapsState, currentRecapitalizeState);
+        //}
     }
 
-    static String shiftModeToString(final int shiftMode) {
+    /*static String shiftModeToString(final int shiftMode) {
         switch (shiftMode) {
             case UNSHIFT: return "UNSHIFT";
             case MANUAL_SHIFT: return "MANUAL";

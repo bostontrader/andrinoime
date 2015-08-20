@@ -170,18 +170,18 @@ public class Keyboard {
             //return null;
         //}
         synchronized (mKeyCache) {
-            //final int index = mKeyCache.indexOfKey(code);
-            //if (index >= 0) {
-                //return mKeyCache.valueAt(index);
-            //}
+            final int index = mKeyCache.indexOfKey(code);
+            if (index >= 0) {
+                return mKeyCache.valueAt(index);
+            }
 
             for (final Key key : getSortedKeys()) {
                 if (key.getCode() == code) {
-                    //mKeyCache.put(code, key);
+                    mKeyCache.put(code, key);
                     return key;
                 }
             }
-            //mKeyCache.put(code, null);
+            mKeyCache.put(code, null);
             return null;
         }
     }

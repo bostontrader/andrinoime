@@ -264,12 +264,12 @@ public final class SubtypeLocaleUtils {
         };
         return StringUtils.capitalizeFirstCodePoint(
                 getSubtypeName.runInLocale(sResources, displayLocale), displayLocale);
-    }
+    }*/
 
     public static boolean isNoLanguage(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
         return NO_LANGUAGE.equals(localeString);
-    }*/
+    }
 
     public static Locale getSubtypeLocale(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
@@ -322,9 +322,9 @@ public final class SubtypeLocaleUtils {
 
     public static boolean isRtlLanguage(final InputMethodSubtype subtype) {
         return isRtlLanguage(getSubtypeLocale(subtype));
-    }
+    }*/
 
     public static String getCombiningRulesExtraValue(final InputMethodSubtype subtype) {
         return subtype.getExtraValueOf(Constants.Subtype.ExtraValue.COMBINING_RULES);
-    }*/
+    }
 }

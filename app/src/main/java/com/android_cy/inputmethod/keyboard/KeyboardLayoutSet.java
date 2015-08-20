@@ -34,7 +34,7 @@ import android.view.inputmethod.InputMethodSubtype;
 //import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardBuilder;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardParams;
-//import com.android.inputmethod.keyboard.internal.KeysCache;
+import com.android_cy.inputmethod.keyboard.internal.KeysCache;
 //import com.android.inputmethod.latin.InputAttributes;
 //import com.android.inputmethod.latin.R;
 import com.fyrecloud.andrinoime.R;
@@ -83,7 +83,7 @@ public final class KeyboardLayoutSet {
     //private static final Keyboard[] sForcibleKeyboardCache = new Keyboard[FORCIBLE_CACHE_SIZE];
     //private static final HashMap<KeyboardId, SoftReference<Keyboard>> sKeyboardCache =
             //new HashMap<>();
-    //private static final KeysCache sKeysCache = new KeysCache();
+    private static final KeysCache sKeysCache = new KeysCache();
 
     //@SuppressWarnings("serial")
     public static final class KeyboardLayoutSetException extends RuntimeException {
@@ -192,7 +192,7 @@ public final class KeyboardLayoutSet {
         final KeyboardBuilder<KeyboardParams> builder =
             new KeyboardBuilder<KeyboardParams>(mContext, new KeyboardParams());
         //if (id.isAlphabetKeyboard()) {
-            //builder.setAutoGenerate(sKeysCache);
+            builder.setAutoGenerate(sKeysCache);
         //}
         final int keyboardXmlId = elementParams.mKeyboardXmlId;
         builder.load(keyboardXmlId, id);

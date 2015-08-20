@@ -253,14 +253,14 @@ public final class RichInputMethodManager {
         return checkIfSubtypeBelongsToImeAndEnabled(getInputMethodInfoOfThisIme(), subtype);
     }
 
-    //public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
-            //final InputMethodSubtype subtype) {
-        //final boolean subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype);
-        //final boolean subtypeExplicitlyEnabled = checkIfSubtypeBelongsToList(
-                //subtype, getMyEnabledInputMethodSubtypeList(*/
-                        //false /* allowsImplicitlySelectedSubtypes */));
-        //return subtypeEnabled && !subtypeExplicitlyEnabled;
-    //}
+    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
+        final InputMethodSubtype subtype) {
+        final boolean subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype);
+        final boolean subtypeExplicitlyEnabled = checkIfSubtypeBelongsToList(
+            subtype, getMyEnabledInputMethodSubtypeList(
+            false /* allowsImplicitlySelectedSubtypes */));
+        return subtypeEnabled && !subtypeExplicitlyEnabled;
+    }
 
     public boolean checkIfSubtypeBelongsToImeAndEnabled(final InputMethodInfo imi,
                                                         final InputMethodSubtype subtype) {

@@ -159,9 +159,9 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         //params.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height);
     }
 
-    /*public void setAutoGenerate(final KeysCache keysCache) {
+    public void setAutoGenerate(final KeysCache keysCache) {
         mParams.mKeysCache = keysCache;
-    }*/
+    }
 
     public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
         mParams.mId = id;
@@ -241,7 +241,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
         final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
         try {
-            //final KeyboardParams params = mParams;
+            final KeyboardParams params = mParams;
             //final int height = params.mId.mHeight;
             //final int width = params.mId.mWidth;
             //params.mOccupiedHeight = height;
@@ -282,7 +282,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
             //params.mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             //params.mIconsSet.loadIcons(keyboardAttr);
-            //params.mTextsSet.setLocale(params.mId.mLocale, mContext);
+            params.mTextsSet.setLocale(params.mId.mLocale, mContext);
 
             //final int resourceId = keyboardAttr.getResourceId(
                 //R.styleable.Keyboard_touchPositionCorrectionData, 0);
@@ -325,13 +325,13 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final String tag = parser.getName();
                 //if (DEBUG) endTag("</%s>", tag);
                 if (TAG_KEYBOARD.equals(tag)) {
-                    //endKeyboard();
-                    //return;
+                    endKeyboard();
+                    return;
                 }
-                //if (TAG_CASE.equals(tag) || TAG_DEFAULT.equals(tag) || TAG_MERGE.equals(tag)) {
-                    //return;
-                //}
-                //throw new XmlParseUtils.IllegalEndTag(parser, tag, TAG_ROW);
+                if (TAG_CASE.equals(tag) || TAG_DEFAULT.equals(tag) || TAG_MERGE.equals(tag)) {
+                    return;
+                }
+                throw new XmlParseUtils.IllegalEndTag(parser, tag, TAG_ROW);
             }
         }
     }
@@ -490,7 +490,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 //key, Arrays.toString(key.getMoreKeys()));
         //}
         XmlParseUtils.checkEndTag(TAG_KEY, parser);
-        //endKey(key);
+        endKey(key);
     }
 
     /*private void parseSpacer(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
@@ -840,7 +840,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
     }
 
     private void endKey(final Key key) {
-        //mParams.onAddKey(key);
+        mParams.onAddKey(key);
         //if (mLeftEdge) {
             //key.markAsLeftEdge(mParams);
             //mLeftEdge = false;
@@ -851,14 +851,14 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         //mRightEdgeKey = key;
     }
 
-    /*private void endKeyboard() {
+    private void endKeyboard() {
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
-        final int actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding;
-        mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight);
+        //final int actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding;
+        //mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight);
     }
 
-    private void addEdgeSpace(final float width, final KeyboardRow row) {
+    /*private void addEdgeSpace(final float width, final KeyboardRow row) {
         row.advanceXPos(width);
         mLeftEdge = false;
         mRightEdgeKey = null;

@@ -19,7 +19,7 @@ package com.android_cy.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 //import android.content.pm.PackageInfo;
-//import android.content.res.Configuration;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 //import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -55,7 +55,7 @@ public final class SettingsValues {
     // From configuration:
     public final Locale mLocale;
     public final boolean mHasHardwareKeyboard;
-    //public final int mDisplayOrientation;
+    public final int mDisplayOrientation;
     // From preferences, in the same order as xml/prefs.xml:
     //public final boolean mAutoCap;
     //public final boolean mVibrateOn;
@@ -198,17 +198,17 @@ public final class SettingsValues {
                 defaultKeyPreviewDismissEndScale);
         mKeyPreviewDismissEndYScale = Settings.readKeyPreviewAnimationScale(
                 prefs, DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_Y_SCALE,
-                defaultKeyPreviewDismissEndScale);
+                defaultKeyPreviewDismissEndScale);*/
         mDisplayOrientation = res.getConfiguration().orientation;
-        mAppWorkarounds = new AsyncResultHolder<>();
-        final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
-                mInputAttributes.mTargetApplicationPackageName);
-        if (null != packageInfo) {
-            mAppWorkarounds.set(new AppWorkaroundsUtils(packageInfo));
-        } else {
-            new TargetPackageInfoGetterTask(context, mAppWorkarounds)
-                    .execute(mInputAttributes.mTargetApplicationPackageName);
-        }*/
+        //mAppWorkarounds = new AsyncResultHolder<>();
+        //final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
+            //mInputAttributes.mTargetApplicationPackageName);
+        //if (null != packageInfo) {
+            //mAppWorkarounds.set(new AppWorkaroundsUtils(packageInfo));
+        //} else {
+            //new TargetPackageInfoGetterTask(context, mAppWorkarounds)
+                //.execute(mInputAttributes.mTargetApplicationPackageName);
+        //}
     }
 
 /*    public boolean isApplicationSpecifiedCompletionsOn() {
@@ -265,11 +265,11 @@ public final class SettingsValues {
         return mInputAttributes.isSameInputType(editorInfo);
     }
 
-    /*public boolean hasSameOrientation(final Configuration configuration) {
+    public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
     }
 
-    public boolean isBeforeJellyBean() {
+    /*public boolean isBeforeJellyBean() {
         final AppWorkaroundsUtils appWorkaroundUtils
                 = mAppWorkarounds.get(null, TIMEOUT_TO_GET_TARGET_PACKAGE);
         return null == appWorkaroundUtils ? false : appWorkaroundUtils.isBeforeJellyBean();

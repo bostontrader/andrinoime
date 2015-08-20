@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.latin.inputlogic;
 
 //import android.graphics.Color;
 //import android.inputmethodservice.InputMethodService;
-//import android.os.SystemClock;
+import android.os.SystemClock;
 //import android.text.SpannableString;
 //import android.text.Spanned;
 //import android.text.TextUtils;
@@ -33,8 +33,8 @@ package com.android_cy.inputmethod.latin.inputlogic;
 
 //import com.android.inputmethod.compat.CursorAnchorInfoCompatWrapper;
 //import com.android.inputmethod.compat.SuggestionSpanUtils;
-//import com.android.inputmethod.event.Event;
-//import com.android.inputmethod.event.InputTransaction;
+import com.android_cy.inputmethod.event.Event;
+import com.android_cy.inputmethod.event.InputTransaction;
 //import com.android.inputmethod.keyboard.KeyboardSwitcher;
 //import com.android.inputmethod.keyboard.ProximityInfo;
 //import com.android.inputmethod.keyboard.TextDecorator;
@@ -44,17 +44,17 @@ package com.android_cy.inputmethod.latin.inputlogic;
 //import com.android.inputmethod.latin.DictionaryFacilitator;
 //import com.android.inputmethod.latin.InputPointers;
 //import com.android.inputmethod.latin.LastComposedWord;
-//import com.android.inputmethod.latin.LatinIME;
+import com.android_cy.inputmethod.latin.LatinIME;
 //import com.android.inputmethod.latin.PrevWordsInfo;
 //import com.android.inputmethod.latin.RichInputConnection;
 //import com.android.inputmethod.latin.Suggest;
 //import com.android.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 //import com.android.inputmethod.latin.SuggestedWords;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
-//import com.android.inputmethod.latin.WordComposer;
+import com.android_cy.inputmethod.latin.WordComposer;
 //import com.android.inputmethod.latin.define.DebugFlags;
 //import com.android.inputmethod.latin.define.ProductionFlags;
-//import com.android.inputmethod.latin.settings.SettingsValues;
+import com.android_cy.inputmethod.latin.settings.SettingsValues;
 //import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 //import com.android.inputmethod.latin.settings.SpacingAndPunctuations;
 //import com.android.inputmethod.latin.suggestions.SuggestionStripViewAccessor;
@@ -72,69 +72,70 @@ package com.android_cy.inputmethod.latin.inputlogic;
  * This class manages the input logic.
  */
 public final class InputLogic {
-    /*private static final String TAG = InputLogic.class.getSimpleName();
+    //private static final String TAG = InputLogic.class.getSimpleName();
 
     // TODO : Remove this member when we can.
     private final LatinIME mLatinIME;
-    private final SuggestionStripViewAccessor mSuggestionStripViewAccessor;
+    //private final SuggestionStripViewAccessor mSuggestionStripViewAccessor;
 
     // Never null.
-    private InputLogicHandler mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
+    //private InputLogicHandler mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
 
     // TODO : make all these fields private as soon as possible.
     // Current space state of the input method. This can be any of the above constants.
     private int mSpaceState;
     // Never null
-    public SuggestedWords mSuggestedWords = SuggestedWords.EMPTY;
-    public final Suggest mSuggest;
-    private final DictionaryFacilitator mDictionaryFacilitator;
+    //public SuggestedWords mSuggestedWords = SuggestedWords.EMPTY;
+    //public final Suggest mSuggest;
+    //private final DictionaryFacilitator mDictionaryFacilitator;
 
-    private final TextDecorator mTextDecorator = new TextDecorator(new TextDecorator.Listener() {
-        @Override
-        public void onClickComposingTextToAddToDictionary(final String word) {
-            mLatinIME.addWordToUserDictionary(word);
-            mLatinIME.dismissAddToDictionaryHint();
-        }
-    });
+    //private final TextDecorator mTextDecorator = new TextDecorator(new TextDecorator.Listener() {
+        //@Override
+        //public void onClickComposingTextToAddToDictionary(final String word) {
+            //mLatinIME.addWordToUserDictionary(word);
+            //mLatinIME.dismissAddToDictionaryHint();
+        //}
+    //});
 
-    public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
+    //public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
-    /star package star/ final WordComposer mWordComposer;
-    public final RichInputConnection mConnection;
-    private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
+    /* package */ final WordComposer mWordComposer;
+    //public final RichInputConnection mConnection;
+    //private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
-    private int mDeleteCount;
-    private long mLastKeyTime;
-    public final TreeSet<Long> mCurrentlyPressedHardwareKeys = new TreeSet<>();
+    //private int mDeleteCount;
+    //private long mLastKeyTime;
+    //public final TreeSet<Long> mCurrentlyPressedHardwareKeys = new TreeSet<>();
 
     // Keeps track of most recently inserted text (multi-character key) for reverting
-    private String mEnteredText;
+    //private String mEnteredText;
 
     // TODO: This boolean is persistent state and causes large side effects at unexpected times.
     // Find a way to remove it for readability.
-    private boolean mIsAutoCorrectionIndicatorOn;
-    private long mDoubleSpacePeriodCountdownStart;
+    //private boolean mIsAutoCorrectionIndicatorOn;
+    //private long mDoubleSpacePeriodCountdownStart;
 
-    /star*
+    /**
      * Create a new instance of the input logic.
      * @param latinIME the instance of the parent LatinIME. We should remove this when we can.
      * @param suggestionStripViewAccessor an object to access the suggestion strip view.
      * @param dictionaryFacilitator facilitator for getting suggestions and updating user history
      * dictionary.
-     star/
-    public InputLogic(final LatinIME latinIME,
-                      final SuggestionStripViewAccessor suggestionStripViewAccessor,
-                      final DictionaryFacilitator dictionaryFacilitator) {
+     */
+    public InputLogic(final LatinIME latinIME
+                      //final SuggestionStripViewAccessor suggestionStripViewAccessor
+                      //final DictionaryFacilitator dictionaryFacilitator
+                      ) {
         mLatinIME = latinIME;
-        mSuggestionStripViewAccessor = suggestionStripViewAccessor;
+        //mSuggestionStripViewAccessor = suggestionStripViewAccessor;
         mWordComposer = new WordComposer();
-        mConnection = new RichInputConnection(latinIME);
-        mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
-        mSuggest = new Suggest(dictionaryFacilitator);
-        mDictionaryFacilitator = dictionaryFacilitator;
+        //mConnection = new RichInputConnection(latinIME);
+        //mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
+        //mSuggest = new Suggest(dictionaryFacilitator);
+        //mDictionaryFacilitator = dictionaryFacilitator;
     }
 
-    /star*
+    /**
      * Initializes the input logic for input in an editor.
      *
      * Call this when input starts or restarts in some editor (typically, in onStartInputView).
@@ -171,17 +172,17 @@ public final class InputLogic {
         }
     }
 
-    /star*
+    /**
      * Call this when the subtype changes.
      * @param combiningSpec the spec string for the combining rules
      * @param settingsValues the current settings values
-     star/
+     */
     public void onSubtypeChanged(final String combiningSpec, final SettingsValues settingsValues) {
-        finishInput();
-        startInput(combiningSpec, settingsValues);
+        //finishInput();
+        //startInput(combiningSpec, settingsValues);
     }
 
-    /star*
+    /**
      * Call this when the orientation changes.
      * @param settingsValues the current values of the settings.
      star/
@@ -427,9 +428,9 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         return true;
-    }
+    }*/
 
-    /star*
+    /**
      * React to a code input. It may be a code point to insert, or a symbolic value that influences
      * the keyboard behavior.
      *
@@ -441,56 +442,58 @@ public final class InputLogic {
      * @param keyboardShiftMode the current shift mode of the keyboard, as returned by
      *     {@link com.android.inputmethod.keyboard.KeyboardSwitcher#getKeyboardShiftMode()}
      * @return the complete transaction object
-     star/
+     */
     public InputTransaction onCodeInput(final SettingsValues settingsValues, final Event event,
                                         final int keyboardShiftMode,
                                         // TODO: remove these arguments
                                         final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
         final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
-                processedEvent, SystemClock.uptimeMillis(), mSpaceState,
-                getActualCapsMode(settingsValues, keyboardShiftMode));
-        if (processedEvent.mKeyCode != Constants.CODE_DELETE
-                || inputTransaction.mTimestamp > mLastKeyTime + Constants.LONG_PRESS_MILLISECONDS) {
-            mDeleteCount = 0;
-        }
-        mLastKeyTime = inputTransaction.mTimestamp;
-        mConnection.beginBatchEdit();
-        if (!mWordComposer.isComposingWord()) {
+            processedEvent, SystemClock.uptimeMillis(), mSpaceState,
+            getActualCapsMode(settingsValues, keyboardShiftMode)
+        );
+
+        //if (processedEvent.mKeyCode != Constants.CODE_DELETE
+            //|| inputTransaction.mTimestamp > mLastKeyTime + Constants.LONG_PRESS_MILLISECONDS) {
+            //mDeleteCount = 0;
+        //}
+        //mLastKeyTime = inputTransaction.mTimestamp;
+        //mConnection.beginBatchEdit();
+        //if (!mWordComposer.isComposingWord()) {
             // TODO: is this useful? It doesn't look like it should be done here, but rather after
             // a word is committed.
-            mIsAutoCorrectionIndicatorOn = false;
-        }
+            //mIsAutoCorrectionIndicatorOn = false;
+        //}
 
         // TODO: Consolidate the double-space period timer, mLastKeyTime, and the space state.
-        if (processedEvent.mCodePoint != Constants.CODE_SPACE) {
-            cancelDoubleSpacePeriodCountdown();
-        }
+        //if (processedEvent.mCodePoint != Constants.CODE_SPACE) {
+            //cancelDoubleSpacePeriodCountdown();
+        //}
 
-        Event currentEvent = processedEvent;
-        while (null != currentEvent) {
-            if (currentEvent.isConsumed()) {
-                handleConsumedEvent(currentEvent, inputTransaction);
-            } else if (currentEvent.isFunctionalKeyEvent()) {
-                handleFunctionalEvent(currentEvent, inputTransaction, currentKeyboardScriptId,
-                        handler);
-            } else {
-                handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
-            }
-            currentEvent = currentEvent.mNextEvent;
-        }
-        if (!inputTransaction.didAutoCorrect() && processedEvent.mKeyCode != Constants.CODE_SHIFT
-                && processedEvent.mKeyCode != Constants.CODE_CAPSLOCK
-                && processedEvent.mKeyCode != Constants.CODE_SWITCH_ALPHA_SYMBOL)
-            mLastComposedWord.deactivate();
-        if (Constants.CODE_DELETE != processedEvent.mKeyCode) {
-            mEnteredText = null;
-        }
-        mConnection.endBatchEdit();
+        //Event currentEvent = processedEvent;
+        //while (null != currentEvent) {
+            //if (currentEvent.isConsumed()) {
+                //handleConsumedEvent(currentEvent, inputTransaction);
+            //} else if (currentEvent.isFunctionalKeyEvent()) {
+                //handleFunctionalEvent(currentEvent, inputTransaction, currentKeyboardScriptId,
+                        //handler);
+            //} else {
+                //handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
+            //}
+            //currentEvent = currentEvent.mNextEvent;
+        //}
+        //if (!inputTransaction.didAutoCorrect() && processedEvent.mKeyCode != Constants.CODE_SHIFT
+                //&& processedEvent.mKeyCode != Constants.CODE_CAPSLOCK
+                //&& processedEvent.mKeyCode != Constants.CODE_SWITCH_ALPHA_SYMBOL)
+            //mLastComposedWord.deactivate();
+        //if (Constants.CODE_DELETE != processedEvent.mKeyCode) {
+            //mEnteredText = null;
+        //}
+        //mConnection.endBatchEdit();
         return inputTransaction;
     }
 
-    public void onStartBatchInput(final SettingsValues settingsValues,
+    /*public void onStartBatchInput(final SettingsValues settingsValues,
                                   // TODO: remove these arguments
                                   final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
         mInputLogicHandler.onStartBatchInput();
@@ -1655,31 +1658,32 @@ public final class InputLogic {
             // We have a separator between the word and the cursor: we should show predictions.
             inputTransaction.setRequiresUpdateSuggestions();
         }
-    }
+    }*/
 
-    /star*
+    /**
      * Factor in auto-caps and manual caps and compute the current caps mode.
      * @param settingsValues the current settings values.
      * @param keyboardShiftMode the current shift mode of the keyboard. See
      *   KeyboardSwitcher#getKeyboardShiftMode() for possible values.
      * @return the actual caps mode the keyboard is in right now.
-     star/
+     */
     private int getActualCapsMode(final SettingsValues settingsValues,
                                   final int keyboardShiftMode) {
-        if (keyboardShiftMode != WordComposer.CAPS_MODE_AUTO_SHIFTED) {
-            return keyboardShiftMode;
-        }
-        final int auto = getCurrentAutoCapsState(settingsValues);
-        if (0 != (auto & TextUtils.CAP_MODE_CHARACTERS)) {
-            return WordComposer.CAPS_MODE_AUTO_SHIFT_LOCKED;
-        }
-        if (0 != auto) {
-            return WordComposer.CAPS_MODE_AUTO_SHIFTED;
-        }
-        return WordComposer.CAPS_MODE_OFF;
+        //if (keyboardShiftMode != WordComposer.CAPS_MODE_AUTO_SHIFTED) {
+            //return keyboardShiftMode;
+        //}
+        //final int auto = getCurrentAutoCapsState(settingsValues);
+        //if (0 != (auto & TextUtils.CAP_MODE_CHARACTERS)) {
+            //return WordComposer.CAPS_MODE_AUTO_SHIFT_LOCKED;
+        //}
+        //if (0 != auto) {
+            //return WordComposer.CAPS_MODE_AUTO_SHIFTED;
+        //}
+        //return WordComposer.CAPS_MODE_OFF;
+        return 0; // tfr
     }
 
-    /star*
+    /**
      * Gets the current auto-caps state, factoring in the space state.
      *
      * This method tries its best to do this in the most efficient possible manner. It avoids

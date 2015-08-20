@@ -96,6 +96,7 @@ public class KeyboardParams {
     }*/
 
     public void onAddKey(final Key newKey) {
+        Key key1 = mKeysCache.get(newKey);
         final Key key = (mKeysCache != null) ? mKeysCache.get(newKey) : newKey;
         //final boolean isSpacer = key.isSpacer();
         //if (isSpacer && key.getWidth() == 0) {
