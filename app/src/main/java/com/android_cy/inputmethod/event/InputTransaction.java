@@ -32,8 +32,8 @@ public class InputTransaction {
     //public static final int SHIFT_UPDATE_LATER = 2;
 
     // Initial conditions
-    //public final SettingsValues mSettingsValues;
-    //public final Event mEvent;
+    public final SettingsValues mSettingsValues;
+    public final Event mEvent;
     //public final long mTimestamp;
     //public final int mSpaceState;
     //public final int mShiftState;
@@ -41,13 +41,13 @@ public class InputTransaction {
     // Outputs
     //private int mRequiredShiftUpdate = SHIFT_NO_UPDATE;
     //private boolean mRequiresUpdateSuggestions = false;
-    //private boolean mDidAffectContents = false;
+    private boolean mDidAffectContents = false;
     //private boolean mDidAutoCorrect = false;
 
     public InputTransaction(final SettingsValues settingsValues, final Event event,
                             final long timestamp, final int spaceState, final int shiftState) {
-        //mSettingsValues = settingsValues;
-        //mEvent = event;
+        mSettingsValues = settingsValues;
+        mEvent = event;
         //mTimestamp = timestamp;
         //mSpaceState = spaceState;
         //mShiftState = shiftState;
@@ -87,9 +87,9 @@ public class InputTransaction {
     /**
      * Indicate that this transaction affected the contents of the editor.
      */
-    //public void setDidAffectContents() {
-        //mDidAffectContents = true;
-    //}
+    public void setDidAffectContents() {
+        mDidAffectContents = true;
+    }
 
     /**
      * Find out whether this transaction affected contents of the editor.

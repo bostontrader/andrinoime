@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.event;
 
 //import com.android.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 /**
  * Class representing a generic input event as handled by Latin IME.
@@ -64,29 +64,29 @@ public class Event {
     final private static int FLAG_NONE = 0;
     // This event is a dead character, usually input by a dead key. Examples include dead-acute
     // or dead-abovering.
-    //final private static int FLAG_DEAD = 0x1;
+    final private static int FLAG_DEAD = 0x1;
     // This event is coming from a key repeat, software or hardware.
     final private static int FLAG_REPEAT = 0x2;
     // This event has already been consumed.
     final private static int FLAG_CONSUMED = 0x4;
 
-    //final private int mEventType; // The type of event - one of the constants above
+    final private int mEventType; // The type of event - one of the constants above
     // The code point associated with the event, if relevant. This is a unicode code point, and
     // has nothing to do with other representations of the key. It is only relevant if this event
     // is of KEYPRESS type, but for a mode key like hankaku/zenkaku or ctrl, there is no code point
     // associated so this should be NOT_A_CODE_POINT to avoid unintentional use of its value when
     // it's not relevant.
-    //final public int mCodePoint;
+    final public int mCodePoint;
 
     // If applicable, this contains the string that should be input.
-    //final public CharSequence mText;
+    final public CharSequence mText;
 
     // The key code associated with the event, if relevant. This is relevant whenever this event
     // has been triggered by a key press, but not for a gesture for example. This has conceptually
     // no link to the code point, although keys that enter a straight code point may often set
     // this to be equal to mCodePoint for convenience. If this is not a key, this must contain
     // NOT_A_KEY_CODE.
-    //final public int mKeyCode;
+    final public int mKeyCode;
 
     // Coordinates of the touch event, if relevant. If useful, we may want to replace this with
     // a MotionEvent or something in the future. This is only relevant when the keypress is from
@@ -103,7 +103,7 @@ public class Event {
     //final public SuggestedWordInfo mSuggestedWordInfo;
 
     // The next event, if any. Null if there is no next event yet.
-    //final public Event mNextEvent;
+    final public Event mNextEvent;
 
     // This method is private - to create a new event, use one of the create* utility methods.
     //private Event(final int type, final CharSequence text, final int codePoint, final int keyCode,
@@ -113,15 +113,15 @@ public class Event {
     private Event(final int type, final CharSequence text, final int codePoint, final int keyCode,
         final int x, final int y, final int flags,
         final Event next) {
-        //mEventType = type;
-        //mText = text;
-        //mCodePoint = codePoint;
-        //mKeyCode = keyCode;
+        mEventType = type;
+        mText = text;
+        mCodePoint = codePoint;
+        mKeyCode = keyCode;
         //mX = x;
         //mY = y;
         //mSuggestedWordInfo = suggestedWordInfo;
         mFlags = flags;
-        //mNextEvent = next;
+        mNextEvent = next;
         // Sanity checks
         // mSuggestedWordInfo is non-null if and only if the type is SUGGESTION_PICKED
         //if (EVENT_TYPE_SUGGESTION_PICKED == mEventType) {
@@ -236,6 +236,13 @@ public class Event {
     //            source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags | FLAG_CONSUMED,
     //            source.mNextEvent);
     //}
+    public static Event createConsumedEvent(final Event source) {
+    // A consumed event should not input any text at all, so we pass the empty string as text.
+        Event e = new Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode,
+            0, 0, /* source.mSuggestedWordInfo,*/ source.mFlags | FLAG_CONSUMED,
+            source.mNextEvent);
+        return e;
+    }
 
     //public static Event createNotHandledEvent() {
     //    return new Event(EVENT_TYPE_NOT_HANDLED, null /* text */, NOT_A_CODE_POINT, NOT_A_KEY_CODE,
@@ -251,9 +258,9 @@ public class Event {
     //}
 
     // Returns whether this event is for a dead character. @see {@link #FLAG_DEAD}
-    //public boolean isDead() {
-    //    return 0 != (FLAG_DEAD & mFlags);
-    //}
+    public boolean isDead() {
+        return 0 != (FLAG_DEAD & mFlags);
+    }
 
     //public boolean isKeyRepeat() {
     //    return 0 != (FLAG_REPEAT & mFlags);
@@ -273,22 +280,22 @@ public class Event {
         //return EVENT_TYPE_NOT_HANDLED != mEventType;
     //}
 
-    //public CharSequence getTextToCommit() {
-        //if (isConsumed()) {
-            //return ""; // A consumed event should input no text.
-        //}
-        //switch (mEventType) {
+    public CharSequence getTextToCommit() {
+        if (isConsumed()) {
+            return ""; // A consumed event should input no text.
+        }
+        switch (mEventType) {
             //case EVENT_TYPE_MODE_KEY:
             //case EVENT_TYPE_NOT_HANDLED:
             //case EVENT_TYPE_TOGGLE:
                 //return "";
-            //case EVENT_TYPE_INPUT_KEYPRESS:
-                //return StringUtils.newSingleCodePointString(mCodePoint);
+            case EVENT_TYPE_INPUT_KEYPRESS:
+                return StringUtils.newSingleCodePointString(mCodePoint);
             //case EVENT_TYPE_GESTURE:
             //case EVENT_TYPE_SOFTWARE_GENERATED_STRING:
             //case EVENT_TYPE_SUGGESTION_PICKED:
                 //return mText;
-        //}
-        //throw new RuntimeException("Unknown event type: " + mEventType);
-    //}
+        }
+        throw new RuntimeException("Unknown event type: " + mEventType);
+    }
 }

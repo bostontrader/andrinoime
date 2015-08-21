@@ -54,7 +54,7 @@ public final class StringUtils {
         return text.codePointCount(0, text.length());
     }
 
-    /*public static String newSingleCodePointString(int codePoint) {
+    public static String newSingleCodePointString(int codePoint) {
         if (Character.charCount(codePoint) == 1) {
             // Optimization: avoid creating a temporary array for characters that are
             // represented by a single char value
@@ -64,7 +64,7 @@ public final class StringUtils {
         return new String(Character.toChars(codePoint));
     }
 
-    public static boolean containsInArray(final String text, final String[] array) {
+    /*public static boolean containsInArray(final String text, final String[] array) {
         for (final String element : array) {
             if (text.equals(element)) return true;
         }

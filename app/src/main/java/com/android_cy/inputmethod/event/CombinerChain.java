@@ -17,7 +17,7 @@
 package com.android_cy.inputmethod.event;
 
 import android.text.SpannableStringBuilder;
-//import android.text.TextUtils;
+import android.text.TextUtils;
 
 //import com.android.inputmethod.latin.Constants;
 
@@ -40,7 +40,7 @@ import java.util.ArrayList;
  */
 public class CombinerChain {
     // The already combined text, as described above
-    //private StringBuilder mCombinedText;
+    private StringBuilder mCombinedText;
     // The feedback on the composing state, as described above
     private SpannableStringBuilder mStateFeedback;
     private final ArrayList<Combiner> mCombiners;
@@ -66,11 +66,11 @@ public class CombinerChain {
     public CombinerChain(final String initialText, final Combiner... combinerList) {
         mCombiners = new ArrayList<>();
         // The dead key combiner is always active, and always first
-        //mCombiners.add(new DeadKeyCombiner());
-        //for (final Combiner combiner : combinerList) {
-            //mCombiners.add(combiner);
-        //}
-        //mCombinedText = new StringBuilder(initialText);
+        mCombiners.add(new DeadKeyCombiner());
+        for (final Combiner combiner : combinerList) {
+            mCombiners.add(combiner);
+        }
+        mCombinedText = new StringBuilder(initialText);
         mStateFeedback = new SpannableStringBuilder();
     }
 
@@ -118,35 +118,35 @@ public class CombinerChain {
      * Apply a processed event.
      * @param event the event to be applied
      */
-    /*public void applyProcessedEvent(final Event event) {
+    public void applyProcessedEvent(final Event event) {
         if (null != event) {
             // TODO: figure out the generic way of doing this
-            if (Constants.CODE_DELETE == event.mKeyCode) {
-                final int length = mCombinedText.length();
-                if (length > 0) {
-                    final int lastCodePoint = mCombinedText.codePointBefore(length);
-                    mCombinedText.delete(length - Character.charCount(lastCodePoint), length);
-                }
-            } else {
+            //if (Constants.CODE_DELETE == event.mKeyCode) {
+                //final int length = mCombinedText.length();
+                //if (length > 0) {
+                    //final int lastCodePoint = mCombinedText.codePointBefore(length);
+                    //mCombinedText.delete(length - Character.charCount(lastCodePoint), length);
+                //}
+            //} else {
                 final CharSequence textToCommit = event.getTextToCommit();
                 if (!TextUtils.isEmpty(textToCommit)) {
                     mCombinedText.append(textToCommit);
                 }
-            }
+            //}
         }
         updateStateFeedback();
-    }*/
+    }
 
     /**
      * Get the char sequence that should be displayed as the composing word. It may include
      * styling spans.
      */
-    /*public CharSequence getComposingWordWithCombiningFeedback() {
+    public CharSequence getComposingWordWithCombiningFeedback() {
         final SpannableStringBuilder s = new SpannableStringBuilder(mCombinedText);
         return s.append(mStateFeedback);
     }
 
-    public static Combiner[] createCombiners(final String spec) {
+    /*public static Combiner[] createCombiners(final String spec) {
         if (TextUtils.isEmpty(spec)) {
             return new Combiner[0];
         }

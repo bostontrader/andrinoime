@@ -60,7 +60,7 @@ public final class WordComposer {
     //private String mRejectedBatchModeSuggestion;
 
     // Cache these values for performance
-    //private CharSequence mTypedWordCache;
+    private CharSequence mTypedWordCache;
     //private int mCapsCount;
     //private int mDigitsCount;
     //private int mCapitalizedMode;
@@ -68,7 +68,7 @@ public final class WordComposer {
     // In general, this contains the size of mPrimaryKeyCodes, except when this is greater than
     // MAX_WORD_LENGTH in which case mPrimaryKeyCodes only contain the first MAX_WORD_LENGTH
     // code points.
-    //private int mCodePointSize;
+    private int mCodePointSize;
     //private int mCursorPositionWithinWord;
 
     /**
@@ -84,7 +84,7 @@ public final class WordComposer {
         //mIsBatchMode = false;
         //mCursorPositionWithinWord = 0;
         //mRejectedBatchModeSuggestion = null;
-        //refreshTypedWordCache();
+        refreshTypedWordCache();
     }
 
     /**
@@ -116,12 +116,12 @@ public final class WordComposer {
         mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
-    }
+    }*/
 
     private final void refreshTypedWordCache() {
         mTypedWordCache = mCombinerChain.getComposingWordWithCombiningFeedback();
         mCodePointSize = Character.codePointCount(mTypedWordCache, 0, mTypedWordCache.length());
-    }*/
+    }
 
     /**
      * Number of keystrokes in the composing word.
@@ -186,8 +186,8 @@ public final class WordComposer {
         final Event processedEvent = mCombinerChain.processEvent(mEvents, event);
         // The retained state of the combiner chain may have changed while processing the event,
         // so we need to update our cache.
-        //refreshTypedWordCache();
-        //mEvents.add(event);
+        refreshTypedWordCache();
+        mEvents.add(event);
         return processedEvent;
     }
 
@@ -199,41 +199,41 @@ public final class WordComposer {
      *
      * @param event the event to apply. Must not be null.
      */
-    /*public void applyProcessedEvent(final Event event) {
+    public void applyProcessedEvent(final Event event) {
         mCombinerChain.applyProcessedEvent(event);
         final int primaryCode = event.mCodePoint;
-        final int keyX = event.mX;
-        final int keyY = event.mY;
-        final int newIndex = size();
+        //final int keyX = event.mX;
+        //final int keyY = event.mY;
+        //final int newIndex = size();
         refreshTypedWordCache();
-        mCursorPositionWithinWord = mCodePointSize;
+        //mCursorPositionWithinWord = mCodePointSize;
         // We may have deleted the last one.
-        if (0 == mCodePointSize) {
-            mIsOnlyFirstCharCapitalized = false;
-        }
-        if (Constants.CODE_DELETE != event.mKeyCode) {
-            if (newIndex < MAX_WORD_LENGTH) {
+        //if (0 == mCodePointSize) {
+            //mIsOnlyFirstCharCapitalized = false;
+        //}
+        //if (Constants.CODE_DELETE != event.mKeyCode) {
+            //if (newIndex < MAX_WORD_LENGTH) {
                 // In the batch input mode, the {@code mInputPointers} holds batch input points and
                 // shouldn't be overridden by the "typed key" coordinates
                 // (See {@link #setBatchInputWord}).
-                if (!mIsBatchMode) {
+                //if (!mIsBatchMode) {
                     // TODO: Set correct pointer id and time
-                    mInputPointers.addPointerAt(newIndex, keyX, keyY, 0, 0);
-                }
-            }
-            if (0 == newIndex) {
-                mIsOnlyFirstCharCapitalized = Character.isUpperCase(primaryCode);
-            } else {
-                mIsOnlyFirstCharCapitalized = mIsOnlyFirstCharCapitalized
-                        && !Character.isUpperCase(primaryCode);
-            }
-            if (Character.isUpperCase(primaryCode)) mCapsCount++;
-            if (Character.isDigit(primaryCode)) mDigitsCount++;
-        }
-        mAutoCorrection = null;
+                    //mInputPointers.addPointerAt(newIndex, keyX, keyY, 0, 0);
+                //}
+            //}
+            //if (0 == newIndex) {
+                //mIsOnlyFirstCharCapitalized = Character.isUpperCase(primaryCode);
+            //} else {
+                //mIsOnlyFirstCharCapitalized = mIsOnlyFirstCharCapitalized
+                        //&& !Character.isUpperCase(primaryCode);
+            //}
+            //if (Character.isUpperCase(primaryCode)) mCapsCount++;
+            //if (Character.isDigit(primaryCode)) mDigitsCount++;
+        //}
+        //mAutoCorrection = null;
     }
 
-    public void setCursorPositionWithinWord(final int posWithinWord) {
+    /*public void setCursorPositionWithinWord(final int posWithinWord) {
         mCursorPositionWithinWord = posWithinWord;
         // TODO: compute where that puts us inside the events
     }
@@ -326,9 +326,9 @@ public final class WordComposer {
      * Returns the word as it was typed, without any correction applied.
      * @return the word that was typed so far. Never returns null.
      */
-    /*public String getTypedWord() {
+    public String getTypedWord() {
         return mTypedWordCache.toString();
-    }*/
+    }
 
     /**
      * Whether this composer is composing or about to compose a word in which only the first letter

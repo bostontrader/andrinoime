@@ -21,7 +21,7 @@ package com.android_cy.inputmethod.latin.inputlogic;
 import android.os.SystemClock;
 //import android.text.SpannableString;
 //import android.text.Spanned;
-//import android.text.TextUtils;
+import android.text.TextUtils;
 //import android.text.style.BackgroundColorSpan;
 //import android.text.style.SuggestionSpan;
 //import android.util.Log;
@@ -43,10 +43,10 @@ import com.android_cy.inputmethod.event.InputTransaction;
 //import com.android.inputmethod.latin.Dictionary;
 //import com.android.inputmethod.latin.DictionaryFacilitator;
 //import com.android.inputmethod.latin.InputPointers;
-//import com.android.inputmethod.latin.LastComposedWord;
+import com.android_cy.inputmethod.latin.LastComposedWord;
 import com.android_cy.inputmethod.latin.LatinIME;
 //import com.android.inputmethod.latin.PrevWordsInfo;
-//import com.android.inputmethod.latin.RichInputConnection;
+import com.android_cy.inputmethod.latin.RichInputConnection;
 //import com.android.inputmethod.latin.Suggest;
 //import com.android.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 //import com.android.inputmethod.latin.SuggestedWords;
@@ -61,7 +61,7 @@ import com.android_cy.inputmethod.latin.settings.SettingsValues;
 //import com.android.inputmethod.latin.utils.AsyncResultHolder;
 //import com.android.inputmethod.latin.utils.InputTypeUtils;
 //import com.android.inputmethod.latin.utils.RecapitalizeStatus;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 //import com.android.inputmethod.latin.utils.TextRange;
 
 //import java.util.ArrayList;
@@ -100,7 +100,7 @@ public final class InputLogic {
     //public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
     /* package */ final WordComposer mWordComposer;
-    //public final RichInputConnection mConnection;
+    public final RichInputConnection mConnection;
     //private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
     //private int mDeleteCount;
@@ -129,7 +129,7 @@ public final class InputLogic {
         mLatinIME = latinIME;
         //mSuggestionStripViewAccessor = suggestionStripViewAccessor;
         mWordComposer = new WordComposer();
-        //mConnection = new RichInputConnection(latinIME);
+        mConnection = new RichInputConnection(latinIME);
         //mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
         //mSuggest = new Suggest(dictionaryFacilitator);
         //mDictionaryFacilitator = dictionaryFacilitator;
@@ -458,7 +458,7 @@ public final class InputLogic {
             //mDeleteCount = 0;
         //}
         //mLastKeyTime = inputTransaction.mTimestamp;
-        //mConnection.beginBatchEdit();
+        mConnection.beginBatchEdit();
         //if (!mWordComposer.isComposingWord()) {
             // TODO: is this useful? It doesn't look like it should be done here, but rather after
             // a word is committed.
@@ -470,18 +470,18 @@ public final class InputLogic {
             //cancelDoubleSpacePeriodCountdown();
         //}
 
-        //Event currentEvent = processedEvent;
-        //while (null != currentEvent) {
-            //if (currentEvent.isConsumed()) {
-                //handleConsumedEvent(currentEvent, inputTransaction);
+        Event currentEvent = processedEvent;
+        while (null != currentEvent) {
+            if (currentEvent.isConsumed()) {
+                handleConsumedEvent(currentEvent, inputTransaction);
             //} else if (currentEvent.isFunctionalKeyEvent()) {
                 //handleFunctionalEvent(currentEvent, inputTransaction, currentKeyboardScriptId,
                         //handler);
-            //} else {
-                //handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
-            //}
-            //currentEvent = currentEvent.mNextEvent;
-        //}
+            } else {
+                handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
+            }
+            currentEvent = currentEvent.mNextEvent;
+        }
         //if (!inputTransaction.didAutoCorrect() && processedEvent.mKeyCode != Constants.CODE_SHIFT
                 //&& processedEvent.mKeyCode != Constants.CODE_CAPSLOCK
                 //&& processedEvent.mKeyCode != Constants.CODE_SWITCH_ALPHA_SYMBOL)
@@ -489,7 +489,7 @@ public final class InputLogic {
         //if (Constants.CODE_DELETE != processedEvent.mKeyCode) {
             //mEnteredText = null;
         //}
-        //mConnection.endBatchEdit();
+        mConnection.endBatchEdit();
         return inputTransaction;
     }
 
@@ -629,9 +629,9 @@ public final class InputLogic {
             // the practice.
             setComposingTextInternal(textWithUnderline, 1);
         }
-    }
+    }*/
 
-    /star*
+    /**
      * Handle a consumed event.
      *
      * Consumed events represent events that have already been consumed, typically by the
@@ -639,7 +639,7 @@ public final class InputLogic {
      *
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
-     star/
+     */
     private void handleConsumedEvent(final Event event, final InputTransaction inputTransaction) {
         // A consumed event may have text to commit and an update to the composing state, so
         // we evaluate both. With some combiners, it's possible than an event contains both
@@ -647,16 +647,16 @@ public final class InputLogic {
         final CharSequence textToCommit = event.getTextToCommit();
         if (!TextUtils.isEmpty(textToCommit)) {
             mConnection.commitText(textToCommit, 1);
-            inputTransaction.setDidAffectContents();
+            //inputTransaction.setDidAffectContents();
         }
-        if (mWordComposer.isComposingWord()) {
-            setComposingTextInternal(mWordComposer.getTypedWord(), 1);
-            inputTransaction.setDidAffectContents();
-            inputTransaction.setRequiresUpdateSuggestions();
-        }
+        //if (mWordComposer.isComposingWord()) {
+            //setComposingTextInternal(mWordComposer.getTypedWord(), 1);
+            //inputTransaction.setDidAffectContents();
+            //inputTransaction.setRequiresUpdateSuggestions();
+        //}
     }
 
-    /star*
+    /**
      * Handle a functional key event.
      *
      * A functional event is a special key, like delete, shift, emoji, or the settings key.
@@ -742,22 +742,22 @@ public final class InputLogic {
      *
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
-     star/
+     */
     private void handleNonFunctionalEvent(final Event event,
                                           final InputTransaction inputTransaction,
                                           // TODO: remove this argument
                                           final LatinIME.UIHandler handler) {
         inputTransaction.setDidAffectContents();
         switch (event.mCodePoint) {
-            case Constants.CODE_ENTER:
-                final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                final int imeOptionsActionId =
-                        InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
-                if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
+            //case Constants.CODE_ENTER:
+                //final EditorInfo editorInfo = getCurrentInputEditorInfo();
+                //final int imeOptionsActionId =
+                        //InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
+                //if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
                     // Either we have an actionLabel and we should performEditorAction with
                     // actionId regardless of its value.
-                    performEditorAction(editorInfo.actionId);
-                } else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
+                    //performEditorAction(editorInfo.actionId);
+                //} else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
                     // We didn't have an actionLabel, but we had another action to execute.
                     // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
                     // EditorInfo.IME_ACTION_UNSPECIFIED is the default value for an action, so it
@@ -765,20 +765,20 @@ public final class InputLogic {
                     // code for it - presumably it only handles one. It does not have to be treated
                     // in any specific way: anything that is not IME_ACTION_NONE should be sent to
                     // performEditorAction.
-                    performEditorAction(imeOptionsActionId);
-                } else {
+                    //performEditorAction(imeOptionsActionId);
+                //} else {
                     // No action label, and the action from imeOptions is NONE: this is a regular
                     // enter key that should input a carriage return.
-                    handleNonSpecialCharacterEvent(event, inputTransaction, handler);
-                }
-                break;
+                    //handleNonSpecialCharacterEvent(event, inputTransaction, handler);
+                //}
+                //break;
             default:
                 handleNonSpecialCharacterEvent(event, inputTransaction, handler);
                 break;
         }
     }
 
-    /star*
+    /**
      * Handle inputting a code point to the editor.
      *
      * Non-special keys are those that generate a single code point.
@@ -788,47 +788,47 @@ public final class InputLogic {
      *
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
-     star/
+     */
     private void handleNonSpecialCharacterEvent(final Event event,
                                                 final InputTransaction inputTransaction,
                                                 // TODO: remove this argument
                                                 final LatinIME.UIHandler handler) {
-        if (!mWordComposer.isComposingWord()) {
-            mConnection.removeBackgroundColorFromHighlightedTextIfNecessary();
+        //if (!mWordComposer.isComposingWord()) {
+            //mConnection.removeBackgroundColorFromHighlightedTextIfNecessary();
             // In case the "add to dictionary" hint was still displayed.
             // TODO: Do we really need to check if we have composing text here?
-            if (mSuggestionStripViewAccessor.isShowingAddToDictionaryHint()) {
-                mSuggestionStripViewAccessor.dismissAddToDictionaryHint();
-                mTextDecorator.reset();
-            }
-        }
+            //if (mSuggestionStripViewAccessor.isShowingAddToDictionaryHint()) {
+                //mSuggestionStripViewAccessor.dismissAddToDictionaryHint();
+                //mTextDecorator.reset();
+            //}
+        //}
 
         final int codePoint = event.mCodePoint;
-        mSpaceState = SpaceState.NONE;
-        if (inputTransaction.mSettingsValues.isWordSeparator(codePoint)
-                || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
-            handleSeparatorEvent(event, inputTransaction, handler);
-        } else {
-            if (SpaceState.PHANTOM == inputTransaction.mSpaceState) {
-                if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+        //mSpaceState = SpaceState.NONE;
+        //if (inputTransaction.mSettingsValues.isWordSeparator(codePoint)
+                //|| Character.getType(codePoint) == Character.OTHER_SYMBOL) {
+            //handleSeparatorEvent(event, inputTransaction, handler);
+        //} else {
+            //if (SpaceState.PHANTOM == inputTransaction.mSpaceState) {
+                //if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
                     // If we are in the middle of a recorrection, we need to commit the recorrection
                     // first so that we can insert the character at the current cursor position.
-                    resetEntireInputState(mConnection.getExpectedSelectionStart(),
-                            mConnection.getExpectedSelectionEnd(), true /star clearSuggestionStrip star/);
-                } else {
-                    commitTyped(inputTransaction.mSettingsValues, LastComposedWord.NOT_A_SEPARATOR);
-                }
-            }
+                    //resetEntireInputState(mConnection.getExpectedSelectionStart(),
+                            //mConnection.getExpectedSelectionEnd(), true /star clearSuggestionStrip star/);
+                //} else {
+                    //commitTyped(inputTransaction.mSettingsValues, LastComposedWord.NOT_A_SEPARATOR);
+                //}
+            //}
             handleNonSeparatorEvent(event, inputTransaction.mSettingsValues, inputTransaction);
-        }
+        //}
     }
 
-    /star*
+    /**
      * Handle a non-separator.
      * @param event The event to handle.
      * @param settingsValues The current settings values.
      * @param inputTransaction The transaction in progress.
-     star/
+     */
     private void handleNonSeparatorEvent(final Event event, final SettingsValues settingsValues,
                                          final InputTransaction inputTransaction) {
         final int codePoint = event.mCodePoint;
@@ -836,72 +836,72 @@ public final class InputLogic {
         // make it shorter (possibly cut into several pieces). Also factor
         // handleNonSpecialCharacterEvent which has the same name as other handle* methods but is
         // not the same.
-        boolean isComposingWord = mWordComposer.isComposingWord();
+        //boolean isComposingWord = mWordComposer.isComposingWord();
 
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
-        if (SpaceState.PHANTOM == inputTransaction.mSpaceState
-                && !settingsValues.isWordConnector(codePoint)) {
-            if (isComposingWord) {
+        //if (SpaceState.PHANTOM == inputTransaction.mSpaceState
+                //&& !settingsValues.isWordConnector(codePoint)) {
+            //if (isComposingWord) {
                 // Sanity check
-                throw new RuntimeException("Should not be composing here");
-            }
-            promotePhantomSpace(settingsValues);
-        }
+                //throw new RuntimeException("Should not be composing here");
+            //}
+            //promotePhantomSpace(settingsValues);
+        //}
 
-        if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+        //if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
-            resetEntireInputState(mConnection.getExpectedSelectionStart(),
-                    mConnection.getExpectedSelectionEnd(), true /star clearSuggestionStrip star/);
-            isComposingWord = false;
-        }
+            //resetEntireInputState(mConnection.getExpectedSelectionStart(),
+                    //mConnection.getExpectedSelectionEnd(), true /star clearSuggestionStrip star/);
+            //isComposingWord = false;
+        //}
         // We want to find out whether to start composing a new word with this character. If so,
         // we need to reset the composing state and switch isComposingWord. The order of the
         // tests is important for good performance.
         // We only start composing if we're not already composing.
-        if (!isComposingWord
+        //if (!isComposingWord
                 // We only start composing if this is a word code point. Essentially that means it's a
                 // a letter or a word connector.
-                && settingsValues.isWordCodePoint(codePoint)
+                //&& settingsValues.isWordCodePoint(codePoint)
                 // We never go into composing state if suggestions are not requested.
-                && settingsValues.needsToLookupSuggestions() &&
+                //&& settingsValues.needsToLookupSuggestions() &&
                 // In languages with spaces, we only start composing a word when we are not already
                 // touching a word. In languages without spaces, the above conditions are sufficient.
-                (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations)
-                        || !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces)) {
+                //(!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations)
+                        //|| !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces)) {
             // Reset entirely the composing state anyway, then start composing a new word unless
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
             // position where they should not start composing a word.
-            isComposingWord = !settingsValues.mSpacingAndPunctuations.isWordConnector(codePoint);
+            //isComposingWord = !settingsValues.mSpacingAndPunctuations.isWordConnector(codePoint);
             // Here we don't need to reset the last composed word. It will be reset
             // when we commit this one, if we ever do; if on the other hand we backspace
             // it entirely and resume suggestions on the previous word, we'd like to still
             // have touch coordinates for it.
-            resetComposingState(false /star alsoResetLastComposedWord star/);
-        }
-        if (isComposingWord) {
-            mWordComposer.applyProcessedEvent(event);
+            //resetComposingState(false /star alsoResetLastComposedWord star/);
+        //}
+        //if (isComposingWord) {
+            //mWordComposer.applyProcessedEvent(event);
             // If it's the first letter, make note of auto-caps state
-            if (mWordComposer.isSingleLetter()) {
-                mWordComposer.setCapitalizedModeAtStartComposingTime(inputTransaction.mShiftState);
-            }
-            setComposingTextInternal(getTextWithUnderline(mWordComposer.getTypedWord()), 1);
-        } else {
-            final boolean swapWeakSpace = tryStripSpaceAndReturnWhetherShouldSwapInstead(event,
-                    inputTransaction);
+            //if (mWordComposer.isSingleLetter()) {
+                //mWordComposer.setCapitalizedModeAtStartComposingTime(inputTransaction.mShiftState);
+            //}
+            //setComposingTextInternal(getTextWithUnderline(mWordComposer.getTypedWord()), 1);
+        //} else {
+            //final boolean swapWeakSpace = tryStripSpaceAndReturnWhetherShouldSwapInstead(event,
+                    //inputTransaction);
 
-            if (swapWeakSpace && trySwapSwapperAndSpace(event, inputTransaction)) {
-                mSpaceState = SpaceState.WEAK;
-            } else {
+            //if (swapWeakSpace && trySwapSwapperAndSpace(event, inputTransaction)) {
+                //mSpaceState = SpaceState.WEAK;
+            //} else {
                 sendKeyCodePoint(settingsValues, codePoint);
-            }
-        }
-        inputTransaction.setRequiresUpdateSuggestions();
+            //}
+        //}
+        //inputTransaction.setRequiresUpdateSuggestions();
     }
 
-    /star*
+    /**
      * Handle input of a separator code point.
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
@@ -1907,9 +1907,9 @@ public final class InputLogic {
         mConnection.sendKeyEvent(new KeyEvent(SystemClock.uptimeMillis(), eventTime,
                 KeyEvent.ACTION_UP, keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
                 KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
-    }
+    }*/
 
-    /star*
+    /**
      * Sends a code point to the editor, using the most appropriate method.
      *
      * Normally we send code points with commitText, but there are some cases (where backward
@@ -1917,29 +1917,29 @@ public final class InputLogic {
      *
      * @param settingsValues the current values of the settings.
      * @param codePoint the code point to send.
-     star/
+     */
     // TODO: replace these two parameters with an InputTransaction
     private void sendKeyCodePoint(final SettingsValues settingsValues, final int codePoint) {
         // TODO: Remove this special handling of digit letters.
         // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
-        if (codePoint >= '0' && codePoint <= '9') {
-            sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
-            return;
-        }
+        //if (codePoint >= '0' && codePoint <= '9') {
+            //sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
+            //return;
+        //}
 
         // TODO: we should do this also when the editor has TYPE_NULL
-        if (Constants.CODE_ENTER == codePoint && settingsValues.isBeforeJellyBean()) {
+        //if (Constants.CODE_ENTER == codePoint && settingsValues.isBeforeJellyBean()) {
             // Backward compatibility mode. Before Jelly bean, the keyboard would simulate
             // a hardware keyboard event on pressing enter or delete. This is bad for many
             // reasons (there are race conditions with commits) but some applications are
             // relying on this behavior so we continue to support it for older apps.
-            sendDownUpKeyEvent(KeyEvent.KEYCODE_ENTER);
-        } else {
+            //sendDownUpKeyEvent(KeyEvent.KEYCODE_ENTER);
+        //} else {
             mConnection.commitText(StringUtils.newSingleCodePointString(codePoint), 1);
-        }
+        //}
     }
 
-    /star*
+    /**
      * Promote a phantom space to an actual space.
      *
      * This essentially inserts a space, and that's it. It just checks the options and the text
@@ -1996,9 +1996,9 @@ public final class InputLogic {
         mSpaceState = SpaceState.PHANTOM;
         keyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(settingsValues),
                 getCurrentRecapitalizeState());
-    }
+    }*/
 
-    /star*
+    /**
      * Commit the typed string to the editor.
      *
      * This is typically called when we should commit the currently composing word without applying
@@ -2012,10 +2012,10 @@ public final class InputLogic {
      *
      * @param settingsValues the current values of the settings.
      * @param separatorString the separator that's causing the commit, or NOT_A_SEPARATOR if none.
-     star/
+     */
     // TODO: Make this private
     public void commitTyped(final SettingsValues settingsValues, final String separatorString) {
-        if (!mWordComposer.isComposingWord()) return;
+        //if (!mWordComposer.isComposingWord()) return;
         final String typedWord = mWordComposer.getTypedWord();
         if (typedWord.length() > 0) {
             commitChosenWord(settingsValues, typedWord,
@@ -2023,7 +2023,7 @@ public final class InputLogic {
         }
     }
 
-    /star*
+    /**
      * Commit the current auto-correction.
      *
      * This will commit the best guess of the keyboard regarding what the user meant by typing
@@ -2079,39 +2079,42 @@ public final class InputLogic {
                         typedWord, autoCorrection));
             }
         }
-    }
+    }*/
 
-    /star*
+    /**
      * Commits the chosen word to the text field and saves it for later retrieval.
      *
      * @param settingsValues the current values of the settings.
      * @param chosenWord the word we want to commit.
      * @param commitType the type of the commit, as one of LastComposedWord.COMMIT_TYPE_*
      * @param separatorString the separator that's causing the commit, or NOT_A_SEPARATOR if none.
-     star/
+     */
     private void commitChosenWord(final SettingsValues settingsValues, final String chosenWord,
                                   final int commitType, final String separatorString) {
-        final SuggestedWords suggestedWords = mSuggestedWords;
-        final CharSequence chosenWordWithSuggestions =
-                SuggestionSpanUtils.getTextWithSuggestionSpan(mLatinIME, chosenWord,
-                        suggestedWords);
+        //final SuggestedWords suggestedWords = mSuggestedWords;
+
+        //final CharSequence chosenWordWithSuggestions =
+            //SuggestionSpanUtils.getTextWithSuggestionSpan(mLatinIME, chosenWord,
+                //suggestedWords);
+        final CharSequence chosenWordWithSuggestions = chosenWord;
+
         // When we are composing word, get previous words information from the 2nd previous word
         // because the 1st previous word is the word to be committed. Otherwise get previous words
         // information from the 1st previous word.
-        final PrevWordsInfo prevWordsInfo = mConnection.getPrevWordsInfoFromNthPreviousWord(
-                settingsValues.mSpacingAndPunctuations, mWordComposer.isComposingWord() ? 2 : 1);
+        //final PrevWordsInfo prevWordsInfo = mConnection.getPrevWordsInfoFromNthPreviousWord(
+            //settingsValues.mSpacingAndPunctuations, mWordComposer.isComposingWord() ? 2 : 1);
         mConnection.commitText(chosenWordWithSuggestions, 1);
         // Add the word to the user history dictionary
-        performAdditionToUserHistoryDictionary(settingsValues, chosenWord, prevWordsInfo);
+        //performAdditionToUserHistoryDictionary(settingsValues, chosenWord, prevWordsInfo);
         // TODO: figure out here if this is an auto-correct or if the best word is actually
         // what user typed. Note: currently this is done much later in
         // LastComposedWord#didCommitTypedWord by string equality of the remembered
         // strings.
-        mLastComposedWord = mWordComposer.commitWord(commitType,
-                chosenWordWithSuggestions, separatorString, prevWordsInfo);
+        //mLastComposedWord = mWordComposer.commitWord(commitType,
+            //chosenWordWithSuggestions, separatorString, prevWordsInfo);
     }
 
-    /star*
+    /**
      * Retry resetting caches in the rich input connection.
      *
      * When the editor can't be accessed we can't reset the caches, so we schedule a retry.
