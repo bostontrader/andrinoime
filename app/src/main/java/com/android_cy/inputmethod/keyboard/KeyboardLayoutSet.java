@@ -113,8 +113,8 @@ public final class KeyboardLayoutSet {
         //boolean mLanguageSwitchKeyEnabled;
         InputMethodSubtype mSubtype;
         //boolean mIsSpellChecker;
-        //int mKeyboardWidth;
-        //int mKeyboardHeight;
+        int mKeyboardWidth;
+        int mKeyboardHeight;
         //int mScriptId = ScriptUtils.SCRIPT_LATIN;
         // Sparse array of KeyboardLayoutSet element parameters indexed by element's id.
         final SparseArray<ElementParams> mKeyboardLayoutSetElementIdToParamsMap =

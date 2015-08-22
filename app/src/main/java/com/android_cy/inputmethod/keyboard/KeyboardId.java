@@ -65,8 +65,8 @@ public final class KeyboardId {
 
     public final InputMethodSubtype mSubtype;
     public final Locale mLocale;
-    //public final int mWidth;
-    //public final int mHeight;
+    public final int mWidth;
+    public final int mHeight;
     //public final int mMode;
     //public final int mElementId;
     //public final EditorInfo mEditorInfo;
@@ -80,8 +80,8 @@ public final class KeyboardId {
     public KeyboardId(final int elementId, final KeyboardLayoutSet.Params params) {
         mSubtype = params.mSubtype;
         mLocale = SubtypeLocaleUtils.getSubtypeLocale(mSubtype);
-        //mWidth = params.mKeyboardWidth;
-        //mHeight = params.mKeyboardHeight;
+        mWidth = params.mKeyboardWidth;
+        mHeight = params.mKeyboardHeight;
         //mMode = params.mMode;
         //mElementId = elementId;
         //mEditorInfo = params.mEditorInfo;

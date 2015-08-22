@@ -36,12 +36,12 @@ import com.android_cy.inputmethod.keyboard.internal.KeyStyle;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardParams;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardRow;
 //import com.android_cy.inputmethod.keyboard.internal.MoreKeySpec;
-//import com.android.inputmethod.latin.Constants;
+import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 //import com.android_cy.inputmethod.latin.utils.StringUtils;
 //import com.fyrecloud.andrinoime.R;
 
-//import java.util.Arrays;
+import java.util.Arrays;
 //import java.util.Locale;
 
 /**
@@ -96,9 +96,9 @@ public class Key implements Comparable<Key> {
     //private final int mIconId;
 
     /** Width of the key, not including the gap */
-    //private final int mWidth;
+    private final int mWidth;
     /** Height of the key, not including the gap */
-    //private final int mHeight;
+    private final int mHeight;
     /** X coordinate of the key in the keyboard layout */
     private final int mX;
     /** Y coordinate of the key in the keyboard layout */
@@ -184,7 +184,7 @@ public class Key implements Comparable<Key> {
         }*/
     //}
 
-    //private final int mHashCode;
+    private final int mHashCode;
 
     /** The current pressed state of this key */
     //private boolean mPressed;
@@ -210,8 +210,8 @@ public class Key implements Comparable<Key> {
         final int horizontalGap,
         final int verticalGap
         ) {
-        //mHeight = height - verticalGap;
-        //mWidth = width - horizontalGap;
+        mHeight = height - verticalGap;
+        mWidth = width - horizontalGap;
         //mHintLabel = hintLabel;
         //mLabelFlags = labelFlags;
         //mBackgroundType = backgroundType;
@@ -231,7 +231,7 @@ public class Key implements Comparable<Key> {
         //mHitBox.set(x, y, x + width + 1, y + height);
         //mKeyVisualAttributes = null;
 
-        //mHashCode = computeHashCode(this);
+        mHashCode = computeHashCode(this);
     }
 
     /**
@@ -251,26 +251,26 @@ public class Key implements Comparable<Key> {
         //final float horizontalGap = isSpacer() ? 0 : params.mHorizontalGap;
         final float horizontalGap = params.mHorizontalGap;
 
-        //final int rowHeight = row.getRowHeight();
-        //mHeight = rowHeight - params.mVerticalGap;
+        final int rowHeight = row.getRowHeight();
+        mHeight = rowHeight - params.mVerticalGap;
 
         final float keyXPos = row.getKeyX(keyAttr);
-        //final float keyWidth = row.getKeyWidth(keyAttr, keyXPos);
+        final float keyWidth = row.getKeyWidth(keyAttr, keyXPos);
         final int keyYPos = row.getKeyY();
 
         // Horizontal gap is divided equally to both sides of the key.
         mX = Math.round(keyXPos + horizontalGap / 2);
         mY = keyYPos;
-        //mWidth = Math.round(keyWidth - horizontalGap);
+        mWidth = Math.round(keyWidth - horizontalGap);
         //mHitBox.set(Math.round(keyXPos), keyYPos, Math.round(keyXPos + keyWidth) + 1,
             //keyYPos + rowHeight);
         // Update row to have current x coordinate.
-        //row.setXPos(keyXPos + keyWidth);
+        row.setXPos(keyXPos + keyWidth);
 
         //mBackgroundType = style.getInt(keyAttr,
             //R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
 
-        //final int baseWidth = params.mBaseWidth;
+        final int baseWidth = params.mBaseWidth;
         //final int visualInsetsLeft = Math.round(keyAttr.getFraction(
             //R.styleable.Keyboard_Key_visualInsetsLeft, baseWidth, baseWidth, 0));
         //final int visualInsetsRight = Math.round(keyAttr.getFraction(
@@ -387,7 +387,7 @@ public class Key implements Comparable<Key> {
         //mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
             //disabledIconId, visualInsetsLeft, visualInsetsRight);
         //mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
-        //mHashCode = computeHashCode(this);
+        mHashCode = computeHashCode(this);
     }
 
     /**
@@ -402,8 +402,8 @@ public class Key implements Comparable<Key> {
         //mHintLabel = key.mHintLabel;
         //mLabelFlags = key.mLabelFlags;
         //mIconId = key.mIconId;
-        //mWidth = key.mWidth;
-        //mHeight = key.mHeight;
+        mWidth = key.mWidth;
+        mHeight = key.mHeight;
         mX = key.mX;
         mY = key.mY;
         //mHitBox.set(key.mHitBox);
@@ -413,7 +413,7 @@ public class Key implements Comparable<Key> {
         //mActionFlags = key.mActionFlags;
         //mKeyVisualAttributes = key.mKeyVisualAttributes;
         //mOptionalAttributes = key.mOptionalAttributes;
-        //mHashCode = key.mHashCode;
+        mHashCode = key.mHashCode;
         // Key state.
         //mPressed = key.mPressed;
         //mEnabled = key.mEnabled;
@@ -430,7 +430,7 @@ public class Key implements Comparable<Key> {
             default:
                 return false;
         }
-    }
+    }*/
 
     private static int computeHashCode(final Key key) {
         return Arrays.hashCode(new Object[] {
@@ -440,13 +440,13 @@ public class Key implements Comparable<Key> {
                 key.mHeight,
                 key.mCode,
                 key.mLabel,
-                key.mHintLabel,
-                key.mIconId,
-                key.mBackgroundType,
-                Arrays.hashCode(key.mMoreKeys),
-                key.getOutputText(),
-                key.mActionFlags,
-                key.mLabelFlags,
+                //key.mHintLabel,
+                //key.mIconId,
+                //key.mBackgroundType,
+                //Arrays.hashCode(key.mMoreKeys),
+                //key.getOutputText(),
+                //key.mActionFlags,
+                //key.mLabelFlags,
                 // Key can be distinguishable without the following members.
                 // key.mOptionalAttributes.mAltCode,
                 // key.mOptionalAttributes.mDisabledIconId,
@@ -457,15 +457,15 @@ public class Key implements Comparable<Key> {
                 // key.mOptionalAttributes.mVisualInsetRight,
                 // key.mMaxMoreKeysColumn,
         });
-    }*/
+    }
 
     private boolean equalsInternal(final Key o) {
         if (this == o) return true;
         return o.mX == mX
-            //&& o.mY == mY
-            //&& o.mWidth == mWidth
-            //&& o.mHeight == mHeight
-            //&& o.mCode == mCode
+            && o.mY == mY
+            && o.mWidth == mWidth
+            && o.mHeight == mHeight
+            && o.mCode == mCode
             //&& TextUtils.equals(o.mLabel, mLabel)
             //&& TextUtils.equals(o.mHintLabel, mHintLabel)
             //&& o.mIconId == mIconId
@@ -479,15 +479,14 @@ public class Key implements Comparable<Key> {
 
     @Override
     public int compareTo(Key o) {
-        //if (equalsInternal(o)) return 0;
-        //if (mHashCode > o.mHashCode) return 1;
+        if (equalsInternal(o)) return 0;
+        if (mHashCode > o.mHashCode) return 1;
         return -1;
     }
 
     @Override
     public int hashCode() {
-        //return mHashCode;
-        return 0; // tfr
+        return mHashCode;
     }
 
     @Override
@@ -498,18 +497,18 @@ public class Key implements Comparable<Key> {
     @Override
     public String toString() {
         //return toShortString() + " " + getX() + "," + getY() + " " + getWidth() + "x" + getHeight();
-        return "string"; // tfr
+        return toShortString() + " " + getX() + "," + getY(); // tfr
     }
 
-    /*public String toShortString() {
+    public String toShortString() {
         final int code = getCode();
-        if (code == Constants.CODE_OUTPUT_TEXT) {
-            return getOutputText();
-        }
+        //if (code == Constants.CODE_OUTPUT_TEXT) {
+            //return getOutputText();
+        //}
         return Constants.printableCode(code);
     }
 
-    public String toLongString() {
+    /*public String toLongString() {
         final int iconId = getIconId();
         final String topVisual = (iconId == KeyboardIconsSet.ICON_UNDEFINED)
                 ? KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(iconId) : getLabel();
@@ -545,7 +544,7 @@ public class Key implements Comparable<Key> {
 
     public MoreKeySpec[] getMoreKeys() {
         return mMoreKeys;
-    }
+    }*/
 
     public void markAsLeftEdge(final KeyboardParams params) {
         mHitBox.left = params.mLeftPadding;
@@ -561,7 +560,7 @@ public class Key implements Comparable<Key> {
 
     public void markAsBottomEdge(final KeyboardParams params) {
         mHitBox.bottom = params.mOccupiedHeight + params.mBottomPadding;
-    }*/
+    }
 
     public final boolean isSpacer() {
         return this instanceof Spacer;
@@ -788,7 +787,7 @@ public class Key implements Comparable<Key> {
 
     public Drawable getPreviewIcon(final KeyboardIconsSet iconSet) {
         return iconSet.getIconDrawable(getIconId());
-    }
+    }*/
 
     public int getWidth() {
         return mWidth;
@@ -796,7 +795,7 @@ public class Key implements Comparable<Key> {
 
     public int getHeight() {
         return mHeight;
-    }*/
+    }
 
     public int getX() {
         return mX;

@@ -32,8 +32,8 @@ public class KeyboardParams {
     //public int mThemeId;
 
     /** Total height and width of the keyboard, including the paddings and keys */
-    //public int mOccupiedHeight;
-    //public int mOccupiedWidth;
+    public int mOccupiedHeight;
+    public int mOccupiedWidth;
 
     /** Base height and width of the keyboard used to calculate rows' or keys' heights and
      *  widths
@@ -42,14 +42,14 @@ public class KeyboardParams {
     public int mBaseWidth;
 
     public int mTopPadding;
-    //public int mBottomPadding;
-    //public int mLeftPadding;
-    //public int mRightPadding;
+    public int mBottomPadding;
+    public int mLeftPadding;
+    public int mRightPadding;
 
     //public KeyVisualAttributes mKeyVisualAttributes;
 
-    //public int mDefaultRowHeight;
-    //public int mDefaultKeyWidth;
+    public int mDefaultRowHeight;
+    public int mDefaultKeyWidth;
     public int mHorizontalGap;
     public int mVerticalGap;
 

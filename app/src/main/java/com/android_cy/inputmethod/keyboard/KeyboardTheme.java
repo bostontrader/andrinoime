@@ -19,7 +19,7 @@ package com.android_cy.inputmethod.keyboard;
 import android.content.SharedPreferences;
 
 import com.fyrecloud.andrinoime.R;
-//import android.os.Build.VERSION_CODES;
+import android.os.Build.VERSION_CODES;
 //import android.util.Log;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
@@ -28,10 +28,10 @@ import com.fyrecloud.andrinoime.R;
 
 //import java.util.Arrays;
 
-public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
+public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     //private static final String TAG = KeyboardTheme.class.getSimpleName();
 
-    //static final String KLP_KEYBOARD_THEME_KEY = "pref_keyboard_layout_20110916";
+    static final String KLP_KEYBOARD_THEME_KEY = "pref_keyboard_layout_20110916";
     //static final String LXX_KEYBOARD_THEME_KEY = "pref_keyboard_theme_20140509";
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
@@ -41,6 +41,7 @@ public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
     //public static final int THEME_ID_LXX_LIGHT = 3;
     //public static final int THEME_ID_LXX_DARK = 4;
     //public static final int DEFAULT_THEME_ID = THEME_ID_KLP;
+    public static final int DEFAULT_THEME_ID = THEME_ID_ICS;
 
     private static final KeyboardTheme[] KEYBOARD_THEMES = {
 
@@ -48,7 +49,11 @@ public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
             // This has never been selected because we support ICS or later.
             //VERSION_CODES.BASE),
 
-        new KeyboardTheme(0, "TFR", R.style.CodeFont,0),
+        new KeyboardTheme(THEME_ID_ICS, "ICS", R.style.KeyboardThemedICS,
+            // This has never been selected because we support ICS or later.
+            VERSION_CODES.BASE),
+
+        //new KeyboardTheme(0, "TFR", R.style.CodeFont,0),
 
         //new KeyboardTheme(THEME_ID_KLP, "KLP", R.style.KeyboardTheme_KLP,
             // Default theme for ICS, JB, and KLP.
@@ -80,7 +85,7 @@ public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
         mMinApiVersion = minApiVersion;
     }
 
-    /*@Override
+    @Override
     public int compareTo(final KeyboardTheme rhs) {
         if (mMinApiVersion > rhs.mMinApiVersion) return -1;
         if (mMinApiVersion < rhs.mMinApiVersion) return 1;
@@ -96,7 +101,7 @@ public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
     @Override
     public int hashCode() {
         return mThemeId;
-    }*/
+    }
 
     //@UsedForTesting
     static KeyboardTheme searchKeyboardThemeById(final int themeId) {
@@ -136,8 +141,7 @@ public final class KeyboardTheme /*implements Comparable<KeyboardTheme>*/ {
                 //return theme;
             //}
         //}
-        //return searchKeyboardThemeById(DEFAULT_THEME_ID);
-        return searchKeyboardThemeById(0);  // tfr
+        return searchKeyboardThemeById(DEFAULT_THEME_ID);
     }
 
     /*public static String getKeyboardThemeName(final int themeId) {
