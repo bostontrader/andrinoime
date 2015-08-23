@@ -32,8 +32,8 @@ public class AITC2_MainActivity extends ActivityInstrumentationTestCase2<MainAct
     public void testPreconditions() {
 
         // Can I see the single EditText?
-        onView(withId(R.id.thePrompt)).check(matches(isDisplayed()));
-        onView(withId(R.id.thePrompt)).perform(click());
+        //onView(withId(R.id.thePrompt)).check(matches(isDisplayed()));
+        //onView(withId(R.id.thePrompt)).perform(click());
 
         // This doesn't work.  We can't use Espresso to deal with
         // the soft keyboard
