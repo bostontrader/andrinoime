@@ -32,7 +32,6 @@
             latin:keyboardLayout="@xml/rowkeys_qwerty1" />
     </Row>
 
-<!--
     <Row
         latin:keyWidth="10%p"
     >
@@ -42,21 +41,27 @@
     </Row>
 
     <Row
-        latin:keyWidth="10%p"
-    >
-        <Key
-            latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="15%p"
-            latin:visualInsetsRight="1%p" />
-        <include
-            latin:keyboardLayout="@xml/rowkeys_qwerty3" />
-        <Key
-            latin:keyStyle="deleteKeyStyle"
-            latin:keyWidth="fillRight"
-            latin:visualInsetsLeft="1%p" />
-    </Row>
+            latin:keyWidth="10%p"
+        >
 
-    <include
-        latin:keyboardLayout="@xml/row_qwerty4" />
-        -->
+<!--
+            <Key
+                latin:keyStyle="shiftKeyStyle"
+                latin:keyWidth="15%p"
+                latin:visualInsetsRight="1%p" /> -->
+
+            <include
+                latin:keyboardLayout="@xml/rowkeys_qwerty3" />
+
+<!--
+            <Key
+                latin:keyStyle="deleteKeyStyle"
+                latin:keyWidth="fillRight"
+                latin:visualInsetsLeft="1%p" /> -->
+        </Row>
+
+<!--
+        <include
+            latin:keyboardLayout="@xml/row_qwerty4" />
+            -->
 </merge>

@@ -28,7 +28,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 public class InputLogicTests extends InputTestsBase {
 
     public void testTypeWord() {
-        final String WORD_TO_TYPE = "qwerty";
+        final String WORD_TO_TYPE = "abcde";
         type(WORD_TO_TYPE);
         assertEquals("type word", WORD_TO_TYPE, mEditText.getText().toString());
     }

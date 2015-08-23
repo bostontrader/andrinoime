@@ -3,7 +3,7 @@
 * [AndrinoIME's daddy](https://github.com/CyanogenMod/android_packages_inputmethods_LatinIME)
 
 ## How to make java only (no Android) unit testing work
-* http://tools.android.com/tech-docs/unit-testing-support
-* http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Testing
+* [Android Unit Testing Support](http://tools.android.com/tech-docs/unit-testing-support)
+* [Android New Build System](http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Testing)
 
 
