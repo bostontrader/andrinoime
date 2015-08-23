@@ -16,13 +16,15 @@
 
 package com.android_cy.inputmethod.latin.utils;
 
-//import android.content.res.Resources;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 //import android.os.Build;
-//import android.text.TextUtils;
-//import android.util.DisplayMetrics;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 //import android.util.Log;
 import android.util.TypedValue;
+
+import com.fyrecloud.andrinoime.R;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
 //import com.android.inputmethod.latin.R;
@@ -64,33 +66,34 @@ public final class ResourceUtils {
             keyValuePairs.add(key + '=' + value);
         }
         sBuildKeyValuesDebugString = "[" + TextUtils.join(" ", keyValuePairs) + "]";
-    }
+    }*/
 
     public static String getDeviceOverrideValue(final Resources res, final int overrideResId,
                                                 final String defaultValue) {
-        final int orientation = res.getConfiguration().orientation;
-        final String key = overrideResId + "-" + orientation;
-        if (sDeviceOverrideValueMap.containsKey(key)) {
-            return sDeviceOverrideValueMap.get(key);
-        }
+        //final int orientation = res.getConfiguration().orientation;
+        //final String key = overrideResId + "-" + orientation;
+        //if (sDeviceOverrideValueMap.containsKey(key)) {
+            //return sDeviceOverrideValueMap.get(key);
+        //}
 
-        final String[] overrideArray = res.getStringArray(overrideResId);
-        final String overrideValue = findConstantForKeyValuePairs(sBuildKeyValues, overrideArray);
+        //final String[] overrideArray = res.getStringArray(overrideResId);
+        //final String overrideValue = findConstantForKeyValuePairs(sBuildKeyValues, overrideArray);
         // The overrideValue might be an empty string.
-        if (overrideValue != null) {
-            Log.i(TAG, "Find override value:"
-                    + " resource="+ res.getResourceEntryName(overrideResId)
-                    + " build=" + sBuildKeyValuesDebugString
-                    + " override=" + overrideValue);
-            sDeviceOverrideValueMap.put(key, overrideValue);
-            return overrideValue;
-        }
+        //if (overrideValue != null) {
+            //Log.i(TAG, "Find override value:"
+                //    + " resource="+ res.getResourceEntryName(overrideResId)
+                //    + " build=" + sBuildKeyValuesDebugString
+                //    + " override=" + overrideValue);
+            //sDeviceOverrideValueMap.put(key, overrideValue);
+            //return overrideValue;
+        //}
 
-        sDeviceOverrideValueMap.put(key, defaultValue);
-        return defaultValue;
+        //sDeviceOverrideValueMap.put(key, defaultValue);
+        //return defaultValue;
+        return ""; // tfr
     }
 
-    @SuppressWarnings("serial")
+    /*@SuppressWarnings("serial")
     static class DeviceOverridePatternSyntaxError extends Exception {
         public DeviceOverridePatternSyntaxError(final String message, final String expression) {
             this(message, expression, null);
@@ -179,7 +182,7 @@ public final class ResourceUtils {
             }
         }
         return matchedAll;
-    }
+    }*/
 
     public static int getDefaultKeyboardWidth(final Resources res) {
         final DisplayMetrics dm = res.getDisplayMetrics();
@@ -188,9 +191,9 @@ public final class ResourceUtils {
 
     public static int getDefaultKeyboardHeight(final Resources res) {
         final DisplayMetrics dm = res.getDisplayMetrics();
-        final String keyboardHeightInDp = getDeviceOverrideValue(*/
-                //res, R.array.keyboard_heights, null /* defaultValue */);
-        /*final float keyboardHeight;
+        final String keyboardHeightInDp = getDeviceOverrideValue(
+            res, R.array.keyboard_heights, null /* defaultValue */);
+        final float keyboardHeight;
         if (TextUtils.isEmpty(keyboardHeightInDp)) {
             keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height);
         } else {
@@ -211,7 +214,7 @@ public final class ResourceUtils {
         return (int)Math.max(Math.min(keyboardHeight, maxKeyboardHeight), minKeyboardHeight);
     }
 
-    public static boolean isValidFraction(final float fraction) {
+    /*public static boolean isValidFraction(final float fraction) {
         return fraction >= 0.0f;
     }
 

@@ -153,8 +153,8 @@ public final class KeyboardRow {
     }
 
     public float getKeyX(final TypedArray keyAttr) {
-        //if (keyAttr == null || !keyAttr.hasValue(R.styleable.Keyboard_Key_keyXPos)) {
-        if (keyAttr == null ) {
+        if (keyAttr == null || !keyAttr.hasValue(R.styleable.Keyboard_Key_keyXPos)) {
+        //if (keyAttr == null ) {
             return mCurrentX;
         }
         final float keyXPos = keyAttr.getFraction(R.styleable.Keyboard_Key_keyXPos,

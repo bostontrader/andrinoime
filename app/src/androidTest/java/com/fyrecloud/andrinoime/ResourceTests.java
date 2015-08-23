@@ -35,8 +35,11 @@ public class ResourceTests extends AndroidTestCase {
                 if (count > 0) {
                     String d = attributes.getPositionDescription();
                     String d1;
+                    int gARV;
                     for (int i = 0; i < count; i++) {
                         d1 = attributes.getAttributeName(i);
+                        d1 = attributes.getAttributeValue(i);
+                        gARV = attributes.getAttributeResourceValue(i, 0);
                     }
                 }
                 if (event == XmlPullParser.START_TAG) {

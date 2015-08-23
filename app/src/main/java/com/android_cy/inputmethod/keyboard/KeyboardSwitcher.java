@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.keyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-//import android.content.res.Resources;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 //import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -42,7 +42,7 @@ import com.android_cy.inputmethod.latin.SubtypeSwitcher;
 import com.android_cy.inputmethod.latin.settings.SettingsValues;
 
 import java.util.Locale;
-//import com.android.inputmethod.latin.utils.ResourceUtils;
+import com.android_cy.inputmethod.latin.utils.ResourceUtils;
 //import com.android.inputmethod.latin.utils.ScriptUtils;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
@@ -114,10 +114,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                              final int currentAutoCapsState, final int currentRecapitalizeState) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
             mThemeContext, editorInfo);
-        //final Resources res = mThemeContext.getResources();
-        //final int keyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res);
-        //final int keyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res);
-        //builder.setKeyboardGeometry(keyboardWidth, keyboardHeight);
+        final Resources res = mThemeContext.getResources();
+        final int keyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res);
+        final int keyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res);
+        builder.setKeyboardGeometry(keyboardWidth, keyboardHeight);
         builder.setSubtype(mSubtypeSwitcher.getCurrentSubtype());
         //builder.setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey);
         //builder.setLanguageSwitchKeyEnabled(mLatinIME.shouldShowLanguageSwitchKey());

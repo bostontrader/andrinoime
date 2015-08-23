@@ -231,13 +231,54 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         }
     }
 
-    private void parseKeyboardAttributes(final XmlPullParser parser) {
-        final AttributeSet attr = Xml.asAttributeSet(parser);
+    private void typedArrayViewer(TypedArray ta) {
 
+        int len = ta.length();
+        int ic = ta.getIndexCount();
+        int type;
+        String s;
+        for (int i = 0; i < len; i++) {
+            boolean b = ta.hasValue(i);
+            if (b) {
+                s = ta.getString(i);
+                System.out.println(s);
+                //type = ta.getType(i);
+            }
+        }
+    }
+
+    private void attributeSetViewer(AttributeSet attributeSet) {
+
+        String d = attributeSet.getPositionDescription();
+        int count = attributeSet.getAttributeCount();
+        if (count > 0) {
+            String d1;
+            int gARV;
+            for (int i = 0; i < count; i++) {
+                d1 = attributeSet.getAttributeName(i);
+                d1 = attributeSet.getAttributeValue(i);
+                gARV = attributeSet.getAttributeResourceValue(i, 0);
+            }
+        }
+    }
+    private void parseKeyboardAttributes(final XmlPullParser parser) {
+
+        // Get whatever attributes this particular Keyboard node has, if any.
+        final AttributeSet attr = Xml.asAttributeSet(parser);
+        //attributeSetViewer(attr);
+
+        // Get the values for these attr, that are listed in R.styleable.Keyboard
+        // possibly with styles and default values applied.
+        // See http://developer.android.com/reference/android/content/res/Resources.Theme.html#obtainStyledAttributes%28android.util.AttributeSet,%20int[],%20int,%20int%29
         final TypedArray keyboardAttr = mContext.obtainStyledAttributes(
             attr, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
+        //typedArrayViewer(keyboardAttr);
 
+        // Get the values for these attr, that are listed in R.styleable.Keyboard_Key,
+        // but don't fool with styling or defaults.
         final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
+        //typedArrayViewer(keyAttr);
+
         try {
             final KeyboardParams params = mParams;
             final int height = params.mId.mHeight;
@@ -312,13 +353,13 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                     //parseGridRows(parser, skip);
                 } else if (TAG_INCLUDE.equals(tag)) {
                     parseIncludeKeyboardContent(parser, skip);
-                } //else if (TAG_SWITCH.equals(tag)) {
+                //else if (TAG_SWITCH.equals(tag)) {
                     //parseSwitchKeyboardContent(parser, skip);
                 //} else if (TAG_KEY_STYLE.equals(tag)) {
                     //parseKeyStyle(parser, skip);
-                //} else {
-                    //throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_ROW);
-                //}
+                } else {
+                    throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_ROW);
+                }
             } else if (event == XmlPullParser.END_TAG) {
                 final String tag = parser.getName();
                 //if (DEBUG) endTag("</%s>", tag);
@@ -473,9 +514,14 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             //if (DEBUG) startEndTag("<%s /> skipped", TAG_KEY);
             return;
         }
+
+        AttributeSet attr = Xml.asAttributeSet(parser);
+        attributeSetViewer(attr);
         final TypedArray keyAttr = mResources.obtainAttributes(
-                Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
-        String s1 = keyAttr.getString(2);
+                attr, R.styleable.Keyboard_Key);
+        typedArrayViewer(keyAttr);
+
+        //String s1 = keyAttr.getString(2);
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
         final String keySpec = keyStyle.getString(keyAttr, R.styleable.Keyboard_Key_keySpec);
         if (TextUtils.isEmpty(keySpec)) {
@@ -525,10 +571,17 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             //if (DEBUG) startEndTag("</%s> skipped", TAG_INCLUDE);
             return;
         }
+
         final AttributeSet attr = Xml.asAttributeSet(parser);
+        attributeSetViewer(attr);
+
         final TypedArray keyboardAttr = mResources.obtainAttributes(
             attr, R.styleable.Keyboard_Include);
+        typedArrayViewer(keyboardAttr);
+
         final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
+        typedArrayViewer(keyAttr);
+
         int keyboardLayout = 0;
         try {
             XmlParseUtils.checkAttributeExists(
@@ -852,8 +905,8 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
     private void endKeyboard() {
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
-        //final int actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding;
-        //mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight);
+        final int actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding;
+        mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight);
     }
 
     private void addEdgeSpace(final float width, final KeyboardRow row) {

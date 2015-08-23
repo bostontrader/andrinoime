@@ -251,11 +251,11 @@ public final class KeyboardLayoutSet {
                 //mPackageName, NO_SETTINGS_KEY, editorInfo);
         }
 
-        /*public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {
+        public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {
             mParams.mKeyboardWidth = keyboardWidth;
             mParams.mKeyboardHeight = keyboardHeight;
             return this;
-        }*/
+        }
 
         public Builder setSubtype(final InputMethodSubtype subtype) {
             //final boolean asciiCapable = InputMethodSubtypeCompatUtils.isAsciiCapable(subtype);
