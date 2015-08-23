@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Andrinoime by bostontrader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Andrinoime</h1>
+      <h2 class="project-tagline">An Android IME for Javascript</h2>
+      <a href="https://github.com/bostontrader/andrinoime" class="btn">View on GitHub</a>
+      <a href="https://github.com/bostontrader/andrinoime/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/bostontrader/andrinoime/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="executive-summary" class="anchor" href="#executive-summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Executive Summary</h1>
+
+<p>The purpose of the <strong>AndrinoIME</strong> is to implement an input method editor (IME) for Android
+devices that is customized for use in typing JavaScript source code.</p>
+
+<h2>
+<a id="what-makes-a-javascript-ime" class="anchor" href="#what-makes-a-javascript-ime" aria-hidden="true"><span class="octicon octicon-link"></span></a>What makes a JavaScript IME?</h2>
+
+<p>There are at least four approaches to making a JavaScript friendly IME.  In descending order of
+feasibility of implementation they are:</p>
+
+<h3>
+<a id="rethink-the-keyboard" class="anchor" href="#rethink-the-keyboard" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rethink the keyboard</h3>
+
+<p>If you've ever tried to deal with JavaScript source code using other IMEs, you've no
+doubt encountered the frustration of finding the various symbols needed.  They are
+frequently scattered across several keyboards and it can be very tedious to switch back
+and forth between them.</p>
+
+<p>However, upon close examination, it turns out that with minimal stretch-to-fit action, the digits
+ and symbols can easily fit on a single keyboard, the 26 lower-case letters can fit on another,
+ with a 3rd keyboard reserved for the 26 upper-case letters, while still leaving a bit of room
+ for other random and required keys.</p>
+
+<h3>
+<a id="most-recently-used-symbols" class="anchor" href="#most-recently-used-symbols" aria-hidden="true"><span class="octicon octicon-link"></span></a>Most recently used symbols</h3>
+
+<p>The <strong>AndrinoIME</strong> also provides a keyboard composed of the most recently used digits,
+symbols, and letters.</p>
+
+<h3>
+<a id="keyword-suggestions" class="anchor" href="#keyword-suggestions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keyword suggestions</h3>
+
+<p>The <strong>AndrinoIME</strong> offers keyword suggestions, and only that.  No need for these suggestions
+to get lost in the clutter of all the other words in the language.</p>
+
+<h3>
+<a id="identifier-suggestions" class="anchor" href="#identifier-suggestions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Identifier suggestions</h3>
+
+<p>Well, maybe not keywords only.  The <strong>AndrinoIME</strong> also suggests identifiers that are
+presently defined.  However, this feature will only function with software specifically
+designed to communicate information about said identifiers to the IME.  Please see
+  <a href="https://github.com/bostontrader/andrino"><strong>Andrino</strong></a> for an example.</p>
+
+<h3>
+<a id="statement-auto-completion" class="anchor" href="#statement-auto-completion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Statement auto-completion</h3>
+
+<p>You wish.  Maybe someday.</p>
+
+<h2>
+<a id="the-saga" class="anchor" href="#the-saga" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Saga</h2>
+
+<p>Finding suitable documentation and examples proved to be remarkably difficult.  It's
+not too difficult to find the SoftKeyboard sample from the Android SDK.  Unfortunately,
+it's too simple, it doesn't come with any tests, and it doesn't seem to have attracted
+any developer attention in its five year lifetime.  Hence no updates.
+I looked at a few other forgettable examples that were obvious knock-offs of SoftKeyboard
+and they all suffered from the same issues.</p>
+
+<p>I finally tried out the <a href="https://github.com/CyanogenMod/android_packages_inputmethods_LatinIME">CyanogenMod LatinIME</a>
+This ROX! And it has lots and lots of tests to dissect and study.  The only problem is that's
+a monster!  The repo is about 500mb. It has all sorts of provisions for various locales
+and accessibility.  This is all fine-and-dandy you might think, until you wade into
+it to figure it out.  The complexity of dealing with all of this requires a poorly-documented
+Devil's brew of XML, parsers, styling, themes, locales, enumerations, and collections.  There's
+ even one lump of this that's generated by other source code!</p>
+
+<p>Individually none of these things are rocket-science.  But collectively, there are a lot of moving
+parts just to make a seemingly simple keyboard!</p>
+
+<p>In order to actually do this I've started with a handful of the Cyanogen tests and copy-n-pasted
+original source code into this project, in order to get the tests to pass.  I'm freely
+commenting out whatever is not tested/necessary, so this code still has a lot of that.</p>
+
+<p>So I'm presently working on two fronts.  Can I put techniques from the Cyanogen IME to good use
+on the much simpler SoftKeyboard?  SoftKeyboard presently "works" except that it's not very well
+tested and it doesn't hear my suggestions when I click on them.  Can I remove enough of the
+complicated bits from Cyanogen for it to be usable by me?  Cyanogen certainly looks more
+promising than SoftKeyboard, except that it doesn't actually display (in its presently
+incomplete condition) any useful UI.</p>
+
+<p>Hopefully one of these will methods will eventually succeed. Stay tuned and find out.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/bostontrader/andrinoime">Andrinoime</a> is maintained by <a href="https://github.com/bostontrader">bostontrader</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
