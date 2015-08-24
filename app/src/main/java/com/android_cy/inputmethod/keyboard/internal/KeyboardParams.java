@@ -81,19 +81,10 @@ public class KeyboardParams {
     private static final Comparator<Key> ROW_COLUMN_COMPARATOR = new Comparator<Key>() {
         @Override
         public int compare(final Key lhs, final Key rhs) {
-
-            int lhsY = lhs.getY();
-            int rhsY = rhs.getY();
-            int lhsX = lhs.getX();
-            int rhsX = rhs.getX();
-            if (lhsY < rhsY) return -1;
-            if (lhsY > rhsY) return 1;
-            if (lhsX < rhsX) return -1;
-            if (lhsX > rhsX) return 1;
-            // if (lhs.getY() < rhs.getY()) return -1;
-            //if (lhs.getY() > rhs.getY()) return 1;
-            //if (lhs.getX() < rhs.getX()) return -1;
-            //if (lhs.getX() > rhs.getX()) return 1;
+            if (lhs.getY() < rhs.getY()) return -1;
+            if (lhs.getY() > rhs.getY()) return 1;
+            if (lhs.getX() < rhs.getX()) return -1;
+            if (lhs.getX() > rhs.getX()) return 1;
             return 0;
         }
     };
@@ -105,7 +96,6 @@ public class KeyboardParams {
     }*/
 
     public void onAddKey(final Key newKey) {
-        Key key1 = mKeysCache.get(newKey);
         final Key key = (mKeysCache != null) ? mKeysCache.get(newKey) : newKey;
         //final boolean isSpacer = key.isSpacer();
         //if (isSpacer && key.getWidth() == 0) {

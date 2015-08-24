@@ -44,12 +44,12 @@ public final class MoreKeySpec {
     //public final int mCode;
     //public final String mLabel;
     //public final String mOutputText;
-    public final int mIconId;
+    //public final int mIconId;
 
-    public MoreKeySpec(final String moreKeySpec, boolean needsToUpperCase, final Locale locale) {
-        if (TextUtils.isEmpty(moreKeySpec)) {
-            throw new KeySpecParser.KeySpecParserError("Empty more key spec");
-        }
+    //public MoreKeySpec(final String moreKeySpec, boolean needsToUpperCase, final Locale locale) {
+        //if (TextUtils.isEmpty(moreKeySpec)) {
+            //throw new KeySpecParser.KeySpecParserError("Empty more key spec");
+        //}
         //mLabel = StringUtils.toUpperCaseOfStringForLocale(
                 //KeySpecParser.getLabel(moreKeySpec), needsToUpperCase, locale);
         //final int code = StringUtils.toUpperCaseOfCodeForLocale(
@@ -64,8 +64,8 @@ public final class MoreKeySpec {
             //mOutputText = StringUtils.toUpperCaseOfStringForLocale(
                     //KeySpecParser.getOutputText(moreKeySpec), needsToUpperCase, locale);
         //}
-        mIconId = KeySpecParser.getIconId(moreKeySpec);
-    }
+        //mIconId = KeySpecParser.getIconId(moreKeySpec);
+    //}
 
     //public Key buildKey(final int x, final int y, final int labelFlags,
                         //final KeyboardParams params) {
@@ -74,31 +74,31 @@ public final class MoreKeySpec {
                 //params.mHorizontalGap, params.mVerticalGap);
     //}
 
-    @Override
-    public int hashCode() {
-        int hashCode = 1;
+    //@Override
+    //public int hashCode() {
+        //int hashCode = 1;
         //hashCode = 31 + mCode;
         //hashCode = hashCode * 31 + mIconId;
         //hashCode = hashCode * 31 + (mLabel == null ? 0 : mLabel.hashCode());
         //hashCode = hashCode * 31 + (mOutputText == null ? 0 : mOutputText.hashCode());
-        return hashCode;
-    }
+        //return hashCode;
+    //}
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o instanceof MoreKeySpec) {
-            final MoreKeySpec other = (MoreKeySpec)o;
+    //@Override
+    //public boolean equals(final Object o) {
+        //if (this == o) return true;
+        //if (o instanceof MoreKeySpec) {
+            //final MoreKeySpec other = (MoreKeySpec)o;
             //return mCode == other.mCode
                     //&& mIconId == other.mIconId
                     //&& TextUtils.equals(mLabel, other.mLabel)
                     //&& TextUtils.equals(mOutputText, other.mOutputText);
-        }
-        return false;
-    }
+        //}
+        //return false;
+    //}
 
-    @Override
-    public String toString() {
+    //@Override
+    //public String toString() {
         //final String label = (mIconId == KeyboardIconsSet.ICON_UNDEFINED ? mLabel
                 //: KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(mIconId));
         //final String output = (mCode == Constants.CODE_OUTPUT_TEXT ? mOutputText
@@ -108,8 +108,7 @@ public final class MoreKeySpec {
         //} else {
             //return label + "|" + output;
         //}
-        return null; // tfr
-    }
+    //}
 
     //private static final boolean DEBUG = DebugFlags.DEBUG_ENABLED;
     // Constants for parsing.
@@ -260,7 +259,7 @@ public final class MoreKeySpec {
         }
     }*/
 
-    public static int getIntValue(final String[] moreKeys, final String key,
+    /*public static int getIntValue(final String[] moreKeys, final String key,
                                   final int defaultValue) {
         if (moreKeys == null) {
             return defaultValue;
@@ -285,9 +284,9 @@ public final class MoreKeySpec {
             }
         }
         return value;
-    }
+    }*/
 
-    public static boolean getBooleanValue(final String[] moreKeys, final String key) {
+    /*public static boolean getBooleanValue(final String[] moreKeys, final String key) {
         if (moreKeys == null) {
             return false;
         }
@@ -301,5 +300,5 @@ public final class MoreKeySpec {
             value = true;
         }
         return value;
-    }
+    }*/
 }

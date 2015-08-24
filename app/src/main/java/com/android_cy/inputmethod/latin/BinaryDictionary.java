@@ -29,13 +29,13 @@ import android.util.SparseArray;
 //import com.android.inputmethod.latin.makedict.UnsupportedFormatException;
 //import com.android.inputmethod.latin.makedict.WordProperty;
 //import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
-//import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
-//import com.android.inputmethod.latin.utils.FileUtils;
-//import com.android.inputmethod.latin.utils.JniUtils;
+import com.android_cy.inputmethod.latin.utils.BinaryDictionaryUtils;
+import com.android_cy.inputmethod.latin.utils.FileUtils;
+import com.android_cy.inputmethod.latin.utils.JniUtils;
 //import com.android.inputmethod.latin.utils.LanguageModelParam;
 //import com.android.inputmethod.latin.utils.StringUtils;
 
-//import java.io.File;
+import java.io.File;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.HashMap;
@@ -79,16 +79,16 @@ public final class BinaryDictionary extends Dictionary {
     //public static final int FORMAT_WORD_PROPERTY_LEVEL_INDEX = 2;
     //public static final int FORMAT_WORD_PROPERTY_COUNT_INDEX = 3;
 
-    //public static final String DICT_FILE_NAME_SUFFIX_FOR_MIGRATION = ".migrate";
-    //public static final String DIR_NAME_SUFFIX_FOR_RECORD_MIGRATION = ".migrating";
+    public static final String DICT_FILE_NAME_SUFFIX_FOR_MIGRATION = ".migrate";
+    public static final String DIR_NAME_SUFFIX_FOR_RECORD_MIGRATION = ".migrating";
 
     private long mNativeDict;
     //private final Locale mLocale;
     //private final long mDictSize;
-    //private final String mDictFilePath;
+    private final String mDictFilePath;
     //private final boolean mUseFullEditDistance;
-    //private final boolean mIsUpdatable;
-    //private boolean mHasUpdated;
+    private final boolean mIsUpdatable;
+    private boolean mHasUpdated;
 
     private final SparseArray<DicTraverseSession> mDicTraverseSessions = new SparseArray<>();
 
@@ -120,8 +120,8 @@ public final class BinaryDictionary extends Dictionary {
         super(dictType);
         //mLocale = locale;
         //mDictSize = length;
-        //mDictFilePath = filename;
-        //mIsUpdatable = isUpdatable;
+        mDictFilePath = filename;
+        mIsUpdatable = isUpdatable;
         //mHasUpdated = false;
         //mUseFullEditDistance = useFullEditDistance;
         //loadDictionary(filename, offset, length, isUpdatable);
@@ -141,40 +141,40 @@ public final class BinaryDictionary extends Dictionary {
         super(dictType);
         //mLocale = locale;
         //mDictSize = 0;
-        //mDictFilePath = filename;
+        mDictFilePath = filename;
         // On memory dictionary is always updatable.
-        //mIsUpdatable = true;
+        mIsUpdatable = true;
         //mHasUpdated = false;
         //mUseFullEditDistance = useFullEditDistance;
-        //final String[] keyArray = new String[attributeMap.size()];
-        //final String[] valueArray = new String[attributeMap.size()];
-        //int index = 0;
-        //for (final String key : attributeMap.keySet()) {
-            //keyArray[index] = key;
-            //valueArray[index] = attributeMap.get(key);
-            //index++;
-        //}
+        final String[] keyArray = new String[attributeMap.size()];
+        final String[] valueArray = new String[attributeMap.size()];
+        int index = 0;
+        for (final String key : attributeMap.keySet()) {
+            keyArray[index] = key;
+            valueArray[index] = attributeMap.get(key);
+            index++;
+        }
         //mNativeDict = createOnMemoryNative(formatVersion, locale.toString(), keyArray, valueArray);
     }
 
 
-    /*static {
-        JniUtils.loadNativeLibrary();
-    }
+    //static {
+        //JniUtils.loadNativeLibrary();
+    //}
 
-    private static native long openNative(String sourceDir, long dictOffset, long dictSize,
-                                          boolean isUpdatable);
-    private static native long createOnMemoryNative(long formatVersion,
-                                                    String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
-    private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
-                                                   int[] outFormatVersion, ArrayList<int[]> outAttributeKeys,
-                                                   ArrayList<int[]> outAttributeValues);
-    private static native boolean flushNative(long dict, String filePath);
-    private static native boolean needsToRunGCNative(long dict, boolean mindsBlockByGC);
-    private static native boolean flushWithGCNative(long dict, String filePath);*/
-    private static native void closeNative(long dict);
-    /*private static native int getFormatVersionNative(long dict);
-    private static native int getProbabilityNative(long dict, int[] word);
+    //private static native long openNative(String sourceDir, long dictOffset, long dictSize,
+                                          //boolean isUpdatable);
+    //private static native long createOnMemoryNative(long formatVersion,
+                                                    //String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
+    //private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
+                                                   //int[] outFormatVersion, ArrayList<int[]> outAttributeKeys,
+                                                   //ArrayList<int[]> outAttributeValues);
+    //private static native boolean flushNative(long dict, String filePath);
+    //private static native boolean needsToRunGCNative(long dict, boolean mindsBlockByGC);
+    //private static native boolean flushWithGCNative(long dict, String filePath);
+    //private static native void closeNative(long dict);
+    //private static native int getFormatVersionNative(long dict);
+    /*private static native int getProbabilityNative(long dict, int[] word);
     private static native int getMaxProbabilityOfExactMatchesNative(long dict, int[] word);
     private static native int getNgramProbabilityNative(long dict, int[][] prevWordCodePointArrays,
                                                         boolean[] isBeginningOfSentenceArray, int[] word);
@@ -204,18 +204,18 @@ public final class BinaryDictionary extends Dictionary {
     private static native int addMultipleDictionaryEntriesNative(long dict,
                                                                  LanguageModelParam[] languageModelParams, int startIndex);
     private static native String getPropertyNative(long dict, String query);
-    private static native boolean isCorruptedNative(long dict);
-    private static native boolean migrateNative(long dict, String dictFilePath,
-                                                long newFormatVersion);
+    private static native boolean isCorruptedNative(long dict);*/
+    //private static native boolean migrateNative(long dict, String dictFilePath,
+                                                //long newFormatVersion);
 
     // TODO: Move native dict into session
-    private final void loadDictionary(final String path, final long startOffset,
-                                      final long length, final boolean isUpdatable) {
-        mHasUpdated = false;
-        mNativeDict = openNative(path, startOffset, length, isUpdatable);
-    }
+    //private final void loadDictionary(final String path, final long startOffset,
+                                      //final long length, final boolean isUpdatable) {
+        //mHasUpdated = false;
+        //mNativeDict = openNative(path, startOffset, length, isUpdatable);
+    //}
 
-    // TODO: Check isCorrupted() for main dictionaries.
+    /*// TODO: Check isCorrupted() for main dictionaries.
     public boolean isCorrupted() {
         if (!isValidDictionary()) {
             return false;
@@ -323,17 +323,18 @@ public final class BinaryDictionary extends Dictionary {
             /*}
         }
         return suggestions;
-    }
+    }*/
 
     public boolean isValidDictionary() {
         return mNativeDict != 0;
     }
 
     public int getFormatVersion() {
-        return getFormatVersionNative(mNativeDict);
+        //return getFormatVersionNative(mNativeDict);
+        return 0; // tfr
     }
 
-    @Override
+    /*@Override
     public boolean isInDictionary(final String word) {
         return getFrequency(word) != NOT_A_PROBABILITY;
     }
@@ -503,27 +504,27 @@ public final class BinaryDictionary extends Dictionary {
                 return;
             }
         }
-    }
+    }*/
 
     private void reopen() {
         close();
         final File dictFile = new File(mDictFilePath);
         // WARNING: Because we pass 0 as the offset and file.length() as the length, this can
         // only be called for actual files. Right now it's only called by the flush() family of
-        // functions, which require an updatable dictionary, so it's okay. But beware.*/
+        // functions, which require an updatable dictionary, so it's okay. But beware.
         //loadDictionary(dictFile.getAbsolutePath(), 0 /* startOffset */,
-                //dictFile.length(), mIsUpdatable);
-    /*}
+            //dictFile.length(), mIsUpdatable);
+    }
 
     // Flush to dict file if the dictionary has been updated.
     public boolean flush() {
-        if (!isValidDictionary()) return false;
-        if (mHasUpdated) {
-            if (!flushNative(mNativeDict, mDictFilePath)) {
-                return false;
-            }
-            reopen();
-        }
+        //if (!isValidDictionary()) return false;
+        //if (mHasUpdated) {
+            //if (!flushNative(mNativeDict, mDictFilePath)) {
+                //return false;
+            //}
+            //reopen();
+        //}
         return true;
     }
 
@@ -537,13 +538,13 @@ public final class BinaryDictionary extends Dictionary {
 
     // Run GC and flush to dict file.
     public boolean flushWithGC() {
-        if (!isValidDictionary()) return false;
-        if (!flushWithGCNative(mNativeDict, mDictFilePath)) {
-            return false;
-        }
-        reopen();
+        //if (!isValidDictionary()) return false;
+        //if (!flushWithGCNative(mNativeDict, mDictFilePath)) {
+            //return false;
+        //}
+        //reopen();
         return true;
-    }*/
+    }
 
     /**
      * Checks whether GC is needed to run or not.
@@ -551,12 +552,13 @@ public final class BinaryDictionary extends Dictionary {
      * the blocking in some situations such as in idle time or just before closing.
      * @return whether GC is needed to run or not.
      */
-    /*public boolean needsToRunGC(final boolean mindsBlockByGC) {
-        if (!isValidDictionary()) return false;
-        return needsToRunGCNative(mNativeDict, mindsBlockByGC);
+    public boolean needsToRunGC(final boolean mindsBlockByGC) {
+        //if (!isValidDictionary()) return false;
+        //return needsToRunGCNative(mNativeDict, mindsBlockByGC);
+        return false; // tfr
     }
 
-    public boolean migrateTo(final int newFormatVersion) {
+    /*public boolean migrateTo(final int newFormatVersion) {
         if (!isValidDictionary()) {
             return false;
         }
@@ -564,13 +566,13 @@ public final class BinaryDictionary extends Dictionary {
                 new File(mDictFilePath + DIR_NAME_SUFFIX_FOR_RECORD_MIGRATION);
         if (isMigratingDir.exists()) {
             isMigratingDir.delete();
-            Log.e(TAG, "Previous migration attempt failed probably due to a crash. "
-                    + "Giving up using the old dictionary (" + mDictFilePath + ").");
+            //Log.e(TAG, "Previous migration attempt failed probably due to a crash. "
+                //+ "Giving up using the old dictionary (" + mDictFilePath + ").");
             return false;
         }
         if (!isMigratingDir.mkdir()) {
-            Log.e(TAG, "Cannot create a dir (" + isMigratingDir.getAbsolutePath()
-                    + ") to record migration.");
+            //Log.e(TAG, "Cannot create a dir (" + isMigratingDir.getAbsolutePath()
+                //+ ") to record migration.");
             return false;
         }
         try {
@@ -588,14 +590,14 @@ public final class BinaryDictionary extends Dictionary {
                 return false;
             }*/
             //loadDictionary(dictFile.getAbsolutePath(), 0 /* startOffset */,
-                    /*dictFile.length(), mIsUpdatable);
-            return true;
-        } finally {
-            isMigratingDir.delete();
-        }
-    }
+                //dictFile.length(), mIsUpdatable);
+            //return true;
+        //} finally {
+            //isMigratingDir.delete();
+        //}
+    //}
 
-    @UsedForTesting
+    /*@UsedForTesting
     public String getPropertyForTest(final String query) {
         if (!isValidDictionary()) return "";
         return getPropertyNative(mNativeDict, query);
@@ -623,7 +625,7 @@ public final class BinaryDictionary extends Dictionary {
 
     private synchronized void closeInternalLocked() {
         if (mNativeDict != 0) {
-            closeNative(mNativeDict);
+            //closeNative(mNativeDict);
             mNativeDict = 0;
         }
     }

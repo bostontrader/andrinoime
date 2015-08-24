@@ -39,9 +39,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
-//import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CountDownLatch;
 //import java.util.concurrent.TimeUnit;
-//import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -93,10 +93,10 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     private final File mDictFile;
 
     /** Indicates whether a task for reloading the dictionary has been scheduled. */
-    //private final AtomicBoolean mIsReloading;
+    private final AtomicBoolean mIsReloading;
 
     /** Indicates whether the current dictionary needs to be recreated. */
-    //private boolean mNeedsToRecreate;
+    private boolean mNeedsToRecreate;
 
     private final ReentrantReadWriteLock mLock;
 
@@ -108,21 +108,21 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /**
      * Abstract method for loading initial contents of a given dictionary.
      */
-    //protected abstract void loadInitialContentsLocked();
+    protected abstract void loadInitialContentsLocked();
 
-    //private boolean matchesExpectedBinaryDictFormatVersionForThisType(final int formatVersion) {
-        //return formatVersion == FormatSpec.VERSION4;
-    //}
+    private boolean matchesExpectedBinaryDictFormatVersionForThisType(final int formatVersion) {
+        return formatVersion == FormatSpec.VERSION4;
+    }
 
-    //private boolean needsToMigrateDictionary(final int formatVersion) {
+    private boolean needsToMigrateDictionary(final int formatVersion) {
         // When we bump up the dictionary format version, the old version should be added to here
         // for supporting migration. Note that native code has to support reading such formats.
-        //return formatVersion == FormatSpec.VERSION4_ONLY_FOR_TESTING;
-    //}
+        return formatVersion == FormatSpec.VERSION4_ONLY_FOR_TESTING;
+    }
 
-    //public boolean isValidDictionaryLocked() {
-        //return mBinaryDictionary.isValidDictionary();
-    //}
+    public boolean isValidDictionaryLocked() {
+        return mBinaryDictionary.isValidDictionary();
+    }
 
     /**
      * Creates a new expandable binary dictionary.
@@ -143,8 +143,8 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         mLocale = locale;
         mDictFile = getDictFile(context, dictName, dictFile);
         mBinaryDictionary = null;
-        //mIsReloading = new AtomicBoolean();
-        //mNeedsToRecreate = false;
+        mIsReloading = new AtomicBoolean();
+        mNeedsToRecreate = false;
         mLock = new ReentrantReadWriteLock();
     }
 
@@ -154,10 +154,10 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                 : new File(context.getFilesDir(), dictName + DICT_FILE_EXTENSION);
     }
 
-    /*public static String getDictName(final String name, final Locale locale,
+    public static String getDictName(final String name, final Locale locale,
             final File dictFile) {
         return dictFile != null ? dictFile.getName() : name + "." + locale.toString();
-    }*/
+    }
 
     private void asyncExecuteTaskWithWriteLock(final Runnable task) {
         asyncExecuteTaskWithLock(mLock.writeLock(), task);
@@ -201,18 +201,18 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /**
      * Closes and cleans up the binary dictionary.
      */
-    /*@Override
+    @Override
     public void close() {
         asyncExecuteTaskWithWriteLock(new Runnable() {
             @Override
             public void run() {
-                if (mBinaryDictionary != null) {
-                    mBinaryDictionary.close();
-                    mBinaryDictionary = null;
-                }
+            if (mBinaryDictionary != null) {
+                mBinaryDictionary.close();
+                mBinaryDictionary = null;
+            }
             }
         });
-    }*/
+    }
 
     protected Map<String, String> getHeaderAttributeMap() {
         HashMap<String, String> attributeMap = new HashMap<>();
@@ -249,11 +249,11 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         mBinaryDictionary = null;
     }
 
-    //private void openBinaryDictionaryLocked() {
-        //mBinaryDictionary = new BinaryDictionary(*/
-                //mDictFile.getAbsolutePath(), 0 /* offset */, mDictFile.length(),
-                //true /* useFullEditDistance */, mLocale, mDictType, true /* isUpdatable */);
-    //}
+    private void openBinaryDictionaryLocked() {
+        mBinaryDictionary = new BinaryDictionary(
+            mDictFile.getAbsolutePath(), 0 /* offset */, mDictFile.length(),
+            true /* useFullEditDistance */, mLocale, mDictType, true /* isUpdatable */);
+    }
 
     private void createOnMemoryBinaryDictionaryLocked() {
         mBinaryDictionary = new BinaryDictionary(
@@ -529,17 +529,17 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      * Loads the current binary dictionary from internal storage. Assumes the dictionary file
      * exists.
      */
-    /*private void loadBinaryDictionaryLocked() {
-        if (DBG_STRESS_TEST) {
+    private void loadBinaryDictionaryLocked() {
+        //if (DBG_STRESS_TEST) {
             // Test if this class does not cause problems when it takes long time to load binary
             // dictionary.
-            try {
-                Log.w(TAG, "Start stress in loading: " + mDictName);
-                Thread.sleep(15000);
-                Log.w(TAG, "End stress in loading");
-            } catch (InterruptedException e) {
-            }
-        }
+            //try {
+                //Log.w(TAG, "Start stress in loading: " + mDictName);
+                //Thread.sleep(15000);
+                //Log.w(TAG, "End stress in loading");
+            //} catch (InterruptedException e) {
+            //}
+        //}
         final BinaryDictionary oldBinaryDictionary = mBinaryDictionary;
         openBinaryDictionaryLocked();
         if (oldBinaryDictionary != null) {
@@ -548,22 +548,22 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         if (mBinaryDictionary.isValidDictionary()
                 && needsToMigrateDictionary(mBinaryDictionary.getFormatVersion())) {
             if (!mBinaryDictionary.migrateTo(DICTIONARY_FORMAT_VERSION)) {
-                Log.e(TAG, "Dictionary migration failed: " + mDictName);
+                //Log.e(TAG, "Dictionary migration failed: " + mDictName);
                 removeBinaryDictionaryLocked();
             }
         }
-    }*/
+    }
 
     /**
      * Create a new binary dictionary and load initial contents.
      */
-    /*private void createNewDictionaryLocked() {
+    private void createNewDictionaryLocked() {
         removeBinaryDictionaryLocked();
         createOnMemoryBinaryDictionaryLocked();
         loadInitialContentsLocked();
         // Run GC and flush to file when initial contents have been loaded.
         mBinaryDictionary.flushWithGCIfHasUpdated();
-    }*/
+    }
 
     /**
      * Marks that the dictionary needs to be recreated.
@@ -579,22 +579,22 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      * However, the dictionary itself is accessible even before the new dictionary file is actually
      * generated. It may return a null result for getSuggestions() in that case by design.
      */
-    //public final void reloadDictionaryIfRequired() {
-        //if (!isReloadRequired()) return;
-        //asyncReloadDictionary();
-    //}
+    public final void reloadDictionaryIfRequired() {
+        if (!isReloadRequired()) return;
+        asyncReloadDictionary();
+    }
 
     /**
      * Returns whether a dictionary reload is required.
      */
-    //private boolean isReloadRequired() {
-        //return mBinaryDictionary == null || mNeedsToRecreate;
-    //}
+    private boolean isReloadRequired() {
+        return mBinaryDictionary == null || mNeedsToRecreate;
+    }
 
     /**
      * Reloads the dictionary. Access is controlled on a per dictionary file basis.
      */
-    /*private final void asyncReloadDictionary() {
+    private final void asyncReloadDictionary() {
         if (mIsReloading.compareAndSet(false, true)) {
             asyncExecuteTaskWithWriteLock(new Runnable() {
                 @Override
@@ -624,20 +624,20 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                 }
             });
         }
-    }*/
+    }
 
     /**
      * Flush binary dictionary to dictionary file.
      */
-    /*public void asyncFlushBinaryDictionary() {
+    public void asyncFlushBinaryDictionary() {
         asyncExecuteTaskWithWriteLock(new Runnable() {
             @Override
             public void run() {
                 if (mBinaryDictionary == null) {
                     return;
-                }*/
-                //if (mBinaryDictionary.needsToRunGC(false /* mindsBlockByGC */)) {
-                    /*mBinaryDictionary.flushWithGC();
+                }
+                if (mBinaryDictionary.needsToRunGC(false /* mindsBlockByGC */)) {
+                    mBinaryDictionary.flushWithGC();
                 } else {
                     mBinaryDictionary.flush();
                 }
@@ -645,7 +645,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         });
     }
 
-    @UsedForTesting
+    //@UsedForTesting
     public void waitAllTasksForTests() {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         ExecutorUtils.getExecutor(mDictName).execute(new Runnable() {
@@ -657,11 +657,11 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
+            //Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
         }
     }
 
-    @UsedForTesting
+    /*@UsedForTesting
     public void clearAndFlushDictionaryWithAdditionalAttributes(
             final Map<String, String> attributeMap) {
         mAdditionalAttributeMap = attributeMap;

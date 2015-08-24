@@ -1,3 +1,5 @@
+// (1) http://blog.wittchen.biz.pl/test-coverage-report-for-android-application/
+// (2) http://stackoverflow.com/questions/21096819/jni-and-gradle-in-android-studio
 apply plugin: 'com.android.application'
 
 android {
@@ -11,10 +13,16 @@ android {
         versionCode 1
         versionName "1.0"
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            moduleName "YourModuleName"
+        }
+
     }
+
     buildTypes {
         debug {
-            testCoverageEnabled = true
+            testCoverageEnabled = true // (1)
         }
         release {
             minifyEnabled false
@@ -23,6 +31,33 @@ android {
     }
     packagingOptions {
         exclude "LICENSE.txt"
+    }
+
+    // The following parts are inspired by reference 2
+    sourceSets.main {
+        jni.srcDirs = [] // This prevents the auto generation of Android.mk
+    }
+
+    task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
+        def ndkDir = android.ndkDirectory
+        commandLine "$ndkDir/ndk-build",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            '-j', Runtime.runtime.availableProcessors(),
+            'all',
+            'NDK_DEBUG=1'
+    }
+
+    task cleanNative(type: Exec, description: 'Clean JNI object files') {
+        def ndkDir = android.ndkDirectory
+        commandLine "$ndkDir/ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            'clean'
+    }
+
+    clean.dependsOn 'cleanNative'
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn buildNative
     }
 }
 

@@ -131,9 +131,10 @@ public abstract class Dictionary {
     /**
      * Override to clean up any resources.
      */
-    public void close() {
+    //public void close() {
         // empty base implementation
-    }
+    //}
+    abstract void close();
 
     /**
      * Subclasses may override to indicate that this Dictionary is not yet properly initialized.

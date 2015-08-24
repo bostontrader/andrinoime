@@ -135,7 +135,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void saveKeyboardState() {
         //if (getKeyboard() != null || isShowingEmojiPalettes()) {
         if (getKeyboard() != null) {
-            mState.onSaveKeyboardState();
+            //mState.onSaveKeyboardState();
         }
     }
 
@@ -187,7 +187,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     public void resetKeyboardStateToAlphabet(final int currentAutoCapsState,
                                              final int currentRecapitalizeState) {
-        mState.onResetKeyboardStateToAlphabet(currentAutoCapsState, currentRecapitalizeState);
+        //mState.onResetKeyboardStateToAlphabet(currentAutoCapsState, currentRecapitalizeState);
     }
 
     /*public void onPressKey(final int code, final boolean isSinglePointer,

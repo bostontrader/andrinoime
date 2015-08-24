@@ -46,10 +46,10 @@ import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 //import java.util.HashSet;
 //import java.util.List;
 //import java.util.Locale;
-//import java.util.Map;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-//import java.util.concurrent.CountDownLatch;
-//import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 // TODO: Consolidate dictionaries in native code.
 public class DictionaryFacilitator {
@@ -61,7 +61,7 @@ public class DictionaryFacilitator {
 
     private Dictionaries mDictionaries = new Dictionaries();
     //private boolean mIsUserDictEnabled = false;
-    //private volatile CountDownLatch mLatchForWaitingLoadingMainDictionary = new CountDownLatch(0);
+    private volatile CountDownLatch mLatchForWaitingLoadingMainDictionary = new CountDownLatch(0);
     // To synchronize assigning mDictionaries to ensure closing dictionaries.
     //private final Object mLock = new Object();
     //private final DistracterFilter mDistracterFilter;
@@ -367,7 +367,7 @@ public class DictionaryFacilitator {
 
     public boolean hasPersonalizationDictionary() {
         return mDictionaries.hasDict(Dictionary.TYPE_PERSONALIZATION);
-    }
+    }*/
 
     public void flushPersonalizationDictionary() {
         final ExpandableBinaryDictionary personalizationDict =
@@ -382,7 +382,7 @@ public class DictionaryFacilitator {
         mLatchForWaitingLoadingMainDictionary.await(timeout, unit);
     }
 
-    @UsedForTesting
+    //@UsedForTesting
     public void waitForLoadingDictionariesForTesting(final long timeout, final TimeUnit unit)
             throws InterruptedException {
         waitForLoadingMainDictionary(timeout, unit);
@@ -392,7 +392,7 @@ public class DictionaryFacilitator {
         }
     }
 
-    public boolean isUserDictionaryEnabled() {
+    /*public boolean isUserDictionaryEnabled() {
         return mIsUserDictEnabled;
     }
 
@@ -589,14 +589,14 @@ public class DictionaryFacilitator {
         final PersonalizationDataChunk personalizationDataChunk,
         final SpacingAndPunctuations spacingAndPunctuations,
         final ExpandableBinaryDictionary.AddMultipleDictionaryEntriesCallback callback) {
-        //final ExpandableBinaryDictionary personalizationDict =
-                //mDictionaries.getSubDict(Dictionary.TYPE_PERSONALIZATION);
-        //if (personalizationDict == null) {
-            //if (callback != null) {
-                //callback.onFinished();
-            //}
-            //return;
-        //}
+        final ExpandableBinaryDictionary personalizationDict =
+            mDictionaries.getSubDict(Dictionary.TYPE_PERSONALIZATION);
+        if (personalizationDict == null) {
+            if (callback != null) {
+                callback.onFinished();
+            }
+            return;
+        }
         //final ArrayList<LanguageModelParam> languageModelParams =
                 //LanguageModelParam.createLanguageModelParamsFrom(
                         //personalizationDataChunk.mTokens,
