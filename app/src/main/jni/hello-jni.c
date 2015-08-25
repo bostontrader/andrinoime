@@ -24,8 +24,10 @@
  *   apps/samples/hello-jni/project/src/com/example/hellojni/HelloJni.java
  */
 jstring
-Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
-                                                  jobject thiz )
+//Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
+//                                                  jobject thiz )
+Java_com_fyrecloud_andrinoime_MainActivity_stringFromJNI( JNIEnv* env,
+    jobject thiz )
 {
 #if defined(__arm__)
   #if defined(__ARM_ARCH_7A__)
@@ -59,5 +61,5 @@ Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
    #define ABI "unknown"
 #endif
 
-    return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
+    return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with catfood " ABI ".");
 }

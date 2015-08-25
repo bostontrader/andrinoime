@@ -1,69 +1,24 @@
-// (1) http://blog.wittchen.biz.pl/test-coverage-report-for-android-application/
-// (2) http://stackoverflow.com/questions/21096819/jni-and-gradle-in-android-studio
-apply plugin: 'com.android.application'
+// (1) http://tools.android.com/tech-docs/new-build-system/gradle-experimental
+apply plugin: 'com.android.model.application' // (1)
 
-android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+model {
+    android {
+        compileSdkVersion = 22
+        buildToolsVersion = "22.0.1"
 
-    defaultConfig {
-        applicationId "com.fyrecloud.andrinoime"
-        minSdkVersion 11
-        targetSdkVersion 11
-        versionCode 1
-        versionName "1.0"
-        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            moduleName "YourModuleName"
+        defaultConfig.with {
+            applicationId = "com.fyrecloud.andrinoime"
+            minSdkVersion.apiLevel = 11
+            targetSdkVersion.apiLevel = 22
+            versionCode = 1
+            versionName = "1.0"
         }
 
     }
 
-    buildTypes {
-        debug {
-            testCoverageEnabled = true // (1)
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    packagingOptions {
-        exclude "LICENSE.txt"
-    }
+     android.ndk {
+         moduleName = "hello-jni"
+     }
 
-    // The following parts are inspired by reference 2
-    sourceSets.main {
-        jni.srcDirs = [] // This prevents the auto generation of Android.mk
-    }
-
-    task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = android.ndkDirectory
-        commandLine "$ndkDir/ndk-build",
-            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
-            '-j', Runtime.runtime.availableProcessors(),
-            'all',
-            'NDK_DEBUG=1'
-    }
-
-    task cleanNative(type: Exec, description: 'Clean JNI object files') {
-        def ndkDir = android.ndkDirectory
-        commandLine "$ndkDir/ndk-build.cmd",
-            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
-            'clean'
-    }
-
-    clean.dependsOn 'cleanNative'
-
-    tasks.withType(JavaCompile) {
-        compileTask -> compileTask.dependsOn buildNative
-    }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    //compile 'com.android.support:appcompat-v7:22.2.0'
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-}

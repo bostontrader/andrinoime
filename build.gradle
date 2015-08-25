@@ -1,4 +1,5 @@
 // (1) http://tools.android.com/tech-docs/new-build-system/user-guide
+// (2) http://tools.android.com/tech-docs/new-build-system/gradle-experimental
 
 // Configures the code driving the build.  This only affects the code running the build,
 // not the project. The project itself needs
@@ -10,10 +11,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle-experimental:0.2.0' // (2)
+        //classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 

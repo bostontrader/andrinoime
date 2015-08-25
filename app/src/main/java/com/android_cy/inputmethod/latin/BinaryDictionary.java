@@ -124,7 +124,7 @@ public final class BinaryDictionary extends Dictionary {
         mIsUpdatable = isUpdatable;
         //mHasUpdated = false;
         //mUseFullEditDistance = useFullEditDistance;
-        //loadDictionary(filename, offset, length, isUpdatable);
+        loadDictionary(filename, offset, length, isUpdatable);
     }
 
     /**
@@ -161,9 +161,14 @@ public final class BinaryDictionary extends Dictionary {
     //static {
         //JniUtils.loadNativeLibrary();
     //}
+    static {
+        //System.loadLibrary("hello-jni");
+        System.loadLibrary("libhello-jni.so");
+    }
 
-    //private static native long openNative(String sourceDir, long dictOffset, long dictSize,
-                                          //boolean isUpdatable);
+    public native String  stringFromJNI(); // tfr
+    private static native long openNative(String sourceDir, long dictOffset, long dictSize,
+                                          boolean isUpdatable);
     //private static native long createOnMemoryNative(long formatVersion,
                                                     //String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
     //private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
@@ -209,11 +214,12 @@ public final class BinaryDictionary extends Dictionary {
                                                 //long newFormatVersion);
 
     // TODO: Move native dict into session
-    //private final void loadDictionary(final String path, final long startOffset,
-                                      //final long length, final boolean isUpdatable) {
+    private final void loadDictionary(final String path, final long startOffset,
+                                      final long length, final boolean isUpdatable) {
         //mHasUpdated = false;
-        //mNativeDict = openNative(path, startOffset, length, isUpdatable);
-    //}
+        String s = stringFromJNI();
+        mNativeDict = openNative(path, startOffset, length, isUpdatable);
+    }
 
     /*// TODO: Check isCorrupted() for main dictionaries.
     public boolean isCorrupted() {
