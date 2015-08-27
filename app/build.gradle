@@ -17,7 +17,9 @@ model {
     }
 
      android.ndk {
-         moduleName = "hello-jni"
+         moduleName = "hello-tommy"
+         ldLibs += "log"
+         //moduleName = "jni_latinime"
      }
 
 }

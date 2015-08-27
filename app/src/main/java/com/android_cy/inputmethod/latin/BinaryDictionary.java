@@ -162,13 +162,13 @@ public final class BinaryDictionary extends Dictionary {
         //JniUtils.loadNativeLibrary();
     //}
     static {
-        //System.loadLibrary("hello-jni");
-        System.loadLibrary("libhello-jni.so");
+        System.loadLibrary("hello-tommy");
+        //System.loadLibrary("jni_latinime");
     }
 
-    public native String  stringFromJNI(); // tfr
     private static native long openNative(String sourceDir, long dictOffset, long dictSize,
                                           boolean isUpdatable);
+    //private static native long openNative();
     //private static native long createOnMemoryNative(long formatVersion,
                                                     //String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
     //private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
@@ -217,8 +217,8 @@ public final class BinaryDictionary extends Dictionary {
     private final void loadDictionary(final String path, final long startOffset,
                                       final long length, final boolean isUpdatable) {
         //mHasUpdated = false;
-        String s = stringFromJNI();
         mNativeDict = openNative(path, startOffset, length, isUpdatable);
+        //mNativeDict = openNative();
     }
 
     /*// TODO: Check isCorrupted() for main dictionaries.
