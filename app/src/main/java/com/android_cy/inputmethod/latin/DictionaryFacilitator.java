@@ -16,7 +16,7 @@
 
 package com.android_cy.inputmethod.latin;
 
-//import android.content.Context;
+import android.content.Context;
 //import android.text.TextUtils;
 //import android.util.Log;
 //import android.view.inputmethod.InputMethodSubtype;
@@ -37,15 +37,15 @@ import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 //import com.android.inputmethod.latin.utils.LanguageModelParam;
 //import com.android.inputmethod.latin.utils.SuggestionResults;
 
-//import java.io.File;
+import java.io.File;
 //import java.lang.reflect.InvocationTargetException;
 //import java.lang.reflect.Method;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 //import java.util.Arrays;
-//import java.util.HashMap;
+import java.util.HashMap;
 //import java.util.HashSet;
 //import java.util.List;
-//import java.util.Locale;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -76,7 +76,7 @@ public class DictionaryFacilitator {
                 //Dictionary.TYPE_CONTEXTUAL
             //};
 
-    /*public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
+    public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
             DICT_TYPE_TO_CLASS = new HashMap<>();
 
     /*static {
@@ -99,16 +99,16 @@ public class DictionaryFacilitator {
      * Class contains dictionaries for a locale.
      */
     private static class Dictionaries {
-        //public final Locale mLocale;
-        //private Dictionary mMainDict;
+        public final Locale mLocale;
+        private Dictionary mMainDict;
         public final ConcurrentHashMap<String, ExpandableBinaryDictionary> mSubDictMap =
             new ConcurrentHashMap<>();
 
-        //public Dictionaries() {
-            //mLocale = null;
-        //}
+        public Dictionaries() {
+            mLocale = null;
+        }
 
-        /*public Dictionaries(final Locale locale, final Dictionary mainDict,
+        public Dictionaries(final Locale locale, final Dictionary mainDict,
                 final Map<String, ExpandableBinaryDictionary> subDicts) {
             mLocale = locale;
             // Main dictionary can be asynchronously loaded.
@@ -133,7 +133,7 @@ public class DictionaryFacilitator {
             }
         }
 
-        public Dictionary getDict(final String dictType) {
+        /*public Dictionary getDict(final String dictType) {
             if (Dictionary.TYPE_MAIN.equals(dictType)) {
                 return mMainDict;
             } else {
@@ -184,7 +184,7 @@ public class DictionaryFacilitator {
 
     public Locale getLocale() {
         return mDictionaries.mLocale;
-    }
+    }*/
 
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
@@ -194,20 +194,20 @@ public class DictionaryFacilitator {
         if (dictClass == null) {
             return null;
         }
-        try {
-            final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
-                    DICT_FACTORY_METHOD_ARG_TYPES);*/
+        //try {
+            //final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
+                //DICT_FACTORY_METHOD_ARG_TYPES);
             //final Object dict = factoryMethod.invoke(null /* obj */,
-                    /*new Object[] { context, locale, dictFile, dictNamePrefix });
-            return (ExpandableBinaryDictionary) dict;
-        } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
-            Log.e(TAG, "Cannot create dictionary: " + dictType, e);
+                //new Object[] { context, locale, dictFile, dictNamePrefix });
+            //return (ExpandableBinaryDictionary) dict;
+        //} catch (final NoSuchMethodException | SecurityException | IllegalAccessException
+                //| IllegalArgumentException | InvocationTargetException e) {
+            //Log.e(TAG, "Cannot create dictionary: " + dictType, e);
             return null;
-        }
+        //}
     }
 
-    public void resetDictionaries(final Context context, final Locale newLocale,
+/*    public void resetDictionaries(final Context context, final Locale newLocale,
             final boolean useContactsDict, final boolean usePersonalizedDicts,
             final boolean forceReloadMainDictionary,
             final DictionaryInitializationListener listener) {
@@ -312,10 +312,10 @@ public class DictionaryFacilitator {
         });
     }
 
-    @UsedForTesting
+    @UsedForTesting*/
     public void resetDictionariesForTesting(final Context context, final Locale locale,
-            final ArrayList<String> dictionaryTypes, final HashMap<String, File> dictionaryFiles,
-            final Map<String, Map<String, String>> additionalDictAttributes) {
+        final ArrayList<String> dictionaryTypes, final HashMap<String, File> dictionaryFiles,
+        final Map<String, Map<String, String>> additionalDictAttributes) {
         Dictionary mainDictionary = null;
         final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
 
@@ -324,11 +324,11 @@ public class DictionaryFacilitator {
                 mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context, locale);
             } else {
                 final File dictFile = dictionaryFiles.get(dictType);
-                final ExpandableBinaryDictionary dict = getSubDict(*/
-                        //dictType, context, locale, dictFile, "" /* dictNamePrefix */);
-                /*if (additionalDictAttributes.containsKey(dictType)) {
+                final ExpandableBinaryDictionary dict = getSubDict(
+                    dictType, context, locale, dictFile, "" /* dictNamePrefix */);
+                if (additionalDictAttributes.containsKey(dictType)) {
                     dict.clearAndFlushDictionaryWithAdditionalAttributes(
-                            additionalDictAttributes.get(dictType));
+                        additionalDictAttributes.get(dictType));
                 }
                 if (dict == null) {
                     throw new RuntimeException("Unknown dictionary type: " + dictType);
@@ -341,7 +341,7 @@ public class DictionaryFacilitator {
         mDictionaries = new Dictionaries(locale, mainDictionary, subDicts);
     }
 
-    public void closeDictionaries() {
+    /*public void closeDictionaries() {
         final Dictionaries dictionaries;
         synchronized (mLock) {
             dictionaries = mDictionaries;

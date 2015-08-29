@@ -51,7 +51,7 @@ public abstract class Dictionary {
 
     // The following types of dictionary have actual functional instances. We don't need final
     // phony dictionary instances for them.
-    //public static final String TYPE_MAIN = "main";
+    public static final String TYPE_MAIN = "main";
     //public static final String TYPE_CONTACTS = "contacts";
     // User dictionary, the system-managed one.
     //public static final String TYPE_USER = "user";

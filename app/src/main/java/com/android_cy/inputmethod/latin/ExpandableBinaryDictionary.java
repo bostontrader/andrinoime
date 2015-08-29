@@ -661,14 +661,14 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         }
     }
 
-    /*@UsedForTesting
+    //@UsedForTesting
     public void clearAndFlushDictionaryWithAdditionalAttributes(
             final Map<String, String> attributeMap) {
-        mAdditionalAttributeMap = attributeMap;
+        //mAdditionalAttributeMap = attributeMap;
         clear();
     }
 
-    public void dumpAllWordsForDebug() {
+    /*public void dumpAllWordsForDebug() {
         reloadDictionaryIfRequired();
         asyncExecuteTaskWithLock(mLock.readLock(), new Runnable() {
             @Override

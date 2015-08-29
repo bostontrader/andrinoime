@@ -103,7 +103,7 @@ public final class LocaleUtils {
      * @param testedLocale the locale to test.
      * @return a constant that measures how well the tested locale matches the reference locale.
      */
-    /*public static int getMatchLevel(String referenceLocale, String testedLocale) {
+    public static int getMatchLevel(String referenceLocale, String testedLocale) {
         if (TextUtils.isEmpty(referenceLocale)) {
             return TextUtils.isEmpty(testedLocale) ? LOCALE_FULL_MATCH : LOCALE_ANY_MATCH;
         }
@@ -132,7 +132,7 @@ public final class LocaleUtils {
         }
         // It should be impossible to come here
         return LOCALE_NO_MATCH;
-    }*/
+    }
 
     /**
      * Return a string that represents this match level, with better matches first.

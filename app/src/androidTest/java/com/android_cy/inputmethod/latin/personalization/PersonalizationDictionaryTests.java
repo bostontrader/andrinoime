@@ -18,9 +18,9 @@ package com.android_cy.inputmethod.latin.personalization;
 
 import java.io.File;
 import java.util.ArrayList;
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Locale;
-//import java.util.Map;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -49,12 +49,12 @@ public class PersonalizationDictionaryTests extends AndroidTestCase {
     private static final long TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS = 120;
 
     private DictionaryFacilitator getDictionaryFacilitator() {
-        //final ArrayList<String> dictTypes = new ArrayList<>();
-        //dictTypes.add(Dictionary.TYPE_MAIN);
-        //dictTypes.add(Dictionary.TYPE_PERSONALIZATION);
+        final ArrayList<String> dictTypes = new ArrayList<>();
+        dictTypes.add(Dictionary.TYPE_MAIN);
+        dictTypes.add(Dictionary.TYPE_PERSONALIZATION);
         final DictionaryFacilitator dictionaryFacilitator = new DictionaryFacilitator();
-        //dictionaryFacilitator.resetDictionariesForTesting(getContext(), LOCALE_EN_US, dictTypes,
-                //new HashMap<String, File>(), new HashMap<String, Map<String, String>>());
+        dictionaryFacilitator.resetDictionariesForTesting(getContext(), LOCALE_EN_US, dictTypes,
+            new HashMap<String, File>(), new HashMap<String, Map<String, String>>());
         return dictionaryFacilitator;
     }
 

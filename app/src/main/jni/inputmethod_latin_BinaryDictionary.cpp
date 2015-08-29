@@ -43,35 +43,35 @@ namespace latinime {
 //class ProximityInfo;
 static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring sourceDir,
     jlong dictOffset, jlong dictSize, jboolean isUpdatable) {
-//extern "C" {
-//JNIEXPORT jlong JNICALL
-//Java_com_android_1cy_inputmethod_latin_BinaryDictionary_openNative(JNIEnv *env, jclass clazz) {
-    /*PROF_OPEN;
-    PROF_START(66);
-    const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
-    if (sourceDirUtf8Length <= 0) {
-        AKLOGE("DICT: Can't get sourceDir string");
-        return 0;
-    }
-    char sourceDirChars[sourceDirUtf8Length + 1];
-    env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
-    sourceDirChars[sourceDirUtf8Length] = '\0';
-    DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
-            DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-                    sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
-                    isUpdatable == JNI_TRUE));
-    if (!dictionaryStructureWithBufferPolicy) {
-        return 0;
-    }
 
-    Dictionary *const dictionary =
-            new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
-    PROF_END(66);
-    PROF_CLOSE;
-    return reinterpret_cast<jlong>(dictionary);*/
+    //PROF_OPEN;
+    //PROF_START(66);
+    do { PROF_RESET; PROF_START(PROF_BUF_SIZE - 1); } while (0)
+
+
+    //const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
+    //if (sourceDirUtf8Length <= 0) {
+        //AKLOGE("DICT: Can't get sourceDir string");
+        //return 0;
+    //}
+    //char sourceDirChars[sourceDirUtf8Length + 1];
+    //env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
+    //sourceDirChars[sourceDirUtf8Length] = '\0';
+    //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
+            //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                    //sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
+                    //isUpdatable == JNI_TRUE));
+    //if (!dictionaryStructureWithBufferPolicy) {
+        //return 0;
+    //}
+
+    //Dictionary *const dictionary =
+            //new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
+    //PROF_END(66);
+    //PROF_CLOSE;
+    //return reinterpret_cast<jlong>(dictionary);
     return (long) 777;
 }
-//}
 
 /*static jlong latinime_BinaryDictionary_createOnMemory(JNIEnv *env, jclass clazz,
         jlong formatVersion, jstring locale, jobjectArray attributeKeyStringArray,

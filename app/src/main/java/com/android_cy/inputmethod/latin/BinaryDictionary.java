@@ -218,7 +218,6 @@ public final class BinaryDictionary extends Dictionary {
                                       final long length, final boolean isUpdatable) {
         //mHasUpdated = false;
         mNativeDict = openNative(path, startOffset, length, isUpdatable);
-        //mNativeDict = openNative();
     }
 
     /*// TODO: Check isCorrupted() for main dictionaries.
