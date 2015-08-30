@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#define __cplusplus 201103L // tfr to enable std::move
 //#define LOG_TAG "LatinIME: jni: BinaryDictionary"
 
 #include <android/log.h>
@@ -22,6 +23,7 @@
 
 //#include <cstring> // for memset()
 //#include <vector>
+#include <utility> // std::move
 
 #include "defines.h"
 #include <jni.h>
@@ -32,7 +34,9 @@
 //#include "suggest/core/result/suggestion_results.h"
 //#include "suggest/core/session/prev_words_info.h"
 //#include "suggest/core/suggest_options.h"
-//#include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
+#include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
+#include "suggest/core/dictionary/dictionary.h"
+//#include "dictionary_structure_with_buffer_policy_factory.h"
 //#include "utils/char_utils.h"
 //#include "utils/jni_data_utils.h"
 //#include "utils/log_utils.h"
@@ -44,29 +48,28 @@ namespace latinime {
 static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring sourceDir,
     jlong dictOffset, jlong dictSize, jboolean isUpdatable) {
 
+    // Profiling
     //PROF_OPEN;
     //PROF_START(66);
-    do { PROF_RESET; PROF_START(PROF_BUF_SIZE - 1); } while (0)
 
+    const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
+    if (sourceDirUtf8Length <= 0) {
+        AKLOGE("DICT: Can't get sourceDir string");
+        return 0;
+    }
+    char sourceDirChars[sourceDirUtf8Length + 1];
+    env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
+    sourceDirChars[sourceDirUtf8Length] = '\0';
+    DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
+        DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+            sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
+            isUpdatable == JNI_TRUE));
+    if (!dictionaryStructureWithBufferPolicy) {
+        return 0;
+    }
 
-    //const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
-    //if (sourceDirUtf8Length <= 0) {
-        //AKLOGE("DICT: Can't get sourceDir string");
-        //return 0;
-    //}
-    //char sourceDirChars[sourceDirUtf8Length + 1];
-    //env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
-    //sourceDirChars[sourceDirUtf8Length] = '\0';
-    //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
-            //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-                    //sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
-                    //isUpdatable == JNI_TRUE));
-    //if (!dictionaryStructureWithBufferPolicy) {
-        //return 0;
-    //}
-
-    //Dictionary *const dictionary =
-            //new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
+    Dictionary *const dictionary =
+        new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
     //PROF_END(66);
     //PROF_CLOSE;
     //return reinterpret_cast<jlong>(dictionary);

@@ -19,8 +19,11 @@ model {
      android.ndk {
          moduleName = "hello-tommy"
          ldLibs += "log"
-         //moduleName = "jni_latinime"
+         //stl = "stlport_static", vector, but not memory
+         //stl = "gabi++_static", memory, but not vector
+         stl = "gnustl_static"
      }
 
 }
+
 
