@@ -1,7 +1,15 @@
 // (1) http://tools.android.com/tech-docs/new-build-system/gradle-experimental
 apply plugin: 'com.android.model.application' // (1)
 
+task aaahello << {
+	println project.plugins[0]
+}
+
 model {
+
+
+
+
     android {
         compileSdkVersion = 22
         buildToolsVersion = "22.0.1"
@@ -19,10 +27,27 @@ model {
      android.ndk {
          moduleName = "hello-tommy"
          ldLibs += "log"
+
+         def LATIN_IME_SRC_DIR = "src"
+
+         //$(LOCAL_PATH)/$(LATIN_IME_SRC_DIR)
+         cppFlags += "-I${file("src/main/jni/src")}".toString()
+         //cppFlags += ["-std=c++11"]
          //stl = "stlport_static", vector, but not memory
          //stl = "gabi++_static", memory, but not vector
-         stl = "gnustl_static"
+         //stl = "gnustl_static"
+         stl = "c++_static"
      }
+
+    android.productFlavors {
+        create("arm7") {
+            ndk.with {
+                // You can customize the NDK configurations for each
+                // productFlavors and buildTypes.
+                abiFilters += "armeabi-v7a"
+            }
+        }
+    }
 
 }
 

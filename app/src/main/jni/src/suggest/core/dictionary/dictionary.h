@@ -20,11 +20,11 @@
 //#include <memory>
 
 //#include "defines.h"
-//#include "jni.h"
+#include "jni.h"
 //#include "suggest/core/dictionary/ngram_listener.h"
 //#include "suggest/core/dictionary/property/word_property.h"
-//#include "suggest/core/policy/dictionary_header_structure_policy.h"
-//#include "suggest/core/policy/dictionary_structure_with_buffer_policy.h"
+#include "suggest/core/policy/dictionary_header_structure_policy.h"
+#include "suggest/core/policy/dictionary_structure_with_buffer_policy.h"
 //#include "suggest/core/suggest_interface.h"
 
 namespace latinime {
@@ -111,11 +111,11 @@ class Dictionary {
     }
 
  private:
-    DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);
+    DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);*/
 
     typedef std::unique_ptr<SuggestInterface> SuggestInterfacePtr;
 
-    class NgramListenerForPrediction : public NgramListener {
+    /*class NgramListenerForPrediction : public NgramListener {
      public:
         NgramListenerForPrediction(const PrevWordsInfo *const prevWordsInfo,
                 SuggestionResults *const suggestionResults,
@@ -128,16 +128,15 @@ class Dictionary {
         const PrevWordsInfo *const mPrevWordsInfo;
         SuggestionResults *const mSuggestionResults;
         const DictionaryStructureWithBufferPolicy *const mDictStructurePolicy;
-    };
-
-    static const int HEADER_ATTRIBUTE_BUFFER_SIZE;
+    };*/
+    //static const int HEADER_ATTRIBUTE_BUFFER_SIZE;
 
     const DictionaryStructureWithBufferPolicy::StructurePolicyPtr
             mDictionaryStructureWithBufferPolicy;
     const SuggestInterfacePtr mGestureSuggest;
     const SuggestInterfacePtr mTypingSuggest;
 
-    void logDictionaryInfo(JNIEnv *const env) const;*/
+    //void logDictionaryInfo(JNIEnv *const env) const;
 };
 } // namespace latinime
 #endif // LATINIME_DICTIONARY_H

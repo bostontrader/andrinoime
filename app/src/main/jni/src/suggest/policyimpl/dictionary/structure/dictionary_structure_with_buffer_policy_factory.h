@@ -23,12 +23,12 @@
 //#include "/suggest/core/policy/dictionary_header_structure_policy.h"
 //#include "dictionary_header_structure_policy.h"
 
-//#include "/suggest/core/policy/dictionary_structure_with_buffer_policy.h"
-#include "../../../core/policy/dictionary_structure_with_buffer_policy.h"
-#include "../../../core/policy/dictionary_header_structure_policy.h"
-#include "../utils/format_utils.h"
+#include "suggest/core/policy/dictionary_structure_with_buffer_policy.h"
+//#include "../../../core/policy/dictionary_structure_with_buffer_policy.h"
+#include "suggest/core/policy/dictionary_header_structure_policy.h"
+//#include "../utils/format_utils.h"
 
-//#include "/suggest/policyimpl/dictionary/utils/format_utils.h"
+#include "suggest/policyimpl/dictionary/utils/format_utils.h"
 
 
 

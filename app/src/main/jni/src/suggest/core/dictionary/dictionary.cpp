@@ -16,12 +16,12 @@
 
 //#define LOG_TAG "LatinIME: dictionary.cpp"
 
-//#include "suggest/core/dictionary/dictionary.h"
+#include "suggest/core/dictionary/dictionary.h"
 
-#define __cplusplus 201103L // tfr to enable std::move
-#include <jni.h>   // tfr
-#include <utility> // std::move
-#include "../policy/dictionary_structure_with_buffer_policy.h"
+//#define __cplusplus 201103L // tfr to enable std::move
+//#include <jni.h>   // tfr
+//#include <utility> // std::move
+//#include "policy/dictionary_structure_with_buffer_policy.h"
 
 //#include "defines.h"
 //#include "suggest/core/dictionary/dictionary_utils.h"
