@@ -19,11 +19,11 @@ package com.android_cy.inputmethod.latin;
 //import android.content.ContentProviderClient;
 import android.content.Context;
 //import android.content.res.AssetFileDescriptor;
-//import android.content.res.Resources;
+import android.content.res.Resources;
 //import android.util.Log;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
-//import com.android.inputmethod.latin.utils.DictionaryInfoUtils;
+import com.android_cy.inputmethod.latin.utils.DictionaryInfoUtils;
 
 //import java.io.File;
 import java.util.ArrayList;
@@ -204,9 +204,9 @@ public final class DictionaryFactory {
      * @param locale the locale to check for.
      * @return whether a (non-placeholder) dictionary is available or not.
      */
-    //public static boolean isDictionaryAvailable(Context context, Locale locale) {
-        //final Resources res = context.getResources();
-        //return 0 != DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
-                //res, locale);
-    //}
+    public static boolean isDictionaryAvailable(Context context, Locale locale) {
+        final Resources res = context.getResources();
+        return 0 != DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
+                res, locale);
+    }
 }

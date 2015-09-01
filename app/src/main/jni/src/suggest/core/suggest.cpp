@@ -380,7 +380,7 @@ void Suggest::processDicNodeAsDigraph(DicTraverseSession *traverseSession,
                 DicNode *const childDicNode2 = childDicNodes2[j];
                 const ProximityType matchedId2 = traverseSession->getProximityInfoState(0)
                         ->getProximityType(pointIndex, childDicNode2->getNodeCodePoint(),*/
-                                true /* checkProximityChars */);
+                                //true /* checkProximityChars */);
                 //if (!ProximityInfoUtils::isMatchOrProximityChar(matchedId2)) {
                     //continue;
                 //}
@@ -431,5 +431,5 @@ void Suggest::processDicNodeAsDigraph(DicTraverseSession *traverseSession,
         // in DicNodePriorityQueue.
         traverseSession->getDicTraverseCache()->copyPushNextActive(&newDicNode);
     }*/
-}
+//}
 } // namespace latinime

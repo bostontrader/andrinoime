@@ -17,9 +17,9 @@
 #ifndef LATINIME_SUGGEST_IMPL_H
 #define LATINIME_SUGGEST_IMPL_H
 
-//#include "defines.h"
-//#include "suggest/core/suggest_interface.h"
-//#include "suggest/core/policy/suggest_policy.h"
+#include "defines.h"
+#include "suggest/core/suggest_interface.h"
+#include "suggest/core/policy/suggest_policy.h"
 
 namespace latinime {
 
@@ -35,19 +35,19 @@ namespace latinime {
 //class DicNode;
 //class DicTraverseSession;
 //class ProximityInfo;
-//class Scoring;
+class Scoring;
 //class SuggestionResults;
-//class Traversal;
-//class Weighting;
+class Traversal;
+class Weighting;
 
-/*class Suggest : public SuggestInterface {
+class Suggest : public SuggestInterface {
  public:
-    AK_FORCE_INLINE Suggest(const SuggestPolicy *const suggestPolicy)
+    /*AK_FORCE_INLINE*/ Suggest(const SuggestPolicy *const suggestPolicy)
             : TRAVERSAL(suggestPolicy ? suggestPolicy->getTraversal() : nullptr),
-              SCORING(suggestPolicy ? suggestPolicy->getScoring() : nullptr),
-              WEIGHTING(suggestPolicy ? suggestPolicy->getWeighting() : nullptr) {}
-    AK_FORCE_INLINE virtual ~Suggest() {}
-    void getSuggestions(ProximityInfo *pInfo, void *traverseSession, int *inputXs, int *inputYs,
+            SCORING(suggestPolicy ? suggestPolicy->getScoring() : nullptr),
+            WEIGHTING(suggestPolicy ? suggestPolicy->getWeighting() : nullptr) {}
+       /*AK_FORCE_INLINE*/ //virtual ~Suggest() {}
+    /*void getSuggestions(ProximityInfo *pInfo, void *traverseSession, int *inputXs, int *inputYs,
             int *times, int *pointerIds, int *inputCodePoints, int inputSize,
             const float languageWeight, SuggestionResults *const outSuggestionResults) const;
 
@@ -72,11 +72,11 @@ namespace latinime {
     void processDicNodeAsMatch(DicTraverseSession *traverseSession,
             DicNode *childDicNode) const;
 
-    static const int MIN_CONTINUOUS_SUGGESTION_INPUT_SIZE;
+    static const int MIN_CONTINUOUS_SUGGESTION_INPUT_SIZE;*/
 
     const Traversal *const TRAVERSAL;
     const Scoring *const SCORING;
     const Weighting *const WEIGHTING;
-};*/
+   };
 } // namespace latinime
 #endif // LATINIME_SUGGEST_IMPL_H

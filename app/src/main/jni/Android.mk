@@ -21,7 +21,7 @@
 #FLAG_DO_PROFILE ?= false
 
 ######################################
-#include $(CLEAR_VARS)
+include $(CLEAR_VARS)
 
 #LATIN_IME_SRC_DIR := src
 
@@ -60,7 +60,7 @@
 #endif # FLAG_DBG
 #endif # FLAG_DO_PROFILE
 
-#LOCAL_MODULE := libjni_latinime_common_static
+LOCAL_MODULE := libjni_latinime_common_static
 #LOCAL_MODULE_TAGS := optional
 
 #LOCAL_CLANG := true
@@ -84,7 +84,7 @@
 #endif # FLAG_DBG
 #endif # FLAG_DO_PROFILE
 
-#LOCAL_MODULE := libjni_latinime
+LOCAL_MODULE := libjni_latinime
 #LOCAL_MODULE_TAGS := optional
 
 #LOCAL_CLANG := true
@@ -92,7 +92,7 @@
 #LOCAL_NDK_STL_VARIANT := c++_static
 #LOCAL_LDFLAGS += -ldl
 
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 #################### Clean up the tmp vars
 #include $(LOCAL_PATH)/CleanupNativeFileList.mk
 

@@ -1,1 +1,1 @@
-APP_STL := c++_static
+#APP_STL := c++_static

@@ -279,8 +279,9 @@ public class DictionaryInfoUtils {
         // This works because we don't include by default different dictionaries for
         // different countries. This actually needs to return the id that we would
         // like to use for word lists included in resources, and the following is okay.
-        return BinaryDictionaryGetter.MAIN_DICTIONARY_CATEGORY +
+        String s = BinaryDictionaryGetter.MAIN_DICTIONARY_CATEGORY +
                 BinaryDictionaryGetter.ID_CATEGORY_SEPARATOR + locale.getLanguage().toString();
+        return s;
     }
 
     /*public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file) {

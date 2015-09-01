@@ -51,6 +51,7 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring s
     // Profiling
     //PROF_OPEN;
     //PROF_START(66);
+    AKLOGE("Into BinaryDictionart_open");
 
     const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
     if (sourceDirUtf8Length <= 0) {
@@ -65,6 +66,7 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring s
             sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
             isUpdatable == JNI_TRUE));
     if (!dictionaryStructureWithBufferPolicy) {
+        AKLOGE("BinaryDictionart_open ret 0");
         return 0;
     }
 
@@ -72,8 +74,8 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring s
         new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
     //PROF_END(66);
     //PROF_CLOSE;
-    //return reinterpret_cast<jlong>(dictionary);
-    return (long) 777;
+    AKLOGE("Exit BinaryDictionart_open");
+    return reinterpret_cast<jlong>(dictionary);
 }
 
 /*static jlong latinime_BinaryDictionary_createOnMemory(JNIEnv *env, jclass clazz,

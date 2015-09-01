@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-//#include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
-#include "dictionary_structure_with_buffer_policy_factory.h"
-
-// tfr
-//#include "dictionary_header_structure_policy.h"
-//#include "dictionary_structure_with_buffer_policy.h"
+#include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
 
 //#include <climits>
 
-
-//#include "defines.h"
+#include "defines.h"
 //#include "suggest/policyimpl/dictionary/structure/backward/v402/ver4_dict_buffers.h"
 //#include "suggest/policyimpl/dictionary/structure/backward/v402/ver4_dict_constants.h"
 //#include "suggest/policyimpl/dictionary/structure/backward/v402/ver4_patricia_trie_policy.h"
@@ -34,7 +28,7 @@
 //#include "suggest/policyimpl/dictionary/structure/v4/ver4_dict_constants.h"
 //#include "suggest/policyimpl/dictionary/structure/v4/ver4_patricia_trie_policy.h"
 //#include "suggest/policyimpl/dictionary/utils/dict_file_writing_utils.h"
-//#include "suggest/policyimpl/dictionary/utils/file_utils.h"
+#include "suggest/policyimpl/dictionary/utils/file_utils.h"
 //#include "suggest/policyimpl/dictionary/utils/format_utils.h"
 
 
@@ -49,17 +43,21 @@ namespace latinime {
         DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
         const char *const path, const int bufOffset, const int size,
         const bool isUpdatable) {
-        //if (FileUtils::existsDir(path)) {
-        // Given path represents a directory.
-        //return newPolicyForDirectoryDict(path, isUpdatable);
-        //} else {
-        //if (isUpdatable) {
+        AKLOGE("Into dictionary_structure_with_buffer_policy_factory");
+
+        if (FileUtils::existsDir(path)) {
+            // Given path represents a directory.
+            AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is dir",path);
+            //return newPolicyForDirectoryDict(path, isUpdatable);
+        } else {
+            AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is not dir",path);
+            //if (isUpdatable) {
             //AKLOGE("One file dictionaries don't support updating. path: %s", path);
             //ASSERT(false);
             //return nullptr;
-        //}
-        //return newPolicyForFileDict(path, bufOffset, size);
-        //}
+            //}
+            //return newPolicyForFileDict(path, bufOffset, size);
+        }
     }
 
 /* static */

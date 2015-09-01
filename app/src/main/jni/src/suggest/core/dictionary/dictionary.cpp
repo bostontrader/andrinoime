@@ -29,10 +29,10 @@
 //#include "suggest/core/result/suggestion_results.h"
 //#include "suggest/core/session/dic_traverse_session.h"
 //#include "suggest/core/session/prev_words_info.h"
-//#include "suggest/core/suggest.h"
+#include "suggest/core/suggest.h"
 //#include "suggest/core/suggest_options.h"
-//#include "suggest/policyimpl/gesture/gesture_suggest_policy_factory.h"
-//#include "suggest/policyimpl/typing/typing_suggest_policy_factory.h"
+#include "suggest/policyimpl/gesture/gesture_suggest_policy_factory.h"
+#include "suggest/policyimpl/typing/typing_suggest_policy_factory.h"
 //#include "utils/log_utils.h"
 //#include "utils/time_keeper.h"
 
@@ -45,7 +45,7 @@ Dictionary::Dictionary(JNIEnv *env, DictionaryStructureWithBufferPolicy::Structu
         : mDictionaryStructureWithBufferPolicy(std::move(dictionaryStructureWithBufferPolicy)),
           mGestureSuggest(new Suggest(GestureSuggestPolicyFactory::getGestureSuggestPolicy())),
           mTypingSuggest(new Suggest(TypingSuggestPolicyFactory::getTypingSuggestPolicy())) {
-    logDictionaryInfo(env);
+    //logDictionaryInfo(env);
 }
 
 /*void Dictionary::getSuggestions(ProximityInfo *proximityInfo, DicTraverseSession *traverseSession,
