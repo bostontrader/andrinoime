@@ -9,7 +9,7 @@ model {
 
         defaultConfig.with {
             applicationId = "com.fyrecloud.andrinoime"
-            minSdkVersion.apiLevel = 11
+            minSdkVersion.apiLevel = 23
             targetSdkVersion.apiLevel = 23
             versionCode = 1
             versionName = "1.0"

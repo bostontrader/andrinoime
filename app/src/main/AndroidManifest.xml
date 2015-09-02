@@ -2,7 +2,8 @@
     package="com.fyrecloud.andrinoime"
     >
 
-    <application android:label="@string/ime_name">
+    <!-- debuggable here to make ndk-gdb happy -->
+    <application android:label="@string/ime_name" android:debuggable="true">
         <activity
             android:name=".MainActivity"
             android:label="@string/ime_name"
