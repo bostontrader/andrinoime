@@ -5,3 +5,6 @@
 .DS_Store
 /build
 /captures
+
+#This needs to be set per-user
+gradle.properties
