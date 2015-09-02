@@ -162,8 +162,8 @@ public final class BinaryDictionary extends Dictionary {
         //JniUtils.loadNativeLibrary();
     //}
     static {
-        System.loadLibrary("hello-tommy");
-        //System.loadLibrary("jni_latinime");
+        //System.loadLibrary("hello-tommy");
+        System.loadLibrary("jni_latinime");
     }
 
     private static native long openNative(String sourceDir, long dictOffset, long dictSize,
