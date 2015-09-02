@@ -11,13 +11,13 @@ model {
 
 
     android {
-        compileSdkVersion = 22
+        compileSdkVersion = 23
         buildToolsVersion = "22.0.1"
 
         defaultConfig.with {
             applicationId = "com.fyrecloud.andrinoime"
             minSdkVersion.apiLevel = 11
-            targetSdkVersion.apiLevel = 22
+            targetSdkVersion.apiLevel = 23
             versionCode = 1
             versionName = "1.0"
         }

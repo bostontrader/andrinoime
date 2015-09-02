@@ -65,6 +65,13 @@ static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring s
         DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
             sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
             isUpdatable == JNI_TRUE));
+
+    DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
+                DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                        sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
+                        isUpdatable == JNI_TRUE));
+
+
     if (!dictionaryStructureWithBufferPolicy) {
         AKLOGE("BinaryDictionart_open ret 0");
         return 0;
