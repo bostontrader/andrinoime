@@ -13,22 +13,22 @@ import android.widget.EditText;
  */
 public class MainActivity extends Activity {
 
-    public native String  stringFromJNI();
+    //public native String  stringFromJNI();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final EditText thePrompt = (EditText) findViewById(R.id.thePrompt);
-        String s = stringFromJNI();
-        thePrompt.setText(s);
+        //final EditText thePrompt = (EditText) findViewById(R.id.thePrompt);
+        //String s = stringFromJNI();
+        //thePrompt.setText(s);
     }
 
     static {
-        try {
-            System.loadLibrary("hello-jni");
-        } catch(Exception e) {
-            e.printStackTrace();;
-        }
+        //try {
+            System.loadLibrary("jni_latinime");
+        //} catch(Exception e) {
+            //e.printStackTrace();;
+        //}
     }
 }
