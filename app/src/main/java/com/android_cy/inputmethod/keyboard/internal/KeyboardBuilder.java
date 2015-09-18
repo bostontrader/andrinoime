@@ -38,7 +38,7 @@ import com.android_cy.inputmethod.latin.utils.ResourceUtils;
 //import com.android.inputmethod.latin.utils.StringUtils;
 //import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 import com.android_cy.inputmethod.latin.utils.XmlParseUtils;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 import com.android_cy.inputmethod.latin.utils.XmlParseUtils.ParseException;
 
 import org.xmlpull.v1.XmlPullParser;

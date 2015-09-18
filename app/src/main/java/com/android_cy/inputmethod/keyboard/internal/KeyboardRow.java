@@ -25,7 +25,7 @@ import android.util.Xml;
 //import com.android.inputmethod.latin.R;
 import com.android_cy.inputmethod.latin.utils.ResourceUtils;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import org.xmlpull.v1.XmlPullParser;
 

@@ -24,7 +24,7 @@ import android.util.DisplayMetrics;
 //import android.util.Log;
 import android.util.TypedValue;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
 //import com.android.inputmethod.latin.R;

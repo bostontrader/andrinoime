@@ -1,18 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--
+    @author Thomas Radloff  bostontrader@gmail.com https://bostontrader.github.io/androidime
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+	android:layout_height="match_parent" android:paddingLeft="16dp"
+	android:paddingRight="16dp"
+	android:paddingTop="16dp"
+	android:paddingBottom="16dp" tools:context=".MainActivity"
+	android:orientation="vertical">
 
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
-	android:padding="5sp"
-	>
-
-	<EditText
-		android:id="@+id/thePrompt"
-		android:inputType="textMultiLine"
+	<Button
+		android:id="@+id/btnDoit"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-	/>
+		android:text="Doit"
+		/>
+
+	<TextView android:text="String from C:" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>
+
+	<EditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/stringFromC"
+		/>
+
+	<TextView android:text="String from Cpp:" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>
+
+	<EditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/stringFromCpp"
+		/>
+
+	<TextView android:text="long from C:" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>
+
+	<EditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/longFromC"
+		/>
+
+	<TextView android:text="long from Cpp:" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>
+
+	<EditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/longFromCpp"
+		/>
 
 </LinearLayout>

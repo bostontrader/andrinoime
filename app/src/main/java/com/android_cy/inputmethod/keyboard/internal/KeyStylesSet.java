@@ -23,7 +23,7 @@ import android.content.res.TypedArray;
 //import com.android.inputmethod.latin.R;
 import com.android_cy.inputmethod.latin.utils.XmlParseUtils;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import org.xmlpull.v1.XmlPullParser;
 //import org.xmlpull.v1.XmlPullParserException;

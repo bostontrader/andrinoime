@@ -24,7 +24,7 @@ import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.Keyboard.Row;
 import android.view.inputmethod.EditorInfo;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 public class LatinKeyboard extends Keyboard {
 

@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.keyboard;
 
 import android.content.SharedPreferences;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 import android.os.Build.VERSION_CODES;
 //import android.util.Log;
 

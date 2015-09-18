@@ -29,7 +29,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import java.util.ArrayList;
 import java.util.List;

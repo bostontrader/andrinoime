@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fyrecloud.andrinoime"
+    package="spartacus.andrinoime"
     >
 
     <!-- debuggable here to make ndk-gdb happy -->
     <application android:label="@string/ime_name" android:debuggable="true">
         <activity
-            android:name=".MainActivity"
+            android:name="spartacus.andrinoime.MainActivity"
             android:label="@string/ime_name"
             android:windowSoftInputMode="stateVisible"
             >

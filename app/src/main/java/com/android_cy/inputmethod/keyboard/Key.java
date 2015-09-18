@@ -39,7 +39,7 @@ import com.android_cy.inputmethod.keyboard.internal.KeyboardRow;
 import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 //import com.android_cy.inputmethod.latin.utils.StringUtils;
-//import com.fyrecloud.andrinoime.R;
+//import spartacus.andrinoime.R;
 
 import java.util.Arrays;
 //import java.util.Locale;

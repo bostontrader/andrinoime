@@ -4,11 +4,11 @@ apply plugin: 'com.android.model.application' // (1)
 model {
 
     android {
-        compileSdkVersion = 23
+        compileSdkVersion = 22
         buildToolsVersion = "22.0.1"
 
         defaultConfig.with {
-            applicationId = "com.fyrecloud.andrinoime"
+            applicationId = "spartacus.andrinoime"
             minSdkVersion.apiLevel = 15
             targetSdkVersion.apiLevel = 15
             versionCode = 1
@@ -29,15 +29,6 @@ model {
          stl = "c++_static"
      }
 
-    //android.productFlavors {
-        //create("arm7") {
-            //ndk.with {
-                // You can customize the NDK configurations for each
-                // productFlavors and buildTypes.
-                //abiFilters += "armeabi-v7a"
-            //}
-        //}
-    //}
 
 }
 

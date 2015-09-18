@@ -47,7 +47,7 @@ import com.android_cy.inputmethod.latin.utils.LocaleUtils;
 import com.android_cy.inputmethod.keyboard.Key;
 import com.android_cy.inputmethod.keyboard.Keyboard;
 import com.android_cy.inputmethod.latin.LatinIME;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import java.util.Locale;
 //import java.util.concurrent.TimeUnit;

@@ -2,6 +2,8 @@ package com.fyrecloud.andrinoime;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import spartacus.andrinoime.MainActivity;
+
 //import static android.support.test.espresso.Espresso.onView;
 //import static android.support.test.espresso.Espresso.pressBack;
 //import static android.support.test.espresso.action.ViewActions.click;

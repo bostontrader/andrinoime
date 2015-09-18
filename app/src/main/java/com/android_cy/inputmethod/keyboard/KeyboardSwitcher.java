@@ -32,7 +32,7 @@ import com.android_cy.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayoutSetEx
 import com.android_cy.inputmethod.keyboard.internal.KeyboardState;
 import com.android_cy.inputmethod.keyboard.internal.KeyboardTextsSet;
 import com.android_cy.inputmethod.latin.InputView;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 import com.android_cy.inputmethod.latin.LatinIME;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.RichInputMethodManager;

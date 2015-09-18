@@ -25,7 +25,7 @@ import android.content.res.Resources;
 
 //import com.android.inputmethod.latin.AssetFileAddress;
 import com.android_cy.inputmethod.latin.BinaryDictionaryGetter;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 //import com.android.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.makedict.DictionaryHeader;

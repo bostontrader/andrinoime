@@ -37,7 +37,7 @@ import com.android_cy.inputmethod.keyboard.internal.KeyboardParams;
 import com.android_cy.inputmethod.keyboard.internal.KeysCache;
 //import com.android.inputmethod.latin.InputAttributes;
 //import com.android.inputmethod.latin.R;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 import com.android_cy.inputmethod.latin.SubtypeSwitcher;
 //import com.android.inputmethod.latin.define.DebugFlags;
 //import com.android.inputmethod.latin.utils.InputTypeUtils;

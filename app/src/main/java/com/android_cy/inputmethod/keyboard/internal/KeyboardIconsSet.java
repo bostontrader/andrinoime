@@ -24,7 +24,7 @@ import android.util.SparseIntArray;
 
 //import com.android.inputmethod.latin.R;
 
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import java.util.HashMap;
 

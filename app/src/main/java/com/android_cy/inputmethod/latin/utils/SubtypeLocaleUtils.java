@@ -29,7 +29,7 @@ import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 
 //import java.util.Arrays;
-import com.fyrecloud.andrinoime.R;
+import spartacus.andrinoime.R;
 
 import java.util.HashMap;
 import java.util.Locale;
