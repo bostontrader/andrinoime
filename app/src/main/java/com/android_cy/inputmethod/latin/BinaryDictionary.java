@@ -23,22 +23,22 @@ import android.util.SparseArray;
 //import com.android.inputmethod.annotations.UsedForTesting;
 //import com.android.inputmethod.keyboard.ProximityInfo;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
-//import com.android.inputmethod.latin.makedict.DictionaryHeader;
-//import com.android.inputmethod.latin.makedict.FormatSpec;
-//import com.android.inputmethod.latin.makedict.FormatSpec.DictionaryOptions;
-//import com.android.inputmethod.latin.makedict.UnsupportedFormatException;
+import com.android_cy.inputmethod.latin.makedict.DictionaryHeader;
+import com.android_cy.inputmethod.latin.makedict.FormatSpec;
+import com.android_cy.inputmethod.latin.makedict.FormatSpec.DictionaryOptions;
+import com.android_cy.inputmethod.latin.makedict.UnsupportedFormatException;
 //import com.android.inputmethod.latin.makedict.WordProperty;
 //import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import com.android_cy.inputmethod.latin.utils.BinaryDictionaryUtils;
 import com.android_cy.inputmethod.latin.utils.FileUtils;
 import com.android_cy.inputmethod.latin.utils.JniUtils;
 //import com.android.inputmethod.latin.utils.LanguageModelParam;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 import java.io.File;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 //import java.util.Arrays;
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -162,7 +162,6 @@ public final class BinaryDictionary extends Dictionary {
         //JniUtils.loadNativeLibrary();
     //}
     static {
-        //System.loadLibrary("hello-tommy");
         System.loadLibrary("jni_latinime");
     }
 
@@ -171,9 +170,10 @@ public final class BinaryDictionary extends Dictionary {
     //private static native long openNative();
     //private static native long createOnMemoryNative(long formatVersion,
                                                     //String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
-    //private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
-                                                   //int[] outFormatVersion, ArrayList<int[]> outAttributeKeys,
-                                                   //ArrayList<int[]> outAttributeValues);
+    private static native void getHeaderInfoNative(long dict, int[] outHeaderSize,
+                                                   int[] outFormatVersion, ArrayList<int[]> outAttributeKeys,
+                                                   ArrayList<int[]> outAttributeValues);
+
     //private static native boolean flushNative(long dict, String filePath);
     //private static native boolean needsToRunGCNative(long dict, boolean mindsBlockByGC);
     //private static native boolean flushWithGCNative(long dict, String filePath);
@@ -234,7 +234,7 @@ public final class BinaryDictionary extends Dictionary {
         Log.e(TAG, "dict size: " + mDictSize);
         Log.e(TAG, "updatable: " + mIsUpdatable);
         return true;
-    }
+    }*/
 
     public DictionaryHeader getHeader() throws UnsupportedFormatException {
         if (mNativeDict == 0) {
@@ -248,19 +248,20 @@ public final class BinaryDictionary extends Dictionary {
                 outAttributeValues);
         final HashMap<String, String> attributes = new HashMap<>();
         for (int i = 0; i < outAttributeKeys.size(); i++) {
-            final String attributeKey = StringUtils.getStringFromNullTerminatedCodePointArray(
-                    outAttributeKeys.get(i));
-            final String attributeValue = StringUtils.getStringFromNullTerminatedCodePointArray(
-                    outAttributeValues.get(i));
-            attributes.put(attributeKey, attributeValue);
+            //final String attributeKey = StringUtils.getStringFromNullTerminatedCodePointArray(
+                    //outAttributeKeys.get(i));
+            //final String attributeValue = StringUtils.getStringFromNullTerminatedCodePointArray(
+                    //outAttributeValues.get(i));
+            //attributes.put(attributeKey, attributeValue);
         }
         final boolean hasHistoricalInfo = DictionaryHeader.ATTRIBUTE_VALUE_TRUE.equals(
                 attributes.get(DictionaryHeader.HAS_HISTORICAL_INFO_KEY));
-        return new DictionaryHeader(outHeaderSize[0], new DictionaryOptions(attributes),
-                new FormatSpec.FormatOptions(outFormatVersion[0], hasHistoricalInfo));
+        //return new DictionaryHeader(outHeaderSize[0], new DictionaryOptions(attributes),
+                //new FormatSpec.FormatOptions(outFormatVersion[0], hasHistoricalInfo));
+        return null; // tfr
     }
 
-    @Override
+    /*@Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
                                                        final PrevWordsInfo prevWordsInfo, final ProximityInfo proximityInfo,
                                                        final SettingsValuesForSuggestion settingsValuesForSuggestion,

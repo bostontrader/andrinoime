@@ -20,7 +20,7 @@ package com.android_cy.inputmethod.latin.makedict;
 //import com.android.inputmethod.latin.Constants;
 
 //import java.util.Date;
-//import java.util.HashMap;
+import java.util.HashMap;
 
 /**
  * Dictionary File Format Specification.
@@ -314,34 +314,35 @@ public final class FormatSpec {
     /**
      * Options about file format.
      */
-    /*public static final class FormatOptions {
-        public final int mVersion;
-        public final boolean mHasTimestamp;
+    public static final class FormatOptions {
+        //public final int mVersion;
+        //public final boolean mHasTimestamp;
 
-        @UsedForTesting
-        public FormatOptions(final int version) {*/
+        //@UsedForTesting
+        //public FormatOptions(final int version) {
             //this(version, false /* hasTimestamp */);
-        /*}
+        //}
 
-        public FormatOptions(final int version, final boolean hasTimestamp) {
-            mVersion = version;
-            mHasTimestamp = hasTimestamp;
-        }
-    }*/
+        //public FormatOptions(final int version, final boolean hasTimestamp) {
+            //mVersion = version;
+            //mHasTimestamp = hasTimestamp;
+        //}
+    }
 
     /**
      * Options global to the dictionary.
      */
-    /*public static final class DictionaryOptions {
+    public static final class DictionaryOptions {
         public final HashMap<String, String> mAttributes;
         public DictionaryOptions(final HashMap<String, String> attributes) {
             mAttributes = attributes;
         }
-        @Override
-        public String toString() { // Convenience method
-            return toString(0, false);
-        }
-        public String toString(final int indentCount, final boolean plumbing) {
+
+        //@Override
+        //public String toString() { // Convenience method
+            //return toString(0, false);
+        //}
+        /*public String toString(final int indentCount, final boolean plumbing) {
             final StringBuilder indent = new StringBuilder();
             if (plumbing) {
                 indent.append("H:");
@@ -365,10 +366,10 @@ public final class FormatSpec {
                 s.append("\n");
             }
             return s.toString();
-        }
+        }*/
     }
 
-    private FormatSpec() {
+    //private FormatSpec() {
         // This utility class is not publicly instantiable.
-    }*/
+    //}
 }

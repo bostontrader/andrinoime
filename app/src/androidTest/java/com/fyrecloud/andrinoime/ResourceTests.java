@@ -23,7 +23,7 @@ public class ResourceTests extends AndroidTestCase {
     }
 
     public void test() {
-        Context c = getContext();
+        /*Context c = getContext();
         Resources resources = c.getResources();
         XmlPullParser parser = resources.getXml(R.xml.rowkeys_qwerty1);
         AttributeSet attributes = Xml.asAttributeSet(parser);
@@ -79,7 +79,7 @@ public class ResourceTests extends AndroidTestCase {
 
         //TypedArray ta = r.obtainAttributes(attr, R.styleable.Keyboard_Key);
 
-        assert(true);
+        assert(true);*/
     }
 
 }

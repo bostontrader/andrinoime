@@ -14,10 +14,14 @@ model {
             versionCode = 1
             versionName = "1.0"
         }
-
     }
 
-     android.ndk {
+    android.aaptOptions {
+        noCompress = 'dict'
+    }
+
+
+    android.ndk {
          moduleName = "jni_latinime"
          ldLibs += "log"
 

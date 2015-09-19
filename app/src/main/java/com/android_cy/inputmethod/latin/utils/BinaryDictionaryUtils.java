@@ -17,13 +17,13 @@
 package com.android_cy.inputmethod.latin.utils;
 
 //import com.android.inputmethod.annotations.UsedForTesting;
-//import com.android.inputmethod.latin.BinaryDictionary;
-//import com.android.inputmethod.latin.makedict.DictionaryHeader;
-//import com.android.inputmethod.latin.makedict.UnsupportedFormatException;
+import com.android_cy.inputmethod.latin.BinaryDictionary;
+import com.android_cy.inputmethod.latin.makedict.DictionaryHeader;
+import com.android_cy.inputmethod.latin.makedict.UnsupportedFormatException;
 //import com.android.inputmethod.latin.personalization.PersonalizationHelper;
 
 import java.io.File;
-//import java.io.IOException;
+import java.io.IOException;
 //import java.util.Locale;
 //import java.util.Map;
 //import java.util.regex.Matcher;
@@ -46,25 +46,27 @@ public final class BinaryDictionaryUtils {
     //private static native int editDistanceNative(int[] before, int[] after);
     //private static native int setCurrentTimeForTestNative(int currentTime);
 
-    //public static DictionaryHeader getHeader(final File dictFile)
-            //throws IOException, UnsupportedFormatException {
-        //return getHeaderWithOffsetAndLength(dictFile, 0 /* offset */, dictFile.length());
-    //}
+    public static DictionaryHeader getHeader(final File dictFile)
+        throws IOException, UnsupportedFormatException {
+        return getHeaderWithOffsetAndLength(dictFile, 0 /* offset */, dictFile.length());
+    }
 
-    //public static DictionaryHeader getHeaderWithOffsetAndLength(final File dictFile,
-            //final long offset, final long length) throws IOException, UnsupportedFormatException {
+    public static DictionaryHeader getHeaderWithOffsetAndLength(final File dictFile,
+        final long offset, final long length) throws IOException, UnsupportedFormatException {
         // dictType is never used for reading the header. Passing an empty string.
-        //final BinaryDictionary binaryDictionary = new BinaryDictionary(
-                //dictFile.getAbsolutePath(), offset, length,
-                //true /* useFullEditDistance */, null /* locale */, "" /* dictType */,
-                //false /* isUpdatable */);
-        //final DictionaryHeader header = binaryDictionary.getHeader();
-        //binaryDictionary.close();
-        //if (header == null) {
-            //throw new IOException();
-        //}
-        //return header;
-    //}
+        final BinaryDictionary binaryDictionary = new BinaryDictionary(
+            dictFile.getAbsolutePath(), offset, length,
+            true /* useFullEditDistance */, null /* locale */, "" /* dictType */,
+            false /* isUpdatable */
+        );
+
+        final DictionaryHeader header = binaryDictionary.getHeader();
+        binaryDictionary.close();
+        if (header == null) {
+            throw new IOException();
+        }
+        return header;
+    }
 
     public static boolean renameDict(final File dictFile, final File newDictFile) {
         /*if (dictFile.isFile()) {

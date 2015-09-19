@@ -21,9 +21,9 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 //import android.util.Log;
 
-//import com.android.inputmethod.latin.makedict.DictionaryHeader;
-//import com.android.inputmethod.latin.makedict.UnsupportedFormatException;
-//import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+import com.android_cy.inputmethod.latin.makedict.DictionaryHeader;
+import com.android_cy.inputmethod.latin.makedict.UnsupportedFormatException;
+import com.android_cy.inputmethod.latin.utils.BinaryDictionaryUtils;
 import com.android_cy.inputmethod.latin.utils.DictionaryInfoUtils;
 import com.android_cy.inputmethod.latin.utils.LocaleUtils;
 
@@ -59,7 +59,7 @@ final public class BinaryDictionaryGetter {
     public static final String ID_CATEGORY_SEPARATOR = ":";
 
     // The key considered to read the version attribute in a dictionary file.
-    //private static String VERSION_KEY = "version";
+    private static String VERSION_KEY = "version";
 
     // Prevents this from being instantiated
     //private BinaryDictionaryGetter() {}
@@ -219,7 +219,7 @@ final public class BinaryDictionaryGetter {
         } catch (IOException e) {
             Log.e(TAG, "IOException trying to cleanup files", e);
         }
-    }
+    }*/
 
     // ## HACK ## we prevent usage of a dictionary before version 18. The reason for this is, since
     // those do not include whitelist entries, the new code with an old version of the dictionary
@@ -242,12 +242,12 @@ final public class BinaryDictionaryGetter {
             return false;
         } catch (NumberFormatException e) {
             return false;
-        } catch (BufferUnderflowException e) {
-            return false;
+        //} catch (BufferUnderflowException e) {
+            //return false;
         } catch (UnsupportedFormatException e) {
             return false;
         }
-    }*/
+    }
 
     /**
      * Returns a list of file addresses for a given locale, trying relevant methods in order.
@@ -275,8 +275,8 @@ final public class BinaryDictionaryGetter {
         final ArrayList<AssetFileAddress> fileList = new ArrayList<>();
         // cachedWordLists may not be null, see doc for getCachedDictionaryList
         for (final File f : cachedWordLists) {
-            //final String wordListId = DictionaryInfoUtils.getWordListIdFromFileName(f.getName());
-            //final boolean canUse = f.canRead() && hackCanUseDictionaryFile(locale, f);
+            final String wordListId = DictionaryInfoUtils.getWordListIdFromFileName(f.getName());
+            final boolean canUse = f.canRead() && hackCanUseDictionaryFile(locale, f);
             //if (canUse && DictionaryInfoUtils.isMainWordListId(wordListId)) {
                 //foundMainDict = true;
             //}
