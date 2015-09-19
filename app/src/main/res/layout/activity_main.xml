@@ -15,45 +15,4 @@
 		android:layout_height="wrap_content"
 		android:text="Doit"
 		/>
-
-	<TextView android:text="String from C:" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
-
-	<EditText
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/stringFromC"
-		/>
-
-	<TextView android:text="String from Cpp:" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
-
-	<EditText
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/stringFromCpp"
-		/>
-
-	<TextView android:text="long from C:" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
-
-	<EditText
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/longFromC"
-		/>
-
-	<TextView android:text="long from Cpp:" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
-
-	<EditText
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/longFromCpp"
-		/>
-
 </LinearLayout>

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#define __cplusplus 201103L // tfr to enable std::move
+//#define __cplusplus 201103L // tfr to enable std::move
 //#define LOG_TAG "LatinIME: jni: BinaryDictionary"
 
-#include <android/log.h>
+//#include <android/log.h>
 
 #include "inputmethod_latin_BinaryDictionary.h"
 
@@ -25,7 +25,7 @@
 //#include <vector>
 #include <utility> // std::move
 
-#include "defines.h"
+//#include "defines.h"
 #include <jni.h>
 #include "jni_common.h"
 //#include "suggest/core/dictionary/dictionary.h"
@@ -35,7 +35,7 @@
 //#include "suggest/core/session/prev_words_info.h"
 //#include "suggest/core/suggest_options.h"
 #include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
-#include "suggest/core/dictionary/dictionary.h"
+//#include "suggest/core/dictionary/dictionary.h"
 //#include "dictionary_structure_with_buffer_policy_factory.h"
 //#include "utils/char_utils.h"
 //#include "utils/jni_data_utils.h"
@@ -45,39 +45,54 @@
 namespace latinime {
 
 //class ProximityInfo;
-static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring sourceDir,
-    jlong dictOffset, jlong dictSize, jboolean isUpdatable) {
+    static jlong latinime_BinaryDictionary_open(JNIEnv *env, jclass clazz, jstring sourceDir,
+                                                jlong dictOffset, jlong dictSize, jboolean isUpdatable) {
 
-    // Profiling
-    //PROF_OPEN;
-    //PROF_START(66);
-    AKLOGE("Into BinaryDictionart_open");
+        // Profiling
+        //PROF_OPEN;
+        //PROF_START(66);
+        //AKLOGE("Into BinaryDictionart_open");
 
-    const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
-    if (sourceDirUtf8Length <= 0) {
-        AKLOGE("DICT: Can't get sourceDir string");
-        return 0;
+        const jsize sourceDirUtf8Length = env->GetStringUTFLength(sourceDir);
+        if (sourceDirUtf8Length <= 0) {
+            //AKLOGE("DICT: Can't get sourceDir string");
+            return 0;
+        }
+        char sourceDirChars[sourceDirUtf8Length + 1];
+        env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
+        sourceDirChars[sourceDirUtf8Length] = '\0';
+
+        // Original
+        //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
+        //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+        //sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
+        //isUpdatable == JNI_TRUE));
+
+        int iDictOffset = static_cast<int>(dictOffset);
+        int iDictSize   = static_cast<int>(dictSize);
+
+        DictionaryStructureWithBufferPolicy::StructurePolicyPtr p =
+                DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                        sourceDirChars,
+                        iDictOffset,
+                        iDictSize,
+                        isUpdatable == JNI_TRUE
+                );
+
+        DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(p);
+
+        if (!dictionaryStructureWithBufferPolicy) {
+            //AKLOGE("BinaryDictionart_open ret 0");
+            return 0;
+        }
+
+        //Dictionary *const dictionary =
+        //new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
+        //PROF_END(66);
+        //PROF_CLOSE;
+        //AKLOGE("Exit BinaryDictionart_open");
+        //return reinterpret_cast<jlong>(dictionary);
     }
-    char sourceDirChars[sourceDirUtf8Length + 1];
-    env->GetStringUTFRegion(sourceDir, 0, env->GetStringLength(sourceDir), sourceDirChars);
-    sourceDirChars[sourceDirUtf8Length] = '\0';
-    DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
-        DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-            sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
-            isUpdatable == JNI_TRUE));
-
-     if (!dictionaryStructureWithBufferPolicy) {
-        AKLOGE("BinaryDictionart_open ret 0");
-        return 0;
-    }
-
-    Dictionary *const dictionary =
-        new Dictionary(env, std::move(dictionaryStructureWithBufferPolicy));
-    //PROF_END(66);
-    //PROF_CLOSE;
-    AKLOGE("Exit BinaryDictionart_open");
-    return reinterpret_cast<jlong>(dictionary);
-}
 
 /*static jlong latinime_BinaryDictionary_createOnMemory(JNIEnv *env, jclass clazz,
         jlong formatVersion, jstring locale, jobjectArray attributeKeyStringArray,
@@ -628,129 +643,130 @@ static bool latinime_BinaryDictionary_migrateNative(JNIEnv *env, jclass clazz, j
     return true;
 }*/
 
-static const JNINativeMethod sMethods[] = {
+    static const JNINativeMethod sMethods[] = {
 //static const JNINativeMethod sMethods[1] = {
-    {
-        const_cast<char *>("openNative"),
-        const_cast<char *>("(Ljava/lang/String;JJZ)J"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_open)
-    }
-    /*{
-        const_cast<char *>("createOnMemoryNative"),
-        const_cast<char *>("(JLjava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)J"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_createOnMemory)
-    },
-    {
-        const_cast<char *>("closeNative"),
-        const_cast<char *>("(J)V"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_close)
-    },
-    {
-        const_cast<char *>("getFormatVersionNative"),
-        const_cast<char *>("(J)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getFormatVersion)
-    },
-    {
-        const_cast<char *>("getHeaderInfoNative"),
-        const_cast<char *>("(J[I[ILjava/util/ArrayList;Ljava/util/ArrayList;)V"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getHeaderInfo)
-    },
-    {
-        const_cast<char *>("flushNative"),
-        const_cast<char *>("(JLjava/lang/String;)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_flush)
-    },
-    {
-        const_cast<char *>("needsToRunGCNative"),
-        const_cast<char *>("(JZ)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_needsToRunGC)
-    },
-    {
-        const_cast<char *>("flushWithGCNative"),
-        const_cast<char *>("(JLjava/lang/String;)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_flushWithGC)
-    },
-    {
-        const_cast<char *>("getSuggestionsNative"),
-        const_cast<char *>("(JJJ[I[I[I[I[II[I[[I[Z[I[I[I[I[I[I[F)V"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getSuggestions)
-    },
-    {
-        const_cast<char *>("getProbabilityNative"),
-        const_cast<char *>("(J[I)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getProbability)
-    },
-    {
-        const_cast<char *>("getMaxProbabilityOfExactMatchesNative"),
-        const_cast<char *>("(J[I)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getMaxProbabilityOfExactMatches)
-    },
-    {
-        const_cast<char *>("getNgramProbabilityNative"),
-        const_cast<char *>("(J[[I[Z[I)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getNgramProbability)
-    },
-    {
-        const_cast<char *>("getWordPropertyNative"),
-        const_cast<char *>("(J[IZ[I[Z[ILjava/util/ArrayList;Ljava/util/ArrayList;"
-                "Ljava/util/ArrayList;Ljava/util/ArrayList;)V"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getWordProperty)
-    },
-    {
-        const_cast<char *>("getNextWordNative"),
-        const_cast<char *>("(JI[I[Z)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getNextWord)
-    },
-    {
-        const_cast<char *>("addUnigramEntryNative"),
-        const_cast<char *>("(J[II[IIZZZI)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_addUnigramEntry)
-    },
-    {
-        const_cast<char *>("removeUnigramEntryNative"),
-        const_cast<char *>("(J[I)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_removeUnigramEntry)
-    },
-    {
-        const_cast<char *>("addNgramEntryNative"),
-        const_cast<char *>("(J[[I[Z[III)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_addNgramEntry)
-    },
-    {
-        const_cast<char *>("removeNgramEntryNative"),
-        const_cast<char *>("(J[[I[Z[I)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_removeNgramEntry)
-    },
-    {
-        const_cast<char *>("addMultipleDictionaryEntriesNative"),
-        const_cast<char *>(
-                "(J[Lcom/android/inputmethod/latin/utils/LanguageModelParam;I)I"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_addMultipleDictionaryEntries)
-    },
-    {
-        const_cast<char *>("getPropertyNative"),
-        const_cast<char *>("(JLjava/lang/String;)Ljava/lang/String;"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_getProperty)
-    },
-    {
-        const_cast<char *>("isCorruptedNative"),
-        const_cast<char *>("(J)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_isCorruptedNative)
-    },
-    {
-        const_cast<char *>("migrateNative"),
-        const_cast<char *>("(JLjava/lang/String;J)Z"),
-        reinterpret_cast<void *>(latinime_BinaryDictionary_migrateNative)
-    }
-    */
-};
+            {
+                    const_cast<char *>("openNative"),
+                    const_cast<char *>("(Ljava/lang/String;JJZ)J"),
+                    reinterpret_cast<void *>(latinime_BinaryDictionary_open)
+            }
+            /*{
+                const_cast<char *>("createOnMemoryNative"),
+                const_cast<char *>("(JLjava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)J"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_createOnMemory)
+            },
+            {
+                const_cast<char *>("closeNative"),
+                const_cast<char *>("(J)V"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_close)
+            },
+            {
+                const_cast<char *>("getFormatVersionNative"),
+                const_cast<char *>("(J)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getFormatVersion)
+            },
+            {
+                const_cast<char *>("getHeaderInfoNative"),
+                const_cast<char *>("(J[I[ILjava/util/ArrayList;Ljava/util/ArrayList;)V"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getHeaderInfo)
+            },
+            {
+                const_cast<char *>("flushNative"),
+                const_cast<char *>("(JLjava/lang/String;)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_flush)
+            },
+            {
+                const_cast<char *>("needsToRunGCNative"),
+                const_cast<char *>("(JZ)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_needsToRunGC)
+            },
+            {
+                const_cast<char *>("flushWithGCNative"),
+                const_cast<char *>("(JLjava/lang/String;)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_flushWithGC)
+            },
+            {
+                const_cast<char *>("getSuggestionsNative"),
+                const_cast<char *>("(JJJ[I[I[I[I[II[I[[I[Z[I[I[I[I[I[I[F)V"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getSuggestions)
+            },
+            {
+                const_cast<char *>("getProbabilityNative"),
+                const_cast<char *>("(J[I)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getProbability)
+            },
+            {
+                const_cast<char *>("getMaxProbabilityOfExactMatchesNative"),
+                const_cast<char *>("(J[I)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getMaxProbabilityOfExactMatches)
+            },
+            {
+                const_cast<char *>("getNgramProbabilityNative"),
+                const_cast<char *>("(J[[I[Z[I)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getNgramProbability)
+            },
+            {
+                const_cast<char *>("getWordPropertyNative"),
+                const_cast<char *>("(J[IZ[I[Z[ILjava/util/ArrayList;Ljava/util/ArrayList;"
+                        "Ljava/util/ArrayList;Ljava/util/ArrayList;)V"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getWordProperty)
+            },
+            {
+                const_cast<char *>("getNextWordNative"),
+                const_cast<char *>("(JI[I[Z)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getNextWord)
+            },
+            {
+                const_cast<char *>("addUnigramEntryNative"),
+                const_cast<char *>("(J[II[IIZZZI)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_addUnigramEntry)
+            },
+            {
+                const_cast<char *>("removeUnigramEntryNative"),
+                const_cast<char *>("(J[I)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_removeUnigramEntry)
+            },
+            {
+                const_cast<char *>("addNgramEntryNative"),
+                const_cast<char *>("(J[[I[Z[III)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_addNgramEntry)
+            },
+            {
+                const_cast<char *>("removeNgramEntryNative"),
+                const_cast<char *>("(J[[I[Z[I)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_removeNgramEntry)
+            },
+            {
+                const_cast<char *>("addMultipleDictionaryEntriesNative"),
+                const_cast<char *>(
+                        "(J[Lcom/android/inputmethod/latin/utils/LanguageModelParam;I)I"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_addMultipleDictionaryEntries)
+            },
+            {
+                const_cast<char *>("getPropertyNative"),
+                const_cast<char *>("(JLjava/lang/String;)Ljava/lang/String;"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_getProperty)
+            },
+            {
+                const_cast<char *>("isCorruptedNative"),
+                const_cast<char *>("(J)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_isCorruptedNative)
+            },
+            {
+                const_cast<char *>("migrateNative"),
+                const_cast<char *>("(JLjava/lang/String;J)Z"),
+                reinterpret_cast<void *>(latinime_BinaryDictionary_migrateNative)
+            }
+            */
+    };
 
-int register_BinaryDictionary(JNIEnv *env) {
-    __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "Into register_BinaryDictionary");
+    int register_BinaryDictionary(JNIEnv *env) {
+        //__android_log_print(ANDROID_LOG_VERBOSE, "JNI", "Into register_BinaryDictionary");
 
-    const char *const kClassPathName = "com/android_cy/inputmethod/latin/BinaryDictionary";
-    //return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
-    return registerNativeMethods(env, kClassPathName, sMethods, 1);
-}
+        const char *const kClassPathName = "com/android_cy/inputmethod/latin/BinaryDictionary";
+        //return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
+        return registerNativeMethods(env, kClassPathName, sMethods, 1);
+        //return 0;
+    }
 
 } // namespace latinime

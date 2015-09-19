@@ -130,7 +130,8 @@ public class DictionaryInfoUtils {
      * Helper method to get the top level cache directory.
      */
     private static String getWordListCacheDirectory(final Context context) {
-        return context.getFilesDir() + File.separator + "dicts";
+        String s = context.getFilesDir() + File.separator + "dicts";
+        return s;
     }
 
     /**
@@ -165,7 +166,10 @@ public class DictionaryInfoUtils {
      * Helper method to the list of cache directories, one for each distinct locale.
      */
     public static File[] getCachedDirectoryList(final Context context) {
-        return new File(DictionaryInfoUtils.getWordListCacheDirectory(context)).listFiles();
+        File f = new File(DictionaryInfoUtils.getWordListCacheDirectory(context));
+        File[] fa = f.listFiles();
+        //return new File(DictionaryInfoUtils.getWordListCacheDirectory(context)).listFiles();
+        return fa;
     }
 
     /**

@@ -206,7 +206,8 @@ public final class DictionaryFactory {
      */
     public static boolean isDictionaryAvailable(Context context, Locale locale) {
         final Resources res = context.getResources();
-        return 0 != DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
-                res, locale);
+        int n = DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
+            res, locale);
+        return 0 != n;
     }
 }

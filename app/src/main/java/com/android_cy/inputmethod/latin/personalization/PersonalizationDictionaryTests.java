@@ -33,33 +33,42 @@ import com.android_cy.inputmethod.latin.ExpandableBinaryDictionary.AddMultipleDi
 import com.android_cy.inputmethod.latin.makedict.CodePointUtils;
 import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.test.AndroidTestCase;
-import android.test.suitebuilder.annotation.LargeTest;
+//import android.test.suitebuilder.annotation.LargeTest;
 //import android.util.Log;
 
 /**
  * Unit tests for personalization dictionary
  */
-@LargeTest
-public class PersonalizationDictionaryTests extends AndroidTestCase {
+//@LargeTest
+public class PersonalizationDictionaryTests /*extends AndroidTestCase*/ {
     //private static final String TAG = PersonalizationDictionaryTests.class.getSimpleName();
 
     private static final Locale LOCALE_EN_US = new Locale("en", "US");
     private static final String DUMMY_PACKAGE_NAME = "test.package.name";
     private static final long TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS = 120;
 
-    private DictionaryFacilitator getDictionaryFacilitator() {
+    //private DictionaryFacilitator getDictionaryFacilitator() {
+    private DictionaryFacilitator getDictionaryFacilitator(final Context context) {
         final ArrayList<String> dictTypes = new ArrayList<>();
         dictTypes.add(Dictionary.TYPE_MAIN);
         dictTypes.add(Dictionary.TYPE_PERSONALIZATION);
         final DictionaryFacilitator dictionaryFacilitator = new DictionaryFacilitator();
-        dictionaryFacilitator.resetDictionariesForTesting(getContext(), LOCALE_EN_US, dictTypes,
+
+        //dictionaryFacilitator.resetDictionariesForTesting(getContext(), LOCALE_EN_US, dictTypes,
+        //new HashMap<String, File>(), new HashMap<String, Map<String, String>>());
+        dictionaryFacilitator.resetDictionariesForTesting(context, LOCALE_EN_US, dictTypes,
             new HashMap<String, File>(), new HashMap<String, Map<String, String>>());
+
         return dictionaryFacilitator;
     }
 
-    public void testAddManyTokens() {
-        final DictionaryFacilitator dictionaryFacilitator = getDictionaryFacilitator();
+    //public void testAddManyTokens() {
+    public void testAddManyTokens(final Context context) {
+        //final DictionaryFacilitator dictionaryFacilitator = getDictionaryFacilitator();
+        final DictionaryFacilitator dictionaryFacilitator = getDictionaryFacilitator(context);
         dictionaryFacilitator.clearPersonalizationDictionary();
         final int dataChunkCount = 10;
         final int wordCountInOneChunk = 100;
@@ -67,10 +76,11 @@ public class PersonalizationDictionaryTests extends AndroidTestCase {
         final int[] codePointSet = CodePointUtils.LATIN_ALPHABETS_LOWER;
 
         final SpacingAndPunctuations spacingAndPunctuations =
-            new SpacingAndPunctuations(getContext().getResources());
+                //new SpacingAndPunctuations(getContext().getResources());
+                new SpacingAndPunctuations(context.getResources());
 
         final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(
-            System.currentTimeMillis());
+                System.currentTimeMillis());
 
         for (int i = 0; i < dataChunkCount; i++) {
             final ArrayList<String> tokens = new ArrayList<>();
@@ -78,22 +88,22 @@ public class PersonalizationDictionaryTests extends AndroidTestCase {
                 tokens.add(CodePointUtils.generateWord(random, codePointSet));
             }
             final PersonalizationDataChunk personalizationDataChunk = new PersonalizationDataChunk(
-                true /* inputByUser */, tokens, timeStampInSeconds, DUMMY_PACKAGE_NAME);
+                    true /* inputByUser */, tokens, timeStampInSeconds, DUMMY_PACKAGE_NAME);
             final CountDownLatch countDownLatch = new CountDownLatch(1);
 
             final AddMultipleDictionaryEntriesCallback callback =
-                new AddMultipleDictionaryEntriesCallback() {
-                    @Override
-                    public void onFinished() {
-                        countDownLatch.countDown();
-                    }
-                };
+                    new AddMultipleDictionaryEntriesCallback() {
+                        @Override
+                        public void onFinished() {
+                            countDownLatch.countDown();
+                        }
+                    };
 
             dictionaryFacilitator.addEntriesToPersonalizationDictionary(personalizationDataChunk,
-                spacingAndPunctuations, callback);
+                    spacingAndPunctuations, callback);
             try {
                 countDownLatch.await(TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS,
-                    TimeUnit.SECONDS);
+                        TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 //Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
             }
@@ -101,20 +111,21 @@ public class PersonalizationDictionaryTests extends AndroidTestCase {
         dictionaryFacilitator.flushPersonalizationDictionary();
         try {
             dictionaryFacilitator.waitForLoadingDictionariesForTesting(
-                TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS, TimeUnit.SECONDS);
+                    TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             //Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
         }
 
         final String dictName = ExpandableBinaryDictionary.getDictName(
-            PersonalizationDictionary.NAME, LOCALE_EN_US, null /* dictFile */);
+                PersonalizationDictionary.NAME, LOCALE_EN_US, null /* dictFile */);
         final File dictFile = ExpandableBinaryDictionary.getDictFile(
-            getContext(), dictName, null /* dictFile */);
+                //getContext(), dictName, null /* dictFile */);
+                context, dictName, null /* dictFile */);
 
         final BinaryDictionary binaryDictionary = new BinaryDictionary(dictFile.getAbsolutePath(),
-            0 /* offset */, 0 /* size */,
-            true /* useFullEditDistance */, LOCALE_EN_US, Dictionary.TYPE_PERSONALIZATION,
-            true /* isUpdatable */);
-        assertTrue(binaryDictionary.isValidDictionary());
+                0 /* offset */, 0 /* size */,
+                true /* useFullEditDistance */, LOCALE_EN_US, Dictionary.TYPE_PERSONALIZATION,
+                true /* isUpdatable */);
+        //assertTrue(binaryDictionary.isValidDictionary());
     }
 }

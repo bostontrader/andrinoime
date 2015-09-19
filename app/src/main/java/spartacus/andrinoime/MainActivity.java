@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-
+import com.android_cy.inputmethod.latin.personalization.PersonalizationDictionaryTests;
 /**
  * This Activity is the entry point to the application.  Although technically not necessary,
  * because an IME isa Service, it's handy to have this Activity so that we can display
@@ -17,11 +16,6 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
-    //public native String stringFromC();
-    //public native String stringFromCpp();
-    //public native long longFromC();
-    //public native long longFromCpp();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +24,12 @@ public class MainActivity extends Activity {
         Button btnSubmit = (Button) this.findViewById(R.id.btnDoit);
         btnSubmit.setOnClickListener(
                 new View.OnClickListener() {
-
                     @Override
                     public void onClick(View arg0) {
-                        System.loadLibrary("jni-latinime");
-                        //((EditText) findViewById(R.id.stringFromC)).setText(stringFromC());
-                        //((EditText) findViewById(R.id.stringFromCpp)).setText(stringFromCpp());
-                        //((EditText) findViewById(R.id.longFromC)).setText(Long.toString(longFromC()));
-                        //((EditText) findViewById(R.id.longFromCpp)).setText(Long.toString(longFromCpp()));
+                        System.loadLibrary("jni_latinime");
+
+                        PersonalizationDictionaryTests pdt = new PersonalizationDictionaryTests();
+                        pdt.testAddManyTokens(MainActivity.this);
                     }
                 }
         );
