@@ -126,6 +126,8 @@ public class PersonalizationDictionaryTests /*extends AndroidTestCase*/ {
                 0 /* offset */, 0 /* size */,
                 true /* useFullEditDistance */, LOCALE_EN_US, Dictionary.TYPE_PERSONALIZATION,
                 true /* isUpdatable */);
+
+        boolean b = binaryDictionary.isValidDictionary();
         //assertTrue(binaryDictionary.isValidDictionary());
     }
 }

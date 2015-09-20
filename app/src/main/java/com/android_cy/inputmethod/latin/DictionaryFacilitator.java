@@ -27,7 +27,7 @@ import android.content.Context;
 //import com.android.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 //import com.android.inputmethod.latin.personalization.ContextualDictionary;
 import com.android_cy.inputmethod.latin.personalization.PersonalizationDataChunk;
-//import com.android.inputmethod.latin.personalization.PersonalizationDictionary;
+import com.android_cy.inputmethod.latin.personalization.PersonalizationDictionary;
 //import com.android.inputmethod.latin.personalization.UserHistoryDictionary;
 //import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -38,8 +38,8 @@ import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 //import com.android.inputmethod.latin.utils.SuggestionResults;
 
 import java.io.File;
-//import java.lang.reflect.InvocationTargetException;
-//import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 //import java.util.Arrays;
 import java.util.HashMap;
@@ -79,19 +79,19 @@ public class DictionaryFacilitator {
     public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
             DICT_TYPE_TO_CLASS = new HashMap<>();
 
-    /*static {
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER_HISTORY, UserHistoryDictionary.class);
+    static {
+        //DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER_HISTORY, UserHistoryDictionary.class);
         DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_PERSONALIZATION, PersonalizationDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER, UserBinaryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTACTS, ContactsBinaryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTEXTUAL, ContextualDictionary.class);
+        //DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER, UserBinaryDictionary.class);
+        //DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTACTS, ContactsBinaryDictionary.class);
+        //DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTEXTUAL, ContextualDictionary.class);
     }
 
     private static final String DICT_FACTORY_METHOD_NAME = "getDictionary";
     private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
-            new Class[] { Context.class, Locale.class, File.class, String.class };
+        new Class[] { Context.class, Locale.class, File.class, String.class };
 
-    private static final String[] SUB_DICT_TYPES = */
+    //private static final String[] SUB_DICT_TYPES = */
             //Arrays.copyOfRange(DICT_TYPES_ORDERED_TO_GET_SUGGESTIONS, 1 /* start */,
                     //DICT_TYPES_ORDERED_TO_GET_SUGGESTIONS.length);*/
 
@@ -194,17 +194,17 @@ public class DictionaryFacilitator {
         if (dictClass == null) {
             return null;
         }
-        //try {
-            //final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
-                //DICT_FACTORY_METHOD_ARG_TYPES);
-            //final Object dict = factoryMethod.invoke(null /* obj */,
-                //new Object[] { context, locale, dictFile, dictNamePrefix });
-            //return (ExpandableBinaryDictionary) dict;
-        //} catch (final NoSuchMethodException | SecurityException | IllegalAccessException
-                //| IllegalArgumentException | InvocationTargetException e) {
+        try {
+            final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
+                DICT_FACTORY_METHOD_ARG_TYPES);
+            final Object dict = factoryMethod.invoke(null /* obj */,
+                new Object[] { context, locale, dictFile, dictNamePrefix });
+            return (ExpandableBinaryDictionary) dict;
+        } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
+            | IllegalArgumentException | InvocationTargetException e) {
             //Log.e(TAG, "Cannot create dictionary: " + dictType, e);
             return null;
-        //}
+        }
     }
 
 /*    public void resetDictionaries(final Context context, final Locale newLocale,
