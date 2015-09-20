@@ -31,7 +31,7 @@ import com.android_cy.inputmethod.latin.makedict.FormatSpec;
 //import com.android.inputmethod.latin.utils.DistracterFilter;
 import com.android_cy.inputmethod.latin.utils.ExecutorUtils;
 import com.android_cy.inputmethod.latin.utils.FileUtils;
-//import com.android.inputmethod.latin.utils.LanguageModelParam;
+import com.android_cy.inputmethod.latin.utils.LanguageModelParam;
 
 import java.io.File;
 //import java.util.ArrayList;
@@ -411,30 +411,34 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /**
      * Dynamically add multiple entries to the dictionary.
      */
-    /*public void addMultipleDictionaryEntriesDynamically(
-            final ArrayList<LanguageModelParam> languageModelParams,
-            final AddMultipleDictionaryEntriesCallback callback) {
+    public void addMultipleDictionaryEntriesDynamically(
+        final ArrayList<LanguageModelParam> languageModelParams,
+        final AddMultipleDictionaryEntriesCallback callback) {
         reloadDictionaryIfRequired();
-        asyncExecuteTaskWithWriteLock(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (mBinaryDictionary == null) {
-                        return;
-                    }
-                    mBinaryDictionary.addMultipleDictionaryEntries(
+        asyncExecuteTaskWithWriteLock(
+            new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (mBinaryDictionary == null) {
+                            return;
+                        }
+                        mBinaryDictionary.addMultipleDictionaryEntries(
                             languageModelParams.toArray(
-                                    new LanguageModelParam[languageModelParams.size()]));
-                } finally {
-                    if (callback != null) {
-                        callback.onFinished();
+                                new LanguageModelParam[languageModelParams.size()]
+                            )
+                        );
+                    } finally {
+                        if (callback != null) {
+                            callback.onFinished();
+                        }
                     }
                 }
             }
-        });
+        );
     }
 
-    @Override
+    /*@Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final WordComposer composer,
             final PrevWordsInfo prevWordsInfo, final ProximityInfo proximityInfo,
             final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,

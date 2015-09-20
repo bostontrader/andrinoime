@@ -48,7 +48,7 @@ public class PersonalizationDictionaryTests /*extends AndroidTestCase*/ {
 
     private static final Locale LOCALE_EN_US = new Locale("en", "US");
     private static final String DUMMY_PACKAGE_NAME = "test.package.name";
-    private static final long TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS = 120;
+    private static final long TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS = 10;
 
     //private DictionaryFacilitator getDictionaryFacilitator() {
     private DictionaryFacilitator getDictionaryFacilitator(final Context context) {
@@ -105,6 +105,7 @@ public class PersonalizationDictionaryTests /*extends AndroidTestCase*/ {
                 countDownLatch.await(TIMEOUT_TO_WAIT_DICTIONARY_OPERATIONS_IN_SECONDS,
                         TimeUnit.SECONDS);
             } catch (InterruptedException e) {
+                int j = 0;
                 //Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
             }
         }

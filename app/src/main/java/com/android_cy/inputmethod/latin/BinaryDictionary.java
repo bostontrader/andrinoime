@@ -32,7 +32,7 @@ import com.android_cy.inputmethod.latin.makedict.UnsupportedFormatException;
 import com.android_cy.inputmethod.latin.utils.BinaryDictionaryUtils;
 import com.android_cy.inputmethod.latin.utils.FileUtils;
 import com.android_cy.inputmethod.latin.utils.JniUtils;
-//import com.android.inputmethod.latin.utils.LanguageModelParam;
+import com.android_cy.inputmethod.latin.utils.LanguageModelParam;
 import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 import java.io.File;
@@ -206,10 +206,11 @@ public final class BinaryDictionary extends Dictionary {
                                                       int[] word, int probability, int timestamp);
     private static native boolean removeNgramEntryNative(long dict,
                                                          int[][] prevWordCodePointArrays, boolean[] isBeginningOfSentenceArray, int[] word);
+                                                         */
     private static native int addMultipleDictionaryEntriesNative(long dict,
                                                                  LanguageModelParam[] languageModelParams, int startIndex);
-    private static native String getPropertyNative(long dict, String query);
-    private static native boolean isCorruptedNative(long dict);*/
+    //private static native String getPropertyNative(long dict, String query);
+    //private static native boolean isCorruptedNative(long dict);
     //private static native boolean migrateNative(long dict, String dictFilePath,
                                                 //long newFormatVersion);
 

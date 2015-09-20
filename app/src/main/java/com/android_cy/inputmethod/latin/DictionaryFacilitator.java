@@ -597,20 +597,22 @@ public class DictionaryFacilitator {
             }
             return;
         }
-        //final ArrayList<LanguageModelParam> languageModelParams =
-                //LanguageModelParam.createLanguageModelParamsFrom(
-                        //personalizationDataChunk.mTokens,
-                        //personalizationDataChunk.mTimestampInSeconds,*/
-                        //this /* dictionaryFacilitator */, spacingAndPunctuations,
-                        //new DistracterFilterCheckingIsInDictionary(
-                                //mDistracterFilter, personalizationDict));
+        final ArrayList<LanguageModelParam> languageModelParams =
+            LanguageModelParam.createLanguageModelParamsFrom(
+                //personalizationDataChunk.mTokens,
+                //personalizationDataChunk.mTimestampInSeconds,*/
+                //this /* dictionaryFacilitator */, spacingAndPunctuations,
+                //new DistracterFilterCheckingIsInDictionary(
+                    //mDistracterFilter, personalizationDict)
+            );
+
         //if (languageModelParams == null || languageModelParams.isEmpty()) {
             //if (callback != null) {
                 //callback.onFinished();
             //}
             //return;
         //}
-        //personalizationDict.addMultipleDictionaryEntriesDynamically(languageModelParams, callback);
+        personalizationDict.addMultipleDictionaryEntriesDynamically(languageModelParams, callback);
     }
 
     /*public void addPhraseToContextualDictionary(final String[] phrase, final int probability,
