@@ -20,17 +20,17 @@ package com.android_cy.inputmethod.latin.utils;
 import android.content.Context;
 //import android.content.res.AssetManager;
 import android.content.res.Resources;
-//import android.text.TextUtils;
+import android.text.TextUtils;
 //import android.util.Log;
 
 //import com.android.inputmethod.latin.AssetFileAddress;
 import com.android_cy.inputmethod.latin.BinaryDictionaryGetter;
 import spartacus.andrinoime.R;
-//import com.android.inputmethod.latin.Constants;
+import com.android_cy.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.R;
 //import com.android.inputmethod.latin.makedict.DictionaryHeader;
 //import com.android.inputmethod.latin.makedict.UnsupportedFormatException;
-//import com.android.inputmethod.latin.settings.SpacingAndPunctuations;
+import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 
 import java.io.File;
 //import java.io.IOException;
@@ -386,7 +386,7 @@ public class DictionaryInfoUtils {
         }
 
         return dictList;
-    }
+    }*/
 
     public static boolean looksValidForDictionaryInsertion(final CharSequence text,
             final SpacingAndPunctuations spacingAndPunctuations) {
@@ -413,5 +413,5 @@ public class DictionaryInfoUtils {
         // when writing one's address where the street number is usually quite discriminative,
         // as well as the postal code.
         return digitCount < length;
-    }*/
+    }
 }

@@ -495,23 +495,23 @@ public final class BinaryDictionary extends Dictionary {
         }
         mHasUpdated = true;
         return true;
-    }
+    }*/
 
     public void addMultipleDictionaryEntries(final LanguageModelParam[] languageModelParams) {
         if (!isValidDictionary()) return;
         int processedParamCount = 0;
-        while (processedParamCount < languageModelParams.length) {*/
+        while (processedParamCount < languageModelParams.length) {
             //if (needsToRunGC(true /* mindsBlockByGC */)) {
-                /*flushWithGC();
-            }
-            processedParamCount = addMultipleDictionaryEntriesNative(mNativeDict,
-                    languageModelParams, processedParamCount);
-            mHasUpdated = true;
-            if (processedParamCount <= 0) {
-                return;
-            }
+                //flushWithGC();
+            //}
+            //processedParamCount = addMultipleDictionaryEntriesNative(mNativeDict,
+                    //languageModelParams, processedParamCount);
+            //mHasUpdated = true;
+            //if (processedParamCount <= 0) {
+                //return;
+            //}
         }
-    }*/
+    }
 
     private void reopen() {
         close();

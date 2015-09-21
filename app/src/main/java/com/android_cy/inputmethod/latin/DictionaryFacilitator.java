@@ -34,7 +34,7 @@ import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 //import com.android.inputmethod.latin.utils.DistracterFilter;
 //import com.android.inputmethod.latin.utils.DistracterFilterCheckingIsInDictionary;
 //import com.android.inputmethod.latin.utils.ExecutorUtils;
-//import com.android.inputmethod.latin.utils.LanguageModelParam;
+import com.android_cy.inputmethod.latin.utils.LanguageModelParam;
 //import com.android.inputmethod.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -180,11 +180,11 @@ public class DictionaryFacilitator {
 
     public void updateEnabledSubtypes(final List<InputMethodSubtype> enabledSubtypes) {
         mDistracterFilter.updateEnabledSubtypes(enabledSubtypes);
-    }
+    }*/
 
     public Locale getLocale() {
         return mDictionaries.mLocale;
-    }*/
+    }
 
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
@@ -599,11 +599,11 @@ public class DictionaryFacilitator {
         }
         final ArrayList<LanguageModelParam> languageModelParams =
             LanguageModelParam.createLanguageModelParamsFrom(
-                //personalizationDataChunk.mTokens,
-                //personalizationDataChunk.mTimestampInSeconds,*/
-                //this /* dictionaryFacilitator */, spacingAndPunctuations,
-                //new DistracterFilterCheckingIsInDictionary(
-                    //mDistracterFilter, personalizationDict)
+                personalizationDataChunk.mTokens,
+                personalizationDataChunk.mTimestampInSeconds,
+                this /* dictionaryFacilitator */, spacingAndPunctuations
+                new DistracterFilterCheckingIsInDictionary(
+                    mDistracterFilter, personalizationDict)
             );
 
         //if (languageModelParams == null || languageModelParams.isEmpty()) {

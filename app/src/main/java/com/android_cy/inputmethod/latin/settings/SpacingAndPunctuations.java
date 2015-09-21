@@ -23,16 +23,18 @@ import android.content.res.Resources;
 //import com.android.inputmethod.latin.Constants;
 //import com.android.inputmethod.latin.PunctuationSuggestions;
 //import com.android.inputmethod.latin.R;
-//import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
-//import java.util.Arrays;
+import java.util.Arrays;
+
+import spartacus.andrinoime.R;
 //import java.util.Locale;
 
 public final class SpacingAndPunctuations {
     //private final int[] mSortedSymbolsPrecededBySpace;
     //private final int[] mSortedSymbolsFollowedBySpace;
     //private final int[] mSortedSymbolsClusteringTogether;
-    //private final int[] mSortedWordConnectors;
+    private final int[] mSortedWordConnectors;
     //public final int[] mSortedWordSeparators;
     //public final PunctuationSuggestions mSuggestPuncList;
     //private final int mSentenceSeparator;
@@ -43,17 +45,17 @@ public final class SpacingAndPunctuations {
 
     public SpacingAndPunctuations(final Resources res) {
         // To be able to binary search the code point. See {@link #isUsuallyPrecededBySpace(int)}.
-        /*mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_preceded_by_space));
+        //mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(
+            //res.getString(R.string.symbols_preceded_by_space));
         // To be able to binary search the code point. See {@link #isUsuallyFollowedBySpace(int)}.
-        mSortedSymbolsFollowedBySpace = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_followed_by_space));
-        mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_clustering_together));
+        //mSortedSymbolsFollowedBySpace = StringUtils.toSortedCodePointArray(
+            //res.getString(R.string.symbols_followed_by_space));
+        //mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(
+            //res.getString(R.string.symbols_clustering_together));
         // To be able to binary search the code point. See {@link #isWordConnector(int)}.
         mSortedWordConnectors = StringUtils.toSortedCodePointArray(
                 res.getString(R.string.symbols_word_connectors));
-        mSortedWordSeparators = StringUtils.toSortedCodePointArray(
+        /*mSortedWordSeparators = StringUtils.toSortedCodePointArray(
                 res.getString(R.string.symbols_word_separators));
         mSentenceSeparator = res.getInteger(R.integer.sentence_separator);
         mSentenceSeparatorAndSpace = new String(new int[] {
@@ -87,7 +89,7 @@ public final class SpacingAndPunctuations {
 
     public boolean isWordSeparator(final int code) {
         return Arrays.binarySearch(mSortedWordSeparators, code) >= 0;
-    }
+    }*/
 
     public boolean isWordConnector(final int code) {
         return Arrays.binarySearch(mSortedWordConnectors, code) >= 0;
@@ -97,7 +99,7 @@ public final class SpacingAndPunctuations {
         return Character.isLetter(code) || isWordConnector(code);
     }
 
-    public boolean isUsuallyPrecededBySpace(final int code) {
+    /*public boolean isUsuallyPrecededBySpace(final int code) {
         return Arrays.binarySearch(mSortedSymbolsPrecededBySpace, code) >= 0;
     }
 

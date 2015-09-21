@@ -19,9 +19,9 @@ package com.android_cy.inputmethod.latin.utils;
 import android.util.Log;
 
 //import com.android.inputmethod.latin.Dictionary;
-//import com.android.inputmethod.latin.DictionaryFacilitator;
-//import com.android.inputmethod.latin.PrevWordsInfo;
-//import com.android.inputmethod.latin.settings.SpacingAndPunctuations;
+import com.android_cy.inputmethod.latin.DictionaryFacilitator;
+import com.android_cy.inputmethod.latin.PrevWordsInfo;
+import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,14 +76,14 @@ public final class LanguageModelParam {
         mIsNotAWord = false;
         mIsBlacklisted = false;
         mTimestamp = timestamp;
-    }
+    }*/
 
     // Process a list of words and return a list of {@link LanguageModelParam} objects.
     public static ArrayList<LanguageModelParam> createLanguageModelParamsFrom(
-            final List<String> tokens, final int timestamp,
-            final DictionaryFacilitator dictionaryFacilitator,
-            final SpacingAndPunctuations spacingAndPunctuations,
-            final DistracterFilter distracterFilter) {
+        final List<String> tokens, final int timestamp,
+        final DictionaryFacilitator dictionaryFacilitator,
+        final SpacingAndPunctuations spacingAndPunctuations,
+        final DistracterFilter distracterFilter) {
         final ArrayList<LanguageModelParam> languageModelParams = new ArrayList<>();
         final int N = tokens.size();
         PrevWordsInfo prevWordsInfo = PrevWordsInfo.EMPTY_PREV_WORDS_INFO;
@@ -91,62 +91,63 @@ public final class LanguageModelParam {
             final String tempWord = tokens.get(i);
             if (StringUtils.isEmptyStringOrWhiteSpaces(tempWord)) {
                 // just skip this token
-                if (DEBUG_TOKEN) {
-                    Log.d(TAG, "--- isEmptyStringOrWhiteSpaces: \"" + tempWord + "\"");
-                }
+                //if (DEBUG_TOKEN) {
+                    //Log.d(TAG, "--- isEmptyStringOrWhiteSpaces: \"" + tempWord + "\"");
+                //}
                 continue;
             }
             if (!DictionaryInfoUtils.looksValidForDictionaryInsertion(
-                    tempWord, spacingAndPunctuations)) {
-                if (DEBUG_TOKEN) {
-                    Log.d(TAG, "--- not looksValidForDictionaryInsertion: \""
-                            + tempWord + "\"");
-                }
+                tempWord, spacingAndPunctuations)) {
+                //if (DEBUG_TOKEN) {
+                    //Log.d(TAG, "--- not looksValidForDictionaryInsertion: \""
+                            //+ tempWord + "\"");
+                //}
                 // Sentence terminator found. Split.
                 prevWordsInfo = PrevWordsInfo.EMPTY_PREV_WORDS_INFO;
                 continue;
             }
-            if (DEBUG_TOKEN) {
-                Log.d(TAG, "--- word: \"" + tempWord + "\"");
-            }
+            //if (DEBUG_TOKEN) {
+                //Log.d(TAG, "--- word: \"" + tempWord + "\"");
+            //}
             final LanguageModelParam languageModelParam =
-                    detectWhetherVaildWordOrNotAndGetLanguageModelParam(
-                            prevWordsInfo, tempWord, timestamp, dictionaryFacilitator,
-                            distracterFilter);
+                detectWhetherVaildWordOrNotAndGetLanguageModelParam(
+                prevWordsInfo, tempWord, timestamp, dictionaryFacilitator,
+                distracterFilter
+            );
             if (languageModelParam == null) {
                 continue;
             }
             languageModelParams.add(languageModelParam);
             prevWordsInfo = prevWordsInfo.getNextPrevWordsInfo(
-                    new PrevWordsInfo.WordInfo(tempWord));
+                new PrevWordsInfo.WordInfo(tempWord));
         }
         return languageModelParams;
     }
 
     private static LanguageModelParam detectWhetherVaildWordOrNotAndGetLanguageModelParam(
-            final PrevWordsInfo prevWordsInfo, final String targetWord, final int timestamp,
-            final DictionaryFacilitator dictionaryFacilitator,
-            final DistracterFilter distracterFilter) {
+        final PrevWordsInfo prevWordsInfo, final String targetWord, final int timestamp,
+        final DictionaryFacilitator dictionaryFacilitator,
+        final DistracterFilter distracterFilter) {
         final Locale locale = dictionaryFacilitator.getLocale();
         if (locale == null) {
             return null;
-        }*/
-        //if (dictionaryFacilitator.isValidWord(targetWord, false /* ignoreCase */)) {
-            //return createAndGetLanguageModelParamOfWord(prevWordsInfo, targetWord, timestamp,
-                    //true /* isValidWord */, locale, distracterFilter);
-        //}
+        }
+        if (dictionaryFacilitator.isValidWord(targetWord, false /* ignoreCase */)) {
+            return createAndGetLanguageModelParamOfWord(prevWordsInfo, targetWord, timestamp,
+                true /* isValidWord */, locale, distracterFilter);
+        }
 
-        //final String lowerCaseTargetWord = targetWord.toLowerCase(locale);
-        //if (dictionaryFacilitator.isValidWord(lowerCaseTargetWord, false /* ignoreCase */)) {
+        final String lowerCaseTargetWord = targetWord.toLowerCase(locale);
+        if (dictionaryFacilitator.isValidWord(lowerCaseTargetWord, false /* ignoreCase */)) {
             // Add the lower-cased word.
-            //return createAndGetLanguageModelParamOfWord(prevWordsInfo, lowerCaseTargetWord,
-                    //timestamp, true /* isValidWord */, locale, distracterFilter);
-        //}
+            return createAndGetLanguageModelParamOfWord(prevWordsInfo, lowerCaseTargetWord,
+                timestamp, true /* isValidWord */, locale, distracterFilter);
+        }
 
         // Treat the word as an OOV word.
-        //return createAndGetLanguageModelParamOfWord(prevWordsInfo, targetWord, timestamp,
-                //false /* isValidWord */, locale, distracterFilter);
-    //}
+        return createAndGetLanguageModelParamOfWord(prevWordsInfo, targetWord, timestamp,
+            false /* isValidWord */, locale, distracterFilter);
+    }
 
     /*private static LanguageModelParam createAndGetLanguageModelParamOfWord(
             final PrevWordsInfo prevWordsInfo, final String targetWord, final int timestamp,

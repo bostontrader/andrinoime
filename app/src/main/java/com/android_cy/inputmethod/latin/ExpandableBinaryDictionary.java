@@ -34,7 +34,7 @@ import com.android_cy.inputmethod.latin.utils.FileUtils;
 import com.android_cy.inputmethod.latin.utils.LanguageModelParam;
 
 import java.io.File;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

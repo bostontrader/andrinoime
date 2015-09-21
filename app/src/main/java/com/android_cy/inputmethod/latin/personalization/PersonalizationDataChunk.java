@@ -16,22 +16,22 @@
 
 package com.android_cy.inputmethod.latin.personalization;
 
-//import java.util.Collections;
+import java.util.Collections;
 import java.util.List;
 //import java.util.Locale;
 
 public class PersonalizationDataChunk {
     //public final boolean mInputByUser;
-    //public final List<String> mTokens;
-    //public final int mTimestampInSeconds;
+    public final List<String> mTokens;
+    public final int mTimestampInSeconds;
     //public final String mPackageName;
     //public final Locale mlocale = null;
 
     public PersonalizationDataChunk(boolean inputByUser, final List<String> tokens,
-            final int timestampInSeconds, final String packageName) {
+        final int timestampInSeconds, final String packageName) {
         //mInputByUser = inputByUser;
-        //mTokens = Collections.unmodifiableList(tokens);
-        //mTimestampInSeconds = timestampInSeconds;
+        mTokens = Collections.unmodifiableList(tokens);
+        mTimestampInSeconds = timestampInSeconds;
         //mPackageName = packageName;
     }
 }

@@ -91,14 +91,14 @@ public abstract class Dictionary {
      * @param word the word to search for. The search should be case-insensitive.
      * @return true if the word is valid, false otherwise
      */
-    //public boolean isValidWord(final String word) {
-        //return isInDictionary(word);
-    //}
+    public boolean isValidWord(final String word) {
+        return isInDictionary(word);
+    }
 
     /**
      * Checks if the given word is in the dictionary regardless of it being valid or not.
      */
-    //abstract public boolean isInDictionary(final String word);
+    abstract public boolean isInDictionary(final String word);
 
     //public int getFrequency(final String word) {
         //return NOT_A_PROBABILITY;

@@ -25,7 +25,7 @@ import android.text.TextUtils;
 //import com.android.inputmethod.latin.Constants;
 
 //import java.util.ArrayList;
-//import java.util.Arrays;
+import java.util.Arrays;
 //import java.util.Locale;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
@@ -155,7 +155,7 @@ public final class StringUtils {
         final String titleCaseFirstLetter = toUpperCaseOfStringForLocale(
                 s.substring(0, cutoff), true /star needsToUpperCase star/, locale);
         return titleCaseFirstLetter + s.substring(cutoff).toLowerCase(locale);
-    }
+    }*/
 
     private static final int[] EMPTY_CODEPOINTS = {};
 
@@ -163,13 +163,13 @@ public final class StringUtils {
         return toCodePointArray(charSequence, 0, charSequence.length());
     }
 
-    /star*
+    /**
      * Converts a range of a string to an array of code points.
      * @param charSequence the source string.
      * @param startIndex the start index inside the string in java chars, inclusive.
      * @param endIndex the end index inside the string in java chars, exclusive.
      * @return a new array of code points. At most endIndex - startIndex, but possibly less.
-     star/
+     */
     public static int[] toCodePointArray(final CharSequence charSequence,
                                          final int startIndex, final int endIndex) {
         final int length = charSequence.length();
@@ -177,13 +177,13 @@ public final class StringUtils {
             return EMPTY_CODEPOINTS;
         }
         final int[] codePoints =
-                new int[Character.codePointCount(charSequence, startIndex, endIndex)];
+            new int[Character.codePointCount(charSequence, startIndex, endIndex)];
         copyCodePointsAndReturnCodePointCount(codePoints, charSequence, startIndex, endIndex,
-                false /star downCase star/);
+                false /* downCase */);
         return codePoints;
     }
 
-    /star*
+    /**
      * Copies the codepoints in a CharSequence to an int array.
      *
      * This method assumes there is enough space in the array to store the code points. The size
@@ -200,7 +200,7 @@ public final class StringUtils {
      * @param endIndex the end index inside the string in java chars, exclusive.
      * @param downCase if this is true, code points will be downcased before being copied.
      * @return the number of copied code points.
-     star/
+     */
     public static int copyCodePointsAndReturnCodePointCount(final int[] destination,
                                                             final CharSequence charSequence, final int startIndex, final int endIndex,
                                                             final boolean downCase) {
@@ -222,7 +222,7 @@ public final class StringUtils {
         return codePoints;
     }
 
-    /star*
+    /**
      * Construct a String from a code point array
      *
      * @param codePoints a code point array that is null terminated when its logical length is
@@ -446,7 +446,7 @@ public final class StringUtils {
         // We reached the start of text. If the first char is a double quote, then we're inside
         // a double quote. Otherwise we're not.
         return Constants.CODE_DOUBLE_QUOTE == codePoint;
-    }
+    }*/
 
     public static boolean isEmptyStringOrWhiteSpaces(final String s) {
         final int N = codePointCount(s);
@@ -458,7 +458,7 @@ public final class StringUtils {
         return true;
     }
 
-    @UsedForTesting
+    /*@UsedForTesting
     public static String byteArrayToHexString(final byte[] bytes) {
         if (bytes == null || bytes.length == 0) {
             return EMPTY_STRING;
