@@ -40,7 +40,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
-//import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -59,7 +59,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /** Whether to print debug output to log */
     //private static final boolean DBG_STRESS_TEST = false;
 
-    //private static final int TIMEOUT_FOR_READ_OPS_IN_MILLISECONDS = 100;
+    private static final int TIMEOUT_FOR_READ_OPS_IN_MILLISECONDS = 100;
 
     //private static final int DEFAULT_MAX_UNIGRAM_COUNT = 10000;
     //private static final int DEFAULT_MAX_BIGRAM_COUNT = 10000;
@@ -472,7 +472,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         return null;
     }*/
 
-    /*@Override
+    @Override
     public boolean isInDictionary(final String word) {
         reloadDictionaryIfRequired();
         boolean lockAcquired = false;
@@ -486,7 +486,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                 return isInDictionaryLocked(word);
             }
         } catch (final InterruptedException e) {
-            Log.e(TAG, "Interrupted tryLock() in isInDictionary().", e);
+            //Log.e(TAG, "Interrupted tryLock() in isInDictionary().", e);
         } finally {
             if (lockAcquired) {
                 mLock.readLock().unlock();
@@ -500,7 +500,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         return mBinaryDictionary.isInDictionary(word);
     }
 
-    @Override
+    /*@Override
     public int getMaxFrequencyOfExactMatches(final String word) {
         reloadDictionaryIfRequired();
         boolean lockAcquired = false;

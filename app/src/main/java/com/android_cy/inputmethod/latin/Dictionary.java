@@ -28,7 +28,7 @@ package com.android_cy.inputmethod.latin;
  * strokes.
  */
 public abstract class Dictionary {
-    //public static final int NOT_A_PROBABILITY = -1;
+    public static final int NOT_A_PROBABILITY = -1;
     //public static final float NOT_A_LANGUAGE_WEIGHT = -1.0f;
 
     // The following types do not actually come from real dictionary instances, so we create
@@ -100,9 +100,9 @@ public abstract class Dictionary {
      */
     abstract public boolean isInDictionary(final String word);
 
-    //public int getFrequency(final String word) {
-        //return NOT_A_PROBABILITY;
-    //}
+    public int getFrequency(final String word) {
+        return NOT_A_PROBABILITY;
+    }
 
     //public int getMaxFrequencyOfExactMatches(final String word) {
         //return NOT_A_PROBABILITY;

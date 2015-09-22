@@ -31,9 +31,9 @@ import java.util.Arrays;
 //import java.util.regex.Pattern;
 
 public final class StringUtils {
-    //public static final int CAPITALIZE_NONE = 0;  // No caps, or mixed case
-    //public static final int CAPITALIZE_FIRST = 1; // First only
-    //public static final int CAPITALIZE_ALL = 2;   // All caps
+    public static final int CAPITALIZE_NONE = 0;  // No caps, or mixed case
+    public static final int CAPITALIZE_FIRST = 1; // First only
+    public static final int CAPITALIZE_ALL = 2;   // All caps
 
     //private static final String EMPTY_STRING = "";
 
@@ -238,7 +238,7 @@ public final class StringUtils {
             }
         }
         return new String(codePoints, 0 /star offset star/, stringLength);
-    }
+    }*/
 
     // This method assumes the text is not null. For the empty string, it returns CAPITALIZE_NONE.
     public static int getCapitalizationType(final String text) {
@@ -277,7 +277,7 @@ public final class StringUtils {
         return (letterCount == capsCount ? CAPITALIZE_ALL : CAPITALIZE_NONE);
     }
 
-    public static boolean isIdenticalAfterUpcase(final String text) {
+    /*public static boolean isIdenticalAfterUpcase(final String text) {
         final int length = text.length();
         int i = 0;
         while (i < length) {

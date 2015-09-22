@@ -63,7 +63,7 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
             }
         }
         return null;
-    }
+    }*/
 
     @Override
     public boolean isInDictionary(final String word) {
@@ -77,7 +77,7 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
         return false;
     }
 
-    @Override
+    /*@Override
     public boolean shouldAutoCommit(final SuggestedWordInfo candidate) {
         if (mLock.readLock().tryLock()) {
             try {

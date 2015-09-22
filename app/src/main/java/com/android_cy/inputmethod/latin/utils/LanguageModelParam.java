@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.latin.utils;
 
 import android.util.Log;
 
-//import com.android.inputmethod.latin.Dictionary;
+import com.android_cy.inputmethod.latin.Dictionary;
 import com.android_cy.inputmethod.latin.DictionaryFacilitator;
 import com.android_cy.inputmethod.latin.PrevWordsInfo;
 import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -38,10 +38,10 @@ public final class LanguageModelParam {
     // decaying dynamic binary dictionaries. When these are referred to, what matters is 0 or
     // non-0. Thus, it's not meaningful to compare 10, 100, and so on.
     // TODO: Revise the logic in ForgettingCurveUtils in native code.
-    //private static final int UNIGRAM_PROBABILITY_FOR_VALID_WORD = 100;
-    //private static final int UNIGRAM_PROBABILITY_FOR_OOV_WORD = Dictionary.NOT_A_PROBABILITY;
-    //private static final int BIGRAM_PROBABILITY_FOR_VALID_WORD = 10;
-    //private static final int BIGRAM_PROBABILITY_FOR_OOV_WORD = Dictionary.NOT_A_PROBABILITY;
+    private static final int UNIGRAM_PROBABILITY_FOR_VALID_WORD = 100;
+    private static final int UNIGRAM_PROBABILITY_FOR_OOV_WORD = Dictionary.NOT_A_PROBABILITY;
+    private static final int BIGRAM_PROBABILITY_FOR_VALID_WORD = 10;
+    private static final int BIGRAM_PROBABILITY_FOR_OOV_WORD = Dictionary.NOT_A_PROBABILITY;
 
     //public final CharSequence mTargetWord;
     //public final int[] mWord0;
@@ -57,26 +57,26 @@ public final class LanguageModelParam {
     //public final int mTimestamp;
 
     // Constructor for unigram. TODO: support shortcuts
-    //public LanguageModelParam(final CharSequence word, final int unigramProbability,
-            //final int timestamp) {
-        //this(null /* word0 */, word, unigramProbability, Dictionary.NOT_A_PROBABILITY, timestamp);
-    //}
+    public LanguageModelParam(final CharSequence word, final int unigramProbability,
+        final int timestamp) {
+        this(null /* word0 */, word, unigramProbability, Dictionary.NOT_A_PROBABILITY, timestamp);
+    }
 
     // Constructor for unigram and bigram.
-    /*public LanguageModelParam(final CharSequence word0, final CharSequence word1,
+    public LanguageModelParam(final CharSequence word0, final CharSequence word1,
             final int unigramProbability, final int bigramProbability,
             final int timestamp) {
-        mTargetWord = word1;
-        mWord0 = (word0 == null) ? null : StringUtils.toCodePointArray(word0);
-        mWord1 = StringUtils.toCodePointArray(word1);
-        mShortcutTarget = null;
-        mUnigramProbability = unigramProbability;
-        mBigramProbability = bigramProbability;
-        mShortcutProbability = Dictionary.NOT_A_PROBABILITY;
-        mIsNotAWord = false;
-        mIsBlacklisted = false;
-        mTimestamp = timestamp;
-    }*/
+        //mTargetWord = word1;
+        //mWord0 = (word0 == null) ? null : StringUtils.toCodePointArray(word0);
+        //mWord1 = StringUtils.toCodePointArray(word1);
+        //mShortcutTarget = null;
+        //mUnigramProbability = unigramProbability;
+        //mBigramProbability = bigramProbability;
+        //mShortcutProbability = Dictionary.NOT_A_PROBABILITY;
+        //mIsNotAWord = false;
+        //mIsBlacklisted = false;
+        //mTimestamp = timestamp;
+    }
 
     // Process a list of words and return a list of {@link LanguageModelParam} objects.
     public static ArrayList<LanguageModelParam> createLanguageModelParamsFrom(
@@ -149,7 +149,7 @@ public final class LanguageModelParam {
             false /* isValidWord */, locale, distracterFilter);
     }
 
-    /*private static LanguageModelParam createAndGetLanguageModelParamOfWord(
+    private static LanguageModelParam createAndGetLanguageModelParamOfWord(
             final PrevWordsInfo prevWordsInfo, final String targetWord, final int timestamp,
             final boolean isValidWord, final Locale locale,
             final DistracterFilter distracterFilter) {
@@ -162,27 +162,27 @@ public final class LanguageModelParam {
         }
         // Check whether the word is a distracter to words in the dictionaries.
         if (distracterFilter.isDistracterToWordsInDictionaries(prevWordsInfo, word, locale)) {
-            if (DEBUG) {
-                Log.d(TAG, "The word (" + word + ") is a distracter. Skip this word.");
-            }
+            //if (DEBUG) {
+                //Log.d(TAG, "The word (" + word + ") is a distracter. Skip this word.");
+            //}
             return null;
         }
         final int unigramProbability = isValidWord ?
                 UNIGRAM_PROBABILITY_FOR_VALID_WORD : UNIGRAM_PROBABILITY_FOR_OOV_WORD;
         if (!prevWordsInfo.isValid()) {
-            if (DEBUG) {
-                Log.d(TAG, "--- add unigram: current("
-                        + (isValidWord ? "Valid" : "OOV") + ") = " + word);
-            }
+            //if (DEBUG) {
+                //Log.d(TAG, "--- add unigram: current("
+                    //+ (isValidWord ? "Valid" : "OOV") + ") = " + word);
+            //}
             return new LanguageModelParam(word, unigramProbability, timestamp);
         }
-        if (DEBUG) {
-            Log.d(TAG, "--- add bigram: prev = " + prevWordsInfo + ", current("
-                    + (isValidWord ? "Valid" : "OOV") + ") = " + word);
-        }
+        //if (DEBUG) {
+            //Log.d(TAG, "--- add bigram: prev = " + prevWordsInfo + ", current("
+                //+ (isValidWord ? "Valid" : "OOV") + ") = " + word);
+        //}
         final int bigramProbability = isValidWord ?
                 BIGRAM_PROBABILITY_FOR_VALID_WORD : BIGRAM_PROBABILITY_FOR_OOV_WORD;
         return new LanguageModelParam(prevWordsInfo.mPrevWordsInfo[0].mWord, word,
                 unigramProbability, bigramProbability, timestamp);
-    }*/
+    }
 }

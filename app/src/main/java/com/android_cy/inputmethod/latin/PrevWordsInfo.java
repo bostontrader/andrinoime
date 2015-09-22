@@ -18,7 +18,7 @@ package com.android_cy.inputmethod.latin;
 
 import android.text.TextUtils;
 
-import com.android.inputmethod.latin.utils.StringUtils;
+import com.android_cy.inputmethod.latin.utils.StringUtils;
 
 import java.util.Arrays;
 

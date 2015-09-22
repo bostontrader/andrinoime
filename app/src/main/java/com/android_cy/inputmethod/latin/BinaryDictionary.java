@@ -16,7 +16,7 @@
 
 package com.android_cy.inputmethod.latin;
 
-//import android.text.TextUtils;
+import android.text.TextUtils;
 //import android.util.Log;
 import android.util.SparseArray;
 
@@ -179,8 +179,8 @@ public final class BinaryDictionary extends Dictionary {
     //private static native boolean flushWithGCNative(long dict, String filePath);
     //private static native void closeNative(long dict);
     //private static native int getFormatVersionNative(long dict);
-    /*private static native int getProbabilityNative(long dict, int[] word);
-    private static native int getMaxProbabilityOfExactMatchesNative(long dict, int[] word);
+    private static native int getProbabilityNative(long dict, int[] word);
+    /*private static native int getMaxProbabilityOfExactMatchesNative(long dict, int[] word);
     private static native int getNgramProbabilityNative(long dict, int[][] prevWordCodePointArrays,
                                                         boolean[] isBeginningOfSentenceArray, int[] word);
     private static native void getWordPropertyNative(long dict, int[] word,
@@ -341,7 +341,7 @@ public final class BinaryDictionary extends Dictionary {
         return 0; // tfr
     }
 
-    /*@Override
+    @Override
     public boolean isInDictionary(final String word) {
         return getFrequency(word) != NOT_A_PROBABILITY;
     }
@@ -353,7 +353,7 @@ public final class BinaryDictionary extends Dictionary {
         return getProbabilityNative(mNativeDict, codePoints);
     }
 
-    @Override
+    /*@Override
     public int getMaxFrequencyOfExactMatches(final String word) {
         if (TextUtils.isEmpty(word)) return NOT_A_PROBABILITY;
         int[] codePoints = StringUtils.toCodePointArray(word);

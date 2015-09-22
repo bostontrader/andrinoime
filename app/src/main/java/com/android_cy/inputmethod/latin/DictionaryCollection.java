@@ -76,7 +76,7 @@ public final class DictionaryCollection extends Dictionary {
             if (null != sugg) suggestions.addAll(sugg);
         }
         return suggestions;
-    }
+    }*/
 
     @Override
     public boolean isInDictionary(final String word) {
@@ -85,7 +85,7 @@ public final class DictionaryCollection extends Dictionary {
         return false;
     }
 
-    @Override
+    /*@Override
     public int getFrequency(final String word) {
         int maxFreq = -1;
         for (int i = mDictionaries.size() - 1; i >= 0; --i) {

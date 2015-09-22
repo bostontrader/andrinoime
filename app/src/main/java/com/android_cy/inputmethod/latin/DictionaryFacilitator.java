@@ -17,7 +17,7 @@
 package com.android_cy.inputmethod.latin;
 
 import android.content.Context;
-//import android.text.TextUtils;
+import android.text.TextUtils;
 //import android.util.Log;
 //import android.view.inputmethod.InputMethodSubtype;
 
@@ -31,8 +31,8 @@ import com.android_cy.inputmethod.latin.personalization.PersonalizationDictionar
 //import com.android.inputmethod.latin.personalization.UserHistoryDictionary;
 //import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import com.android_cy.inputmethod.latin.settings.SpacingAndPunctuations;
-//import com.android.inputmethod.latin.utils.DistracterFilter;
-//import com.android.inputmethod.latin.utils.DistracterFilterCheckingIsInDictionary;
+import com.android_cy.inputmethod.latin.utils.DistracterFilter;
+import com.android_cy.inputmethod.latin.utils.DistracterFilterCheckingIsInDictionary;
 //import com.android.inputmethod.latin.utils.ExecutorUtils;
 import com.android_cy.inputmethod.latin.utils.LanguageModelParam;
 //import com.android.inputmethod.latin.utils.SuggestionResults;
@@ -64,17 +64,17 @@ public class DictionaryFacilitator {
     private volatile CountDownLatch mLatchForWaitingLoadingMainDictionary = new CountDownLatch(0);
     // To synchronize assigning mDictionaries to ensure closing dictionaries.
     //private final Object mLock = new Object();
-    //private final DistracterFilter mDistracterFilter;
+    private final DistracterFilter mDistracterFilter;
 
-    //private static final String[] DICT_TYPES_ORDERED_TO_GET_SUGGESTIONS =
-            //new String[] {
-                //Dictionary.TYPE_MAIN,
-                //Dictionary.TYPE_USER_HISTORY,
-                //Dictionary.TYPE_PERSONALIZATION,
-                //Dictionary.TYPE_USER,
-                //Dictionary.TYPE_CONTACTS,
-                //Dictionary.TYPE_CONTEXTUAL
-            //};
+    private static final String[] DICT_TYPES_ORDERED_TO_GET_SUGGESTIONS =
+        new String[] {
+            Dictionary.TYPE_MAIN,
+            //Dictionary.TYPE_USER_HISTORY,
+            Dictionary.TYPE_PERSONALIZATION,
+            //Dictionary.TYPE_USER,
+            //Dictionary.TYPE_CONTACTS,
+            //Dictionary.TYPE_CONTEXTUAL
+        };
 
     public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
             DICT_TYPE_TO_CLASS = new HashMap<>();
@@ -133,13 +133,13 @@ public class DictionaryFacilitator {
             }
         }
 
-        /*public Dictionary getDict(final String dictType) {
+        public Dictionary getDict(final String dictType) {
             if (Dictionary.TYPE_MAIN.equals(dictType)) {
                 return mMainDict;
             } else {
                 return getSubDict(dictType);
             }
-        }*/
+        }
 
         public ExpandableBinaryDictionary getSubDict(final String dictType) {
             return mSubDictMap.get(dictType);
@@ -166,9 +166,9 @@ public class DictionaryFacilitator {
         }*/
     }
 
-    /*public interface DictionaryInitializationListener {
-        public void onUpdateMainDictionaryAvailability(boolean isMainDictionaryAvailable);
-    }
+    //public interface DictionaryInitializationListener {
+        //public void onUpdateMainDictionaryAvailability(boolean isMainDictionaryAvailable);
+    //}
 
     public DictionaryFacilitator() {
         mDistracterFilter = DistracterFilter.EMPTY_DISTRACTER_FILTER;
@@ -178,9 +178,9 @@ public class DictionaryFacilitator {
         mDistracterFilter = distracterFilter;
     }
 
-    public void updateEnabledSubtypes(final List<InputMethodSubtype> enabledSubtypes) {
-        mDistracterFilter.updateEnabledSubtypes(enabledSubtypes);
-    }*/
+    //public void updateEnabledSubtypes(final List<InputMethodSubtype> enabledSubtypes) {
+        //mDistracterFilter.updateEnabledSubtypes(enabledSubtypes);
+    //}
 
     public Locale getLocale() {
         return mDictionaries.mLocale;
@@ -508,7 +508,7 @@ public class DictionaryFacilitator {
             }
         }
         return suggestionResults;
-    }
+    }*/
 
     public boolean isValidWord(final String word, final boolean ignoreCase) {
         if (TextUtils.isEmpty(word)) {
@@ -533,7 +533,7 @@ public class DictionaryFacilitator {
         return false;
     }
 
-    private int getFrequencyInternal(final String word,
+    /*private int getFrequencyInternal(final String word,
             final boolean isGettingMaxFrequencyOfExactMatches) {
         if (TextUtils.isEmpty(word)) {
             return Dictionary.NOT_A_PROBABILITY;
@@ -601,7 +601,7 @@ public class DictionaryFacilitator {
             LanguageModelParam.createLanguageModelParamsFrom(
                 personalizationDataChunk.mTokens,
                 personalizationDataChunk.mTimestampInSeconds,
-                this /* dictionaryFacilitator */, spacingAndPunctuations
+                this /* dictionaryFacilitator */, spacingAndPunctuations,
                 new DistracterFilterCheckingIsInDictionary(
                     mDistracterFilter, personalizationDict)
             );
