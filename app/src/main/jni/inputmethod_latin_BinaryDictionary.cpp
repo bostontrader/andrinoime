@@ -25,7 +25,7 @@
 //#include <vector>
 #include <utility> // std::move
 
-//#include "defines.h"
+#include "defines.h"
 #include <jni.h>
 #include "jni_common.h"
 //#include "suggest/core/dictionary/dictionary.h"
@@ -35,7 +35,7 @@
 //#include "suggest/core/session/prev_words_info.h"
 //#include "suggest/core/suggest_options.h"
 #include "suggest/policyimpl/dictionary/structure/dictionary_structure_with_buffer_policy_factory.h"
-//#include "suggest/core/dictionary/dictionary.h"
+#include "suggest/core/dictionary/dictionary.h"
 //#include "dictionary_structure_with_buffer_policy_factory.h"
 //#include "utils/char_utils.h"
 //#include "utils/jni_data_utils.h"
@@ -279,7 +279,7 @@ static void latinime_BinaryDictionary_getSuggestions(JNIEnv *env, jclass clazz, 
     suggestionResults.outputSuggestions(env, outSuggestionCount, outCodePointsArray,
             outScoresArray, outSpaceIndicesArray, outTypesArray,
             outAutoCommitFirstWordConfidenceArray, inOutLanguageWeight);
-}
+}*/
 
 static jint latinime_BinaryDictionary_getProbability(JNIEnv *env, jclass clazz, jlong dict,
         jintArray word) {
@@ -291,7 +291,7 @@ static jint latinime_BinaryDictionary_getProbability(JNIEnv *env, jclass clazz, 
     return dictionary->getProbability(codePoints, wordLength);
 }
 
-static jint latinime_BinaryDictionary_getMaxProbabilityOfExactMatches(
+/*static jint latinime_BinaryDictionary_getMaxProbabilityOfExactMatches(
         JNIEnv *env, jclass clazz, jlong dict, jintArray word) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (!dictionary) return NOT_A_PROBABILITY;
@@ -649,7 +649,7 @@ static bool latinime_BinaryDictionary_migrateNative(JNIEnv *env, jclass clazz, j
                     const_cast<char *>("openNative"),
                     const_cast<char *>("(Ljava/lang/String;JJZ)J"),
                     reinterpret_cast<void *>(latinime_BinaryDictionary_open)
-            }
+            },
             /*{
                 const_cast<char *>("createOnMemoryNative"),
                 const_cast<char *>("(JLjava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)J"),
@@ -689,13 +689,13 @@ static bool latinime_BinaryDictionary_migrateNative(JNIEnv *env, jclass clazz, j
                 const_cast<char *>("getSuggestionsNative"),
                 const_cast<char *>("(JJJ[I[I[I[I[II[I[[I[Z[I[I[I[I[I[I[F)V"),
                 reinterpret_cast<void *>(latinime_BinaryDictionary_getSuggestions)
-            },
+            },*/
             {
                 const_cast<char *>("getProbabilityNative"),
                 const_cast<char *>("(J[I)I"),
                 reinterpret_cast<void *>(latinime_BinaryDictionary_getProbability)
-            },
-            {
+            }
+            /*{
                 const_cast<char *>("getMaxProbabilityOfExactMatchesNative"),
                 const_cast<char *>("(J[I)I"),
                 reinterpret_cast<void *>(latinime_BinaryDictionary_getMaxProbabilityOfExactMatches)
@@ -765,8 +765,7 @@ static bool latinime_BinaryDictionary_migrateNative(JNIEnv *env, jclass clazz, j
 
         const char *const kClassPathName = "com/android_cy/inputmethod/latin/BinaryDictionary";
         //return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
-        return registerNativeMethods(env, kClassPathName, sMethods, 1);
-        //return 0;
+        return registerNativeMethods(env, kClassPathName, sMethods, 2);
     }
 
 } // namespace latinime

@@ -23,7 +23,7 @@
 //#include <utility> // std::move
 //#include "policy/dictionary_structure_with_buffer_policy.h"
 
-//#include "defines.h"
+#include "defines.h"
 //#include "suggest/core/dictionary/dictionary_utils.h"
 //#include "suggest/core/policy/dictionary_header_structure_policy.h"
 //#include "suggest/core/result/suggestion_results.h"
@@ -34,7 +34,7 @@
 #include "suggest/policyimpl/gesture/gesture_suggest_policy_factory.h"
 #include "suggest/policyimpl/typing/typing_suggest_policy_factory.h"
 //#include "utils/log_utils.h"
-//#include "utils/time_keeper.h"
+#include "utils/time_keeper.h"
 
 namespace latinime {
 
@@ -104,32 +104,32 @@ Dictionary::NgramListenerForPrediction::NgramListenerForPrediction(
     //mDictionaryStructureWithBufferPolicy->iterateNgramEntries(prevWordsPtNodePos, &listener);
 //}
 
-//int Dictionary::getProbability(const int *word, int length) const {
-    //return getNgramProbability(nullptr /* prevWordsInfo */, word, length);
-//}
+int Dictionary::getProbability(const int *word, int length) const {
+    return getNgramProbability(nullptr /* prevWordsInfo */, word, length);
+}
 
 /*int Dictionary::getMaxProbabilityOfExactMatches(const int *word, int length) const {
     TimeKeeper::setCurrentTime();
     return DictionaryUtils::getMaxProbabilityOfExactMatches(
             mDictionaryStructureWithBufferPolicy.get(), word, length);
-}
+}*/
 
 int Dictionary::getNgramProbability(const PrevWordsInfo *const prevWordsInfo, const int *word,
         int length) const {
     TimeKeeper::setCurrentTime();
-    int nextWordPos = mDictionaryStructureWithBufferPolicy->getTerminalPtNodePositionOfWord(word,*/
-            //length, false /* forceLowerCaseSearch */);
-    /*if (NOT_A_DICT_POS == nextWordPos) return NOT_A_PROBABILITY;
+    int nextWordPos = mDictionaryStructureWithBufferPolicy->getTerminalPtNodePositionOfWord(word,
+        length, false /* forceLowerCaseSearch */);
+    if (NOT_A_DICT_POS == nextWordPos) return NOT_A_PROBABILITY;
     if (!prevWordsInfo) {
-        return getDictionaryStructurePolicy()->getProbabilityOfPtNode(*/
-                //nullptr /* prevWordsPtNodePos */, nextWordPos);
-    //}
+        return getDictionaryStructurePolicy()->getProbabilityOfPtNode(
+            nullptr /* prevWordsPtNodePos */, nextWordPos);
+    }
     //int prevWordsPtNodePos[MAX_PREV_WORD_COUNT_FOR_N_GRAM];
     //prevWordsInfo->getPrevWordsTerminalPtNodePos(
             //mDictionaryStructureWithBufferPolicy.get(), prevWordsPtNodePos,
             //true /* tryLowerCaseSearch */);
     //return getDictionaryStructurePolicy()->getProbabilityOfPtNode(prevWordsPtNodePos, nextWordPos);
-//}
+}
 
 /*bool Dictionary::addUnigramEntry(const int *const word, const int length,
         const UnigramProperty *const unigramProperty) {

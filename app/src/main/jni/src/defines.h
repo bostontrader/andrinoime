@@ -94,11 +94,11 @@
 
 //#if defined(FLAG_DO_PROFILE) || defined(FLAG_DBG)
 //#if defined(__ANDROID__)
-#include <android/log.h>
+//#include <android/log.h>
 //#endif // defined(__ANDROID__)
-#ifndef LOG_TAG
-#define LOG_TAG "LatinIME: "
-#endif // LOG_TAG
+//#ifndef LOG_TAG
+//#define LOG_TAG "LatinIME: "
+//#endif // LOG_TAG
 
 //#if defined(HOST_TOOL)
 #include <stdio.h>
@@ -283,12 +283,12 @@
 //#ifndef S_INT_MAX
 //#define S_INT_MAX 2147483647 // ((1 << 31) - 1)
 //#endif
-//#ifndef S_INT_MIN
+#ifndef S_INT_MIN
 // The literal constant -2147483648 does not work in C prior C90, because
 // the compiler tries to fit the positive number into an int and then negate it.
 // GCC warns about this.
-//#define S_INT_MIN (-2147483647 - 1) // -(1 << 31)
-//#endif
+#define S_INT_MIN (-2147483647 - 1) // -(1 << 31)
+#endif
 
 //#define M_PI_F 3.14159265f
 //#define MAX_PERCENTILE 100
@@ -297,8 +297,8 @@
 //#define NOT_A_DISTANCE (-1)
 //#define NOT_A_COORDINATE (-1)
 //#define NOT_AN_INDEX (-1)
-//#define NOT_A_PROBABILITY (-1)
-//#define NOT_A_DICT_POS (S_INT_MIN)
+#define NOT_A_PROBABILITY (-1)
+#define NOT_A_DICT_POS (S_INT_MIN)
 //#define NOT_A_TIMESTAMP (-1)
 //#define NOT_A_LANGUAGE_WEIGHT (-1.0f)
 

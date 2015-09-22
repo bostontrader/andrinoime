@@ -31,7 +31,7 @@ namespace latinime {
 
 //class DictionaryStructureWithBufferPolicy;
 //class DicTraverseSession;
-//class PrevWordsInfo;
+class PrevWordsInfo;
 //class ProximityInfo;
 //class SuggestionResults;
 //class SuggestOptions;
@@ -69,7 +69,7 @@ class Dictionary {
             SuggestionResults *const outSuggestionResults) const;
 
     void getPredictions(const PrevWordsInfo *const prevWordsInfo,
-            SuggestionResults *const outSuggestionResults) const;
+            SuggestionResults *const outSuggestionResults) const;*/
 
     int getProbability(const int *word, int length) const;
 
@@ -78,7 +78,7 @@ class Dictionary {
     int getNgramProbability(const PrevWordsInfo *const prevWordsInfo,
             const int *word, int length) const;
 
-    bool addUnigramEntry(const int *const codePoints, const int codePointCount,
+    /*bool addUnigramEntry(const int *const codePoints, const int codePointCount,
             const UnigramProperty *const unigramProperty);
 
     bool removeUnigramEntry(const int *const codePoints, const int codePointCount);
@@ -104,14 +104,14 @@ class Dictionary {
     // The returned token has to be used to get the next word. If token is 0, this method newly
     // starts iterating the dictionary.
     int getNextWordAndNextToken(const int token, int *const outCodePoints,
-            int *const outCodePointCount);
+            int *const outCodePointCount);*/
 
     const DictionaryStructureWithBufferPolicy *getDictionaryStructurePolicy() const {
         return mDictionaryStructureWithBufferPolicy.get();
     }
 
  private:
-    DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);*/
+    //DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);
 
     typedef std::unique_ptr<SuggestInterface> SuggestInterfacePtr;
 

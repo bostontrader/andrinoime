@@ -51,8 +51,8 @@ class DictionaryStructureWithBufferPolicy {
             //const int nodePos, const int maxCodePointCount, int *const outCodePoints,
             //int *const outUnigramProbability) const = 0;
 
-        //virtual int getTerminalPtNodePositionOfWord(const int *const inWord,
-            //const int length, const bool forceLowerCaseSearch) const = 0;
+        virtual int getTerminalPtNodePositionOfWord(const int *const inWord,
+            const int length, const bool forceLowerCaseSearch) const = 0;
 
         //virtual int getProbability(const int unigramProbability,
             //const int bigramProbability) const = 0;
