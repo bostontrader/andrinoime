@@ -63,23 +63,23 @@ namespace latinime {
         sourceDirChars[sourceDirUtf8Length] = '\0';
 
         // Original
-        //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
-        //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-        //sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
-        //isUpdatable == JNI_TRUE));
+        DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(
+            DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                sourceDirChars, static_cast<int>(dictOffset), static_cast<int>(dictSize),
+            isUpdatable == JNI_TRUE)
+        );
 
-        int iDictOffset = static_cast<int>(dictOffset);
-        int iDictSize   = static_cast<int>(dictSize);
+        //int iDictOffset = static_cast<int>(dictOffset);
+        //int iDictSize   = static_cast<int>(dictSize);
+        //DictionaryStructureWithBufferPolicy::StructurePolicyPtr p =
+                //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                        //sourceDirChars,
+                        //iDictOffset,
+                        //iDictSize,
+                        //isUpdatable == JNI_TRUE
+                //);
 
-        DictionaryStructureWithBufferPolicy::StructurePolicyPtr p =
-                DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-                        sourceDirChars,
-                        iDictOffset,
-                        iDictSize,
-                        isUpdatable == JNI_TRUE
-                );
-
-        DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(p);
+        //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(p);
 
         if (!dictionaryStructureWithBufferPolicy) {
             //AKLOGE("BinaryDictionart_open ret 0");

@@ -38,8 +38,8 @@ namespace latinime {
  */
 class DictionaryStructureWithBufferPolicy {
     public:
-        //typedef std::unique_ptr<DictionaryStructureWithBufferPolicy> StructurePolicyPtr;
-        typedef int  StructurePolicyPtr;
+        typedef std::unique_ptr<DictionaryStructureWithBufferPolicy> StructurePolicyPtr;
+        //typedef int  StructurePolicyPtr;
         //virtual ~DictionaryStructureWithBufferPolicy() {}
 
         //virtual int getRootPosition() const = 0;

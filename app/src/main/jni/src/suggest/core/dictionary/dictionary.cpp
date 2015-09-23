@@ -121,8 +121,8 @@ int Dictionary::getNgramProbability(const PrevWordsInfo *const prevWordsInfo, co
         length, false /* forceLowerCaseSearch */);
     if (NOT_A_DICT_POS == nextWordPos) return NOT_A_PROBABILITY;
     if (!prevWordsInfo) {
-        return getDictionaryStructurePolicy()->getProbabilityOfPtNode(
-            nullptr /* prevWordsPtNodePos */, nextWordPos);
+        //return getDictionaryStructurePolicy()->getProbabilityOfPtNode(
+            //nullptr /* prevWordsPtNodePos */, nextWordPos);
     }
     //int prevWordsPtNodePos[MAX_PREV_WORD_COUNT_FOR_N_GRAM];
     //prevWordsInfo->getPrevWordsTerminalPtNodePos(

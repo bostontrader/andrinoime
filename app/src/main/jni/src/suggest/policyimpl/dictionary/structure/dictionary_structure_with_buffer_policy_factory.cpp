@@ -43,14 +43,14 @@ namespace latinime {
         DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
         const char *const path, const int bufOffset, const int size,
         const bool isUpdatable) {
-        AKLOGE("Into dictionary_structure_with_buffer_policy_factory");
+        //AKLOGE("Into dictionary_structure_with_buffer_policy_factory");
 
         if (FileUtils::existsDir(path)) {
             // Given path represents a directory.
-            AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is dir",path);
+            //AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is dir",path);
             //return newPolicyForDirectoryDict(path, isUpdatable);
         } else {
-            AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is not dir",path);
+            //AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is not dir",path);
             //if (isUpdatable) {
             //AKLOGE("One file dictionaries don't support updating. path: %s", path);
             //ASSERT(false);

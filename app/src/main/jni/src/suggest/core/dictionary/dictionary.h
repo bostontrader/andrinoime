@@ -106,9 +106,9 @@ class Dictionary {
     int getNextWordAndNextToken(const int token, int *const outCodePoints,
             int *const outCodePointCount);*/
 
-    const DictionaryStructureWithBufferPolicy *getDictionaryStructurePolicy() const {
-        return mDictionaryStructureWithBufferPolicy.get();
-    }
+    //const DictionaryStructureWithBufferPolicy *getDictionaryStructurePolicy() const {
+        //return mDictionaryStructureWithBufferPolicy.get();
+    //}
 
  private:
     //DISALLOW_IMPLICIT_CONSTRUCTORS(Dictionary);
