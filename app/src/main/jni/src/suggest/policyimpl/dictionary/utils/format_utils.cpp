@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-//#include "suggest/policyimpl/dictionary/utils/format_utils.h"
+#include "suggest/policyimpl/dictionary/utils/format_utils.h"
 
-//#include "suggest/policyimpl/dictionary/utils/byte_array_utils.h"
+#include "suggest/policyimpl/dictionary/utils/byte_array_utils.h"
 
 namespace latinime {
 
-//const uint32_t FormatUtils::MAGIC_NUMBER = 0x9BC13AFE;
+const uint32_t FormatUtils::MAGIC_NUMBER = 0x9BC13AFE;
 
 // Magic number (4 bytes), version (2 bytes), flags (2 bytes), header size (4 bytes) = 12
-//const int FormatUtils::DICTIONARY_MINIMUM_SIZE = 12;
+const int FormatUtils::DICTIONARY_MINIMUM_SIZE = 12;
 
-/* static */ /*FormatUtils::FORMAT_VERSION FormatUtils::getFormatVersion(const int formatVersion) {
+/* static */ FormatUtils::FORMAT_VERSION FormatUtils::getFormatVersion(const int formatVersion) {
     switch (formatVersion) {
         case VERSION_2:
             return VERSION_2;
@@ -38,8 +38,9 @@ namespace latinime {
         default:
             return UNKNOWN_VERSION;
     }
-}*/
-/* static */ /*FormatUtils::FORMAT_VERSION FormatUtils::detectFormatVersion(
+}
+/* static */
+FormatUtils::FORMAT_VERSION FormatUtils::detectFormatVersion(
         const uint8_t *const dict, const int dictSize) {
     // The magic number is stored big-endian.
     // If the dictionary is less than 4 bytes, we can't even read the magic number, so we don't
@@ -62,6 +63,6 @@ namespace latinime {
         default:
             return UNKNOWN_VERSION;
     }
-}*/
+}
 
 } // namespace latinime

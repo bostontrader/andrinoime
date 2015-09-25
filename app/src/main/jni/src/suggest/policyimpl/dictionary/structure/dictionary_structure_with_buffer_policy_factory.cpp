@@ -23,7 +23,7 @@
 //#include "suggest/policyimpl/dictionary/structure/backward/v402/ver4_dict_constants.h"
 //#include "suggest/policyimpl/dictionary/structure/backward/v402/ver4_patricia_trie_policy.h"
 //#include "suggest/policyimpl/dictionary/structure/pt_common/dynamic_pt_writing_utils.h"
-//#include "suggest/policyimpl/dictionary/structure/v2/patricia_trie_policy.h"
+#include "suggest/policyimpl/dictionary/structure/v2/patricia_trie_policy.h"
 //#include "suggest/policyimpl/dictionary/structure/v4/ver4_dict_buffers.h"
 //#include "suggest/policyimpl/dictionary/structure/v4/ver4_dict_constants.h"
 //#include "suggest/policyimpl/dictionary/structure/v4/ver4_patricia_trie_policy.h"
@@ -182,24 +182,28 @@ DictionaryStructureWithBufferPolicy::StructurePolicyPtr
     // MmappedBufferPtr if the instance has the responsibility.
     MmappedBuffer::MmappedBufferPtr mmappedBuffer(
         MmappedBuffer::openBuffer(path, bufOffset, size, false /* isUpdatable */));
-    //if (!mmappedBuffer) {
-        //return nullptr;
-    //}
-    //switch (FormatUtils::detectFormatVersion(mmappedBuffer->getReadOnlyByteArrayView().data(),
-            /*mmappedBuffer->getReadOnlyByteArrayView().size())) {
+    if (!mmappedBuffer) {
+        return nullptr;
+    }
+    const uint8_t *d = mmappedBuffer->getReadOnlyByteArrayView().data();
+    size_t s = mmappedBuffer->getReadOnlyByteArrayView().size();
+    FormatUtils::FORMAT_VERSION fv = FormatUtils::detectFormatVersion(d,s);
+    switch (FormatUtils::detectFormatVersion(mmappedBuffer->getReadOnlyByteArrayView().data(),
+        mmappedBuffer->getReadOnlyByteArrayView().size())) {
+    switch (fv) {                                                                                                                                                  mmappedBuffer->getReadOnlyByteArrayView().size())) {
         case FormatUtils::VERSION_2:
             return DictionaryStructureWithBufferPolicy::StructurePolicyPtr(
-                    new PatriciaTriePolicy(std::move(mmappedBuffer)));
+                new PatriciaTriePolicy(std::move(mmappedBuffer)));
         case FormatUtils::VERSION_4_ONLY_FOR_TESTING:
         case FormatUtils::VERSION_4:
         case FormatUtils::VERSION_4_DEV:
-            AKLOGE("Given path is a file but the format is version 4. path: %s", path);
+            //AKLOGE("Given path is a file but the format is version 4. path: %s", path);
             break;
         default:
-            AKLOGE("DICT: dictionary format is unknown, bad magic number. path: %s", path);
+            //AKLOGE("DICT: dictionary format is unknown, bad magic number. path: %s", path);
             break;
     }
-    ASSERT(false);*/
+    //ASSERT(false);
     return nullptr;
 }
 

@@ -27,27 +27,27 @@ namespace latinime {
 /**
  * Helper class used to keep track of read accesses for a given memory region.
  */
-//class ReadOnlyByteArrayView {
- //public:
+class ReadOnlyByteArrayView {
+ public:
     //ReadOnlyByteArrayView() : mPtr(nullptr), mSize(0) {}
 
-    //ReadOnlyByteArrayView(const uint8_t *const ptr, const size_t size)
-            //: mPtr(ptr), mSize(size) {}
+    ReadOnlyByteArrayView(const uint8_t *const ptr, const size_t size)
+        : mPtr(ptr), mSize(size) {}
 
-    //AK_FORCE_INLINE size_t size() const {
-        //return mSize;
-    //}
+    /*AK_FORCE_INLINE*/ size_t size() const {
+        return mSize;
+    }
 
-    //AK_FORCE_INLINE const uint8_t *data() const {
-        //return mPtr;
-    //}
+    /*AK_FORCE_INLINE*/ const uint8_t *data() const {
+        return mPtr;
+    }
 
  //private:
     //DISALLOW_ASSIGNMENT_OPERATOR(ReadOnlyByteArrayView);
 
-    //const uint8_t *const mPtr;
-    //const size_t mSize;
-//};
+    const uint8_t *const mPtr;
+    const size_t mSize;
+};
 
 /**
  * Helper class used to keep track of read-write accesses for a given memory region.
@@ -67,9 +67,9 @@ class ReadWriteByteArrayView {
         //return mPtr;
     //}
 
-    //AK_FORCE_INLINE ReadOnlyByteArrayView getReadOnlyView() const {
-        //return ReadOnlyByteArrayView(mPtr, mSize);
-    //}
+    /*AK_FORCE_INLINE*/ ReadOnlyByteArrayView getReadOnlyView() const {
+        return ReadOnlyByteArrayView(mPtr, mSize);
+    }
 
     //ReadWriteByteArrayView subView(const size_t start, const size_t n) const {
         //ASSERT(start + n <= mSize);

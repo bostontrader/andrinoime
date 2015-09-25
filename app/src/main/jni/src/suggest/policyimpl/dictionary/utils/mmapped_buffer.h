@@ -44,9 +44,9 @@ class MmappedBuffer {
         //return mByteArrayView;
     //}
 
-    //ReadOnlyByteArrayView getReadOnlyByteArrayView() const {
-        //return mByteArrayView.getReadOnlyView();
-    //}
+    ReadOnlyByteArrayView getReadOnlyByteArrayView() const {
+        return mByteArrayView.getReadOnlyView();
+    }
 
     //AK_FORCE_INLINE bool isUpdatable() const {
         //return mIsUpdatable;
