@@ -30,10 +30,7 @@
 //#include "suggest/policyimpl/dictionary/utils/dict_file_writing_utils.h"
 #include "suggest/policyimpl/dictionary/utils/file_utils.h"
 //#include "suggest/policyimpl/dictionary/utils/format_utils.h"
-
-
-
-//#include "suggest/policyimpl/dictionary/utils/mmapped_buffer.h"
+#include "suggest/policyimpl/dictionary/utils/mmapped_buffer.h"
 //#include "utils/byte_array_view.h"
 
 namespace latinime {
@@ -44,19 +41,20 @@ namespace latinime {
         const char *const path, const int bufOffset, const int size,
         const bool isUpdatable) {
         //AKLOGE("Into dictionary_structure_with_buffer_policy_factory");
-
-        if (FileUtils::existsDir(path)) {
+        bool b = FileUtils::existsDir(path);
+        if (b) {
+            int i = 0/0;
             // Given path represents a directory.
             //AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is dir",path);
             //return newPolicyForDirectoryDict(path, isUpdatable);
         } else {
             //AKLOGE("dictionary_structure_with_buffer_policy_factory, path=%s is not dir",path);
-            //if (isUpdatable) {
-            //AKLOGE("One file dictionaries don't support updating. path: %s", path);
-            //ASSERT(false);
-            //return nullptr;
-            //}
-            //return newPolicyForFileDict(path, bufOffset, size);
+            if (isUpdatable) {
+                //AKLOGE("One file dictionaries don't support updating. path: %s", path);
+                //ASSERT(false);
+                return nullptr;
+            }
+            return newPolicyForFileDict(path, bufOffset, size);
         }
     }
 
@@ -176,13 +174,14 @@ template<class DictConstants, class DictBuffers, class DictBuffersPtr, class Str
             new StructurePolicy(std::move(dictBuffers)));
 }*/
 
-/* static */ //DictionaryStructureWithBufferPolicy::StructurePolicyPtr
-        //DictionaryStructureWithBufferPolicyFactory::newPolicyForFileDict(
-                //const char *const path, const int bufOffset, const int size) {
+/* static */
+DictionaryStructureWithBufferPolicy::StructurePolicyPtr
+    DictionaryStructureWithBufferPolicyFactory::newPolicyForFileDict(
+        const char *const path, const int bufOffset, const int size) {
     // Allocated buffer in MmapedBuffer::openBuffer() will be freed in the destructor of
     // MmappedBufferPtr if the instance has the responsibility.
-    //MmappedBuffer::MmappedBufferPtr mmappedBuffer(
-            //MmappedBuffer::openBuffer(path, bufOffset, size, false /* isUpdatable */));
+    MmappedBuffer::MmappedBufferPtr mmappedBuffer(
+        MmappedBuffer::openBuffer(path, bufOffset, size, false /* isUpdatable */));
     //if (!mmappedBuffer) {
         //return nullptr;
     //}
@@ -200,9 +199,9 @@ template<class DictConstants, class DictBuffers, class DictBuffersPtr, class Str
             AKLOGE("DICT: dictionary format is unknown, bad magic number. path: %s", path);
             break;
     }
-    ASSERT(false);
+    ASSERT(false);*/
     return nullptr;
-}*/
+}
 
 /* static */ //void DictionaryStructureWithBufferPolicyFactory::getHeaderFilePathInDictDir(
         //const char *const dictDirPath, const int outHeaderFileBufSize,

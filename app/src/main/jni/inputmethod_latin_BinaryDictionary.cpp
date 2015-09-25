@@ -69,15 +69,15 @@ namespace latinime {
             isUpdatable == JNI_TRUE)
         );
 
-        //int iDictOffset = static_cast<int>(dictOffset);
-        //int iDictSize   = static_cast<int>(dictSize);
-        //DictionaryStructureWithBufferPolicy::StructurePolicyPtr p =
-                //DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
-                        //sourceDirChars,
-                        //iDictOffset,
-                        //iDictSize,
-                        //isUpdatable == JNI_TRUE
-                //);
+        int iDictOffset = static_cast<int>(dictOffset);
+        int iDictSize   = static_cast<int>(dictSize);
+        DictionaryStructureWithBufferPolicy::StructurePolicyPtr p =
+            DictionaryStructureWithBufferPolicyFactory::newPolicyForExistingDictFile(
+                sourceDirChars,
+                iDictOffset,
+                iDictSize,
+                isUpdatable == JNI_TRUE
+            );
 
         //DictionaryStructureWithBufferPolicy::StructurePolicyPtr dictionaryStructureWithBufferPolicy(p);
 

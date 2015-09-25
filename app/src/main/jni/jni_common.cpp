@@ -16,7 +16,6 @@
 
 //#define LOG_TAG "LatinIME: jni"
 
-#include <android/log.h>
 #include "jni_common.h"
 
 //#include "com_android_inputmethod_keyboard_ProximityInfo.h"
@@ -30,25 +29,20 @@
  */
 jint JNI_OnLoad(JavaVM *vm, void *reserved) {
     JNIEnv *env = 0;
-
-    //AKLOGI("Executing JNI_OnLoad");
-    __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "Into JNI_OnLoad");
+    //AKLOGE("Into JNI_OnLoad");
 
     if (vm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) != JNI_OK) {
         //AKLOGE("ERROR: GetEnv failed");
-        __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "ERROR: GetEnv failed");
         return -1;
     }
     //ASSERT(env);
     if (!env) {
         //AKLOGE("ERROR: JNIEnv is invalid");
-        __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "ERROR: JNIEnv is invalid");
         return -1;
     }
     if (!latinime::register_BinaryDictionary(env)) {
         //AKLOGE("ERROR: BinaryDictionary native registration failed");
-        __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "ERROR: BinaryDictionary native registration failed");
-        //return -1;
+        return -1;
     }
 
     //if (!latinime::register_BinaryDictionaryUtils(env)) {
@@ -74,13 +68,10 @@ int registerNativeMethods(JNIEnv *env, const char *const className, const JNINat
     jclass clazz = env->FindClass(className);
     if (!clazz) {
         //AKLOGE("Native registration unable to find class '%s'", className);
-        __android_log_print(ANDROID_LOG_VERBOSE, "JNI",
-                            "Native registration unable to find class '%s'", className);
         return JNI_FALSE;
     }
     //int n = env->RegisterNatives(clazz, methods, numMethods);
     if (env->RegisterNatives(clazz, methods, numMethods) != 0) {
-        __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "RegisterNatives failed for '%s'", className);
         //AKLOGE("RegisterNatives failed for '%s'", className);
         env->DeleteLocalRef(clazz);
         return JNI_FALSE;

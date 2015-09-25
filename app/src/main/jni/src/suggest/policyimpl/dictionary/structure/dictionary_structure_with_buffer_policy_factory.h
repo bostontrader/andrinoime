@@ -63,8 +63,8 @@ class DictionaryStructureWithBufferPolicyFactory {
             //const char *const headerFilePath, const FormatUtils::FORMAT_VERSION formatVersion,
                     //MmappedBuffer::MmappedBufferPtr &&mmappedBuffer);
 
-    //static DictionaryStructureWithBufferPolicy::StructurePolicyPtr
-            //newPolicyForFileDict(const char *const path, const int bufOffset, const int size);
+        static DictionaryStructureWithBufferPolicy::StructurePolicyPtr
+            newPolicyForFileDict(const char *const path, const int bufOffset, const int size);
 
     //static void getHeaderFilePathInDictDir(const char *const dirPath,
             //const int outHeaderFileBufSize, char *const outHeaderFilePath);

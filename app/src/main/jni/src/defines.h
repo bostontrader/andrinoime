@@ -102,7 +102,7 @@
 
 //#if defined(HOST_TOOL)
 #include <stdio.h>
-//#define AKLOGE(fmt, ...) printf(fmt "\n", ##__VA_ARGS__)
+#define AKLOGE(fmt, ...) printf(fmt "\n", ##__VA_ARGS__)
 //#define AKLOGI(fmt, ...) printf(fmt "\n", ##__VA_ARGS__)
 //#else // defined(HOST_TOOL)
 //#define AKLOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, fmt, ##__VA_ARGS__)
